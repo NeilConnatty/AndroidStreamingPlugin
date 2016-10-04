@@ -1,0 +1,5 @@
+# ninja log v5
+0	161	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	6a2af38b1a6616aa
+162	271	0	../obj/x86/libnative-lib.so	c297db071812fa
+0	82	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	71f911adef4d13a2
+83	106	0	../obj/x86/libStreamingPluginBridge.so	b2b1e44d87107b92

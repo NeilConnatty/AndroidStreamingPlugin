@@ -3,14 +3,10 @@ package com.bcch.neilconnatty.streamingplugin.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.bcch.neilconnatty.streamingplugin.R;
-import com.bcch.neilconnatty.streamingplugin.StreamingPlugin;
+import com.bcch.neilconnatty.libstreamingplugin.StreamingPlugin;
 import com.crashlytics.android.Crashlytics;
-import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
-import com.quickblox.videochat.webrtc.view.QBRTCVideoTrack;
-import com.quickblox.videochat.webrtc.view.RTCGLVideoView;
 
 import org.webrtc.RendererCommon;
 import org.webrtc.SurfaceViewRenderer;
@@ -23,9 +19,11 @@ public class TestActivity extends AppCompatActivity {
     private final String TAG = TestActivity.class.getSimpleName();
 
     private boolean isCurrentCameraFront = true;
+
+    /*
     private QBRTCSurfaceView opponentView;
     private QBRTCSurfaceView localView;
-
+    */
     /*
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -38,16 +36,18 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fabric.with (this, new Crashlytics());
         setContentView(R.layout.activity_test);
-
+        /*
         opponentView = (QBRTCSurfaceView) findViewById(R.id.opponentView);
         localView = (QBRTCSurfaceView) findViewById(R.id.localView);
-
-        new StreamingPlugin (this, false);
+        */
+        StreamingPlugin plugin = new StreamingPlugin (this);
+        plugin.StartStreamingPlugin ();
     }
 
 
     /************ Public Methods *************/
 
+    /*
     public void renderVideo (QBRTCVideoTrack videoTrack, boolean remoteRenderer)
     {
         if (remoteRenderer) {
@@ -56,6 +56,7 @@ public class TestActivity extends AppCompatActivity {
             fillVideoView(localView, videoTrack, remoteRenderer);
         }
     }
+    */
 
     /**
      * A native method that is implemented by the 'native-lib' native library,
@@ -66,6 +67,7 @@ public class TestActivity extends AppCompatActivity {
 
     /************* Private Methods ************/
 
+    /*
     private void fillVideoView(QBRTCSurfaceView videoView, QBRTCVideoTrack videoTrack, boolean remoteRenderer) {
         videoTrack.removeRenderer(videoTrack.getRenderer());
         videoTrack.addRenderer(new VideoRenderer(videoView));
@@ -86,4 +88,5 @@ public class TestActivity extends AppCompatActivity {
         surfaceViewRenderer.setMirror(mirror);
         surfaceViewRenderer.requestLayout();
     }
+    */
 }

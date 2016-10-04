@@ -11,6 +11,24 @@
 	"cppFileExtensions" : [ "cpp" ],
 	"libraries" : 
 	{
+		"StreamingPluginBridge-Debug-mips" : 
+		{
+			"abi" : "mips",
+			"artifactName" : "StreamingPluginBridge",
+			"buildCommand" : "/Users/neilconnatty/AndroidTools/android-sdk-macosx/cmake/3.6.3155560/bin/cmake --build /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/mips --target StreamingPluginBridge",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  -target mipsel-none-linux-android -gcc-toolchain /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/toolchains/mipsel-linux-android-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-17/arch-mips  -DStreamingPluginBridge_EXPORTS -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/StreamingPluginBridge.cpp",
+					"workingDirectory" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/mips"
+				}
+			],
+			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/obj/mips/libStreamingPluginBridge.so",
+			"toolchain" : "6353194796715766795"
+		},
 		"native-lib-Debug-mips" : 
 		{
 			"abi" : "mips",
@@ -21,7 +39,7 @@
 			[
 				
 				{
-					"flags" : "  -target mipsel-none-linux-android -gcc-toolchain /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/toolchains/mipsel-linux-android-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-17/arch-mips  -Dnative_lib_EXPORTS -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O0 -fno-limit-debug-info -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"flags" : "  -target mipsel-none-linux-android -gcc-toolchain /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/toolchains/mipsel-linux-android-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-17/arch-mips  -Dnative_lib_EXPORTS -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward  -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O0 -fno-limit-debug-info  -fPIC    -c ",
 					"src" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/native-lib.cpp",
 					"workingDirectory" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/mips"
 				}

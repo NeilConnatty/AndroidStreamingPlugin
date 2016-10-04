@@ -19,6 +19,8 @@
 
     <com.quickblox.videochat.webrtc.view.QBRTCSurfaceView
         android:id="@+id/opponentView"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_width="550dp"
+        android:layout_height="400dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

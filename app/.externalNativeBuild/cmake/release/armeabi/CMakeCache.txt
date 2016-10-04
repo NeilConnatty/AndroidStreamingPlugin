@@ -168,8 +168,8 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 //Path to a program.
 CMAKE_STRIP:FILEPATH=/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64/bin/arm-linux-androideabi-strip
 
-//The CMake toolchain file
-CMAKE_TOOLCHAIN_FILE:FILEPATH=/Users/neilconnatty/AndroidTools/android-sdk-macosx/cmake/3.6.3155560/android.toolchain.cmake
+//No help, variable specified on the command line.
+CMAKE_TOOLCHAIN_FILE:UNINITIALIZED=/Users/neilconnatty/AndroidTools/android-sdk-macosx/cmake/3.6.3155560/android.toolchain.cmake
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
@@ -182,6 +182,9 @@ Project_BINARY_DIR:STATIC=/Users/neilconnatty/AndroidStudioProjects/StreamingPlu
 
 //Value Computed by CMake
 Project_SOURCE_DIR:STATIC=/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app
+
+//Dependencies for the target
+StreamingPluginBridge_LIB_DEPENDS:STATIC=general;/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-17/arch-arm/usr/lib/liblog.so;
 
 //Path to a library.
 log-lib:FILEPATH=/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-17/arch-arm/usr/lib/liblog.so

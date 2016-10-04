@@ -57,9 +57,8 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.quickblox:quickblox-android-sdk-chat:2.6.1'
-    compile 'com.quickblox:quickblox-android-sdk-videochat-webrtc:2.6.1'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.4@aar') {
         transitive = true;
     }
+    compile project(path: ':libstreamingplugin')
 }
