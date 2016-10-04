@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.support.annotation.CallSuper;
 import android.util.Log;
 
+import com.quickblox.videochat.webrtc.QBMediaStreamManager;
+import com.quickblox.videochat.webrtc.QBRTCMediaConfig;
 import com.quickblox.videochat.webrtc.QBRTCSession;
 import com.quickblox.videochat.webrtc.callbacks.QBRTCClientSessionCallbacks;
 import com.quickblox.videochat.webrtc.callbacks.QBRTCClientVideoTracksCallbacks;
@@ -129,6 +131,12 @@ public abstract class CallbacksListener implements QBRTCSessionConnectionCallbac
         Log.d (TAG, "onConnectedToUser");
         inCurrentSession = true;
         currentSession = qbrtcSession;
+
+        QBMediaStreamManager mediaStreamManager = qbrtcSession.getMediaStreamManager();
+        mediaStreamManager.setAudioEnabled(false);
+        QBRTCMediaConfig.setVideoFps (30);
+        QBRTCMediaConfig.setVideoWidth(1920);
+        QBRTCMediaConfig.setVideoHeight(1080);
     }
 
     @Override
