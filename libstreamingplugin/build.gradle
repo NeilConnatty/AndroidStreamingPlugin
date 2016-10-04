@@ -40,7 +40,7 @@ dependencies {
 }
 
 
-
+/*
 task deleteJar (type: Delete) {
     delete "libs/StreamingPlugn.jar"
 }
@@ -54,3 +54,30 @@ task createJar (type: Copy) {
 }
 
 createJar.dependsOn (deleteJar, build)
+*/
+
+task jarTask(type: Jar) {
+    baseName="streamingplugin"
+    from 'src/main/java'
+}
+
+task createJarWithDependencies(type: Jar) {
+    baseName = "streamingplugin-with-dependencies"
+
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+
+    }
+
+    with jarTask
+}
+
+configurations {
+    jarConfiguration
+}
+
+artifacts {
+    jarConfiguration jarTask
+}

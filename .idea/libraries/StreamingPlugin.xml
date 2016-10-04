@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="StreamingPlugin">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libstreamingplugin/libs/StreamingPlugin.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
