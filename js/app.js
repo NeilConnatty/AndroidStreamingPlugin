@@ -282,7 +282,11 @@
                 mediaParams = {
                     'audio': true,
                     'video': {
-                        deviceId: $videoSourceFilter.val() ? $videoSourceFilter.val() : undefined
+                        deviceId: $videoSourceFilter.val() ? $videoSourceFilter.val() : undefined,
+                        minWidth: 1280,
+                        maxWidth: 1920,
+                        minHeight: 720,
+                        maxHeight: 1080
                     },
                     'options': {
                         'muted': true,
@@ -387,7 +391,11 @@
                     audio: true,
                     video: {
                         optional: [
-                            {sourceId: $videoSourceFilter.val() ? $videoSourceFilter.val() : undefined}
+                            {sourceId: $videoSourceFilter.val() ? $videoSourceFilter.val() : undefined,
+                                minWidth: 1280,
+                                maxWidth: 1920,
+                                minHeight: 720,
+                                maxHeight: 1080}
                         ]
                     },
                     elemId: 'localVideo',

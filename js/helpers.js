@@ -9,7 +9,7 @@
     };
     app.network = {};
 
-    
+
     /* [getQueryVar get value of key from search string of url]
      * @param  {[string]} q [name of query]
      * @return {[string]}   [value of query]
