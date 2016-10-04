@@ -33,3 +33,9 @@
 559	781	0	../obj/armeabi-v7a/libnative-lib.so	68483c6ad3d0d8eb
 0	235	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	859e5aecdc52c36d
 235	315	0	../obj/armeabi-v7a/libStreamingPluginBridge.so	763b472b3051f66b
+1	257	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	421bb258d1a97715
+258	405	0	../obj/armeabi-v7a/libnative-lib.so	68483c6ad3d0d8eb
+0	192	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	859e5aecdc52c36d
+192	242	0	../obj/armeabi-v7a/libStreamingPluginBridge.so	763b472b3051f66b
+0	151	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	859e5aecdc52c36d
+151	239	0	../obj/armeabi-v7a/libStreamingPluginBridge.so	763b472b3051f66b

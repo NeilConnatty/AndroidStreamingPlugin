@@ -33,3 +33,9 @@
 263	512	0	../obj/arm64-v8a/libnative-lib.so	f27baac3f9415ee5
 0	137	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	539de5bd9ca393cc
 137	189	0	../obj/arm64-v8a/libStreamingPluginBridge.so	3fbc852ff9f3bd16
+1	199	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	2f74b89dc6d0b6a0
+199	385	0	../obj/arm64-v8a/libnative-lib.so	f27baac3f9415ee5
+0	95	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	539de5bd9ca393cc
+95	131	0	../obj/arm64-v8a/libStreamingPluginBridge.so	3fbc852ff9f3bd16
+1	102	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	539de5bd9ca393cc
+103	156	0	../obj/arm64-v8a/libStreamingPluginBridge.so	3fbc852ff9f3bd16

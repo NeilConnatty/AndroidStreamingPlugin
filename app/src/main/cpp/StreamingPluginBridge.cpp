@@ -34,7 +34,7 @@ extern "C"
         __android_log_print(ANDROID_LOG_INFO, "StreamingPluginBridge", "[%s] Plugin object = %08x\n", __FUNCTION__, obj_Plugin);
 
         StreamingPlugin = jni_env->NewGlobalRef (obj_Plugin);
-        StartStreamingPlugin = jni_env->GetMethodID (cls_Plugin, "StartStreamingPlugin", "()Ljava/lang/Void;");
+        StartStreamingPlugin = jni_env->GetMethodID (cls_Plugin, "StartStreamingPlugin", "()V");
         __android_log_print(ANDROID_LOG_INFO, "StreamingPluginBridge", "[%s] JavaClass global ref = %08x\n", __FUNCTION__, StreamingPlugin);
         __android_log_print(ANDROID_LOG_INFO, "StreamingPluginBridge", "[%s] JavaClass method id = %08x\n", __FUNCTION__, StartStreamingPlugin);
 

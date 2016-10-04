@@ -33,3 +33,9 @@
 513	760	0	../obj/mips64/libnative-lib.so	ddcee5d52149074b
 0	103	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	d69d5b5a5cbfda86
 103	131	0	../obj/mips64/libStreamingPluginBridge.so	bd05fc5e0409dec6
+1	422	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	85b94e07ae472fa7
+422	650	0	../obj/mips64/libnative-lib.so	ddcee5d52149074b
+0	128	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	d69d5b5a5cbfda86
+128	160	0	../obj/mips64/libStreamingPluginBridge.so	bd05fc5e0409dec6
+0	362	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	d69d5b5a5cbfda86
+362	424	0	../obj/mips64/libStreamingPluginBridge.so	bd05fc5e0409dec6
