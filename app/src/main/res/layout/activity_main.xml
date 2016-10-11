@@ -18,6 +18,7 @@
         android:layout_height="100dp" />
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="575dp"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
