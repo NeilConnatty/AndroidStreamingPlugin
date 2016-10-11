@@ -21,8 +21,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/DarkAppTheme">
-        <activity   android:name=".activities.TestActivity">
+        android:theme="@style/DarkAppTheme.NoTitleBar">
+        <activity   android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +34,7 @@
             android:name="io.fabric.ApiKey"
             android:value="c3689c99cb56b9dbf54f264f15ce10fe177821f3" />
 
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.TestActivity" />
     </application>
 
 </manifest>
