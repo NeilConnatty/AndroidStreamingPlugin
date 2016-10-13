@@ -68,8 +68,7 @@ public class MainActivity extends BaseActivity
     {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_CENTER:
-                if (mPager.getVisibility() == View.VISIBLE) mPager.setVisibility(View.INVISIBLE);
-                else mPager.setVisibility(View.VISIBLE);
+                handleHideImage();
                 return true;
 
             case KeyEvent.KEYCODE_MENU:
@@ -78,13 +77,7 @@ public class MainActivity extends BaseActivity
 
             case KeyEvent.KEYCODE_BACK:
                 Log.d(TAG, "KEYCODE_BACK");
-                if (_zoomAnimator == null) {
-                    _zoomAnimator = new ZoomAnimator(this);
-                    _zoomAnimator.zoomImage(mPager, mImageView, imageResIds[_currentPosition]);
-                } else {
-                    _zoomAnimator.shrinkImage(mPager, mImageView);
-                    _zoomAnimator = null;
-                }
+                handleZoom ();
                 return true;
         }
         return false;
@@ -109,6 +102,23 @@ public class MainActivity extends BaseActivity
         mPager.setVisibility(View.VISIBLE);
         _currentPosition = 0;
         createPagerListener(mPager);
+    }
+
+    private void handleZoom ()
+    {
+        if (_zoomAnimator == null) {
+            _zoomAnimator = new ZoomAnimator(this);
+            _zoomAnimator.zoomImage(mPager, mImageView, imageResIds[_currentPosition]);
+        } else {
+            _zoomAnimator.shrinkImage(mPager, mImageView);
+            _zoomAnimator = null;
+        }
+    }
+
+    private void handleHideImage ()
+    {
+        if (mPager.getVisibility() == View.VISIBLE) mPager.setVisibility(View.INVISIBLE);
+        else mPager.setVisibility(View.VISIBLE);
     }
 
     private void createPagerListener (ViewPager pager)
