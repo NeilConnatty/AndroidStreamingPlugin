@@ -15,6 +15,7 @@ import com.bcch.neilconnatty.libstreamingplugin.activites.BaseActivity;
 import com.bcch.neilconnatty.streamingplugin.R;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.BitmapWorkerTask;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ImageDetailFragment;
+import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
 import com.crashlytics.android.Crashlytics;
 import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
 
@@ -26,7 +27,10 @@ public class MainActivity extends BaseActivity
 
     private ImagePagerAdapter mAdapter;
     private ViewPager mPager;
+    private ImageView mImageView;
     private int _currentPosition;
+
+    private ZoomAnimator _zoomAnimator = null;
 
 
     /** A static dataset to back the ViewPager adapter */
@@ -74,9 +78,15 @@ public class MainActivity extends BaseActivity
 
             case KeyEvent.KEYCODE_BACK:
                 Log.d(TAG, "KEYCODE_BACK");
+                if (_zoomAnimator == null) {
+                    _zoomAnimator = new ZoomAnimator(this);
+                    _zoomAnimator.zoomImage(mPager, mImageView, imageResIds[_currentPosition]);
+                } else {
+                    _zoomAnimator.shrinkImage(mPager, mImageView);
+                    _zoomAnimator = null;
+                }
                 return true;
         }
-
         return false;
     }
 
@@ -93,6 +103,7 @@ public class MainActivity extends BaseActivity
     private void initImageAdapter ()
     {
         mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageResIds.length);
+        mImageView = (ImageView) findViewById(R.id.expanded_image);
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
         mPager.setVisibility(View.VISIBLE);

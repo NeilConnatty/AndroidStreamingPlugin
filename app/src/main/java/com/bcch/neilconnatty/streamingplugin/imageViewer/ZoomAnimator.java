@@ -24,6 +24,12 @@ public class ZoomAnimator
     private int _shortAnimationDuration;
     private Activity _currentActivity;
 
+    final Rect startBounds = new Rect();
+    final Rect finalBounds = new Rect();
+    final Point globalOffset = new Point();
+
+    private float _startScaleFinal;
+
     /** Constructor */
     public ZoomAnimator (Activity currentActivity)
     {
@@ -31,6 +37,7 @@ public class ZoomAnimator
                 android.R.integer.config_shortAnimTime);
         _currentActivity = currentActivity;
     }
+
 
     /********** Public Methods **********/
 
@@ -40,13 +47,60 @@ public class ZoomAnimator
         // proceed with this one
         if (_currentAnimator != null) _currentAnimator.cancel();
 
-        targetView.setImageResource(imageResId);
+        BitmapWorkerTask task = new BitmapWorkerTask (_currentActivity, targetView);
+        task.execute(imageResId);
 
+        zoomImageHelper(sourceView, targetView);
+    }
+
+    public void shrinkImage (final View sourceView, final ImageView targetView)
+    {
+        if (_currentAnimator != null) {
+            _currentAnimator.cancel();
+        }
+
+        // Animate the four positioning/sizing properties in parallel,
+        // back to their original values.
+        AnimatorSet set = new AnimatorSet();
+        set.play(ObjectAnimator
+                .ofFloat(targetView, View.X, startBounds.left))
+                .with(ObjectAnimator
+                        .ofFloat(targetView,
+                                View.Y,startBounds.top))
+                .with(ObjectAnimator
+                        .ofFloat(targetView,
+                                View.SCALE_X, _startScaleFinal))
+                .with(ObjectAnimator
+                        .ofFloat(targetView,
+                                View.SCALE_Y, _startScaleFinal));
+        set.setDuration(_shortAnimationDuration);
+        set.setInterpolator(new DecelerateInterpolator());
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                sourceView.setAlpha(1f);
+                targetView.setVisibility(View.GONE);
+                _currentAnimator = null;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                sourceView.setAlpha(1f);
+                targetView.setVisibility(View.GONE);
+                _currentAnimator = null;
+            }
+        });
+        set.start();
+        _currentAnimator = set;
+    }
+
+
+    /********** Private Methods **********/
+
+    private void zoomImageHelper(View sourceView, ImageView targetView)
+    {
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.
-        final Rect startBounds = new Rect();
-        final Rect finalBounds = new Rect();
-        final Point globalOffset = new Point();
 
         // The start bounds are the global visible rectangle of the thumbnail,
         // and the final bounds are the global visible rectangle of the container
@@ -120,54 +174,6 @@ public class ZoomAnimator
         set.start();
         _currentAnimator = set;
 
-        // Upon clicking the zoomed-in image, it should zoom back down
-        // to the original bounds and show the thumbnail instead of
-        // the expanded image.
-        final float startScaleFinal = startScale;
-        targetView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (_currentAnimator != null) {
-                    _currentAnimator.cancel();
-                }
-
-                // Animate the four positioning/sizing properties in parallel,
-                // back to their original values.
-                AnimatorSet set = new AnimatorSet();
-                set.play(ObjectAnimator
-                        .ofFloat(targetView, View.X, startBounds.left))
-                        .with(ObjectAnimator
-                                .ofFloat(targetView,
-                                        View.Y,startBounds.top))
-                        .with(ObjectAnimator
-                                .ofFloat(targetView,
-                                        View.SCALE_X, startScaleFinal))
-                        .with(ObjectAnimator
-                                .ofFloat(targetView,
-                                        View.SCALE_Y, startScaleFinal));
-                set.setDuration(_shortAnimationDuration);
-                set.setInterpolator(new DecelerateInterpolator());
-                set.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        sourceView.setAlpha(1f);
-                        targetView.setVisibility(View.GONE);
-                        _currentAnimator = null;
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-                        sourceView.setAlpha(1f);
-                        targetView.setVisibility(View.GONE);
-                        _currentAnimator = null;
-                    }
-                });
-                set.start();
-                _currentAnimator = set;
-            }
-        });
+        _startScaleFinal = startScale;
     }
-
-
-    /********** Private Methods **********/
 }
