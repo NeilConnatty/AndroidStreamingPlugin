@@ -18,7 +18,6 @@ import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.core.helper.Utils;
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCClient;
-import com.quickblox.videochat.webrtc.QBRTCMediaConfig;
 import com.quickblox.videochat.webrtc.QBRTCSession;
 import com.quickblox.videochat.webrtc.view.QBRTCVideoTrack;
 
