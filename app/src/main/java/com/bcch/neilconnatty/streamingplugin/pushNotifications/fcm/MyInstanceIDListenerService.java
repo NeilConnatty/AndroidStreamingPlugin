@@ -1,4 +1,4 @@
-package com.bcch.neilconnatty.streamingplugin.pushNotifications;
+package com.bcch.neilconnatty.streamingplugin.pushNotifications.fcm;
 
 import android.util.Log;
 

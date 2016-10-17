@@ -36,8 +36,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
 
-    compile "com.google.firebase:firebase-messaging:9.6.1"
-
     compile 'com.quickblox:quickblox-android-sdk-chat:2.6.1'
     compile 'com.quickblox:quickblox-android-sdk-videochat-webrtc:2.6.1'
     compile 'com.quickblox:quickblox-android-sdk-messages:2.6.1'
@@ -94,6 +92,3 @@ artifacts {
     jarConfiguration jarTask
 }
 */
-
-
-apply plugin: 'com.google.gms.google-services'

@@ -25,8 +25,6 @@ public class PushNotificationSubscriber
 {
     private static final String TAG = PushNotificationSubscriber.class.getSimpleName();
 
-    public PushNotificationSubscriber () {};
-
     public static void subscribe (String registrationID, Activity activity, final QBSessionCallback callback) {
         QBSubscription subscription = new QBSubscription(QBNotificationChannel.GCM);
         subscription.setEnvironment(QBEnvironment.DEVELOPMENT);

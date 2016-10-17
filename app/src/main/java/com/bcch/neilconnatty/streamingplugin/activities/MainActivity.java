@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity
         if (checkPlayServices()) {
             while (gcmToken == null) {
                 gcmToken = FirebaseInstanceId.getInstance().getToken();
+                Log.d(TAG, "GCMToken:" + gcmToken);
             }
         }
 
@@ -111,7 +112,8 @@ public class MainActivity extends BaseActivity
             @Override
             public void onSuccess() {
                 Log.d(TAG, "successfully created session, starting subscription to push notifications");
-                PushNotificationSubscriber.subscribe(gcmToken, _activity, new QBSessionCallback() {
+                String registrationID = FirebaseInstanceId.getInstance().getId();
+                PushNotificationSubscriber.subscribe(registrationID, _activity, new QBSessionCallback() {
                     @Override
                     public void onSuccess() {
                         Log.d(TAG, "successfully subscribed to notifications");
@@ -147,6 +149,7 @@ public class MainActivity extends BaseActivity
                 Log.e(TAG, "This device is not supported.");
                 //finish();
             }
+            Log.e(TAG, "checkPlayServices() returned false");
             return false;
         }
         Log.d(TAG, "checkPlayService() returned true");
