@@ -30,11 +30,23 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name="com.bcch.neilconnatty.streamingplugin.pushNotifications.MyFcmListenerService" >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.bcch.neilconnatty.streamingplugin.pushNotifications.MyInstanceIDListenerService" >
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="c3689c99cb56b9dbf54f264f15ce10fe177821f3" />
 
-        <activity android:name=".activities.TestActivity" />
     </application>
 
 </manifest>

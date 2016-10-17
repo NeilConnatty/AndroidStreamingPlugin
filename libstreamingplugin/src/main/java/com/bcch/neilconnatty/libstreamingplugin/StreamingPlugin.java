@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.bcch.neilconnatty.libstreamingplugin.activites.BaseActivity;
+import com.bcch.neilconnatty.libstreamingplugin.callbacks.QBSessionCallback;
 import com.bcch.neilconnatty.libstreamingplugin.utils.CallbacksListener;
 import com.bcch.neilconnatty.libstreamingplugin.utils.Consts;
 import com.bcch.neilconnatty.libstreamingplugin.utils.UserLoginHelper;
@@ -50,10 +51,15 @@ public class StreamingPlugin extends CallbacksListener {
     }
 
 
-    public void StartStreamingPlugin ()
+    public void StartStreamingPlugin (QBSessionCallback callback)
     {
-        initialization();
-        return;
+        createSession(callback);
+    }
+
+    public void initApp ()
+    {
+        QBSettings.getInstance().init (_mActivity.getApplicationContext(), Consts.APP_ID, Consts.AUTH_KEY, Consts.AUTH_SECRET);
+        QBSettings.getInstance().setAccountKey (Consts.ACCOUNT_KEY);
     }
 
 
@@ -78,38 +84,27 @@ public class StreamingPlugin extends CallbacksListener {
 
     /*********** Private Methods ************/
 
-    private void initialization ()
-    {
-        initApp ();
-        createSession ();
-    }
-
-    private void initApp ()
-    {
-        QBSettings.getInstance().init (_mActivity.getApplicationContext(), Consts.APP_ID, Consts.AUTH_KEY, Consts.AUTH_SECRET);
-        QBSettings.getInstance().setAccountKey (Consts.ACCOUNT_KEY);
-    }
-
     private String getCurrentDeviceId ()
     {
         return Utils.generateDeviceId(_mActivity);
     }
 
-    private void createSession ()
+    private void createSession (final QBSessionCallback callback)
     {
-        UserLoginHelper helper = new UserLoginHelper();
+        final UserLoginHelper helper = new UserLoginHelper();
         final QBUser user = helper.createUserWithDefaultData();
         helper.startSignUpNewUser (user, new QBEntityCallback<QBUser>() {
             @Override
             public void onSuccess(QBUser qbUser, Bundle bundle) {
                 Log.d(TAG, "successfully created session");
                 addSignalingManager();
+                callback.onSuccess();
             }
 
             @Override
             public void onError(QBResponseException e) {
-                Log.e(TAG, "error creating new session, attempting again");
-                createSession();
+                Log.e(TAG, "error creating new session");
+                callback.onError(e);
             }
         });
     }

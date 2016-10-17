@@ -1,13 +1,24 @@
 package com.bcch.neilconnatty.libstreamingplugin.utils;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.quickblox.chat.QBChatService;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.QBEntityCallbackImpl;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.core.helper.StringifyArrayList;
+import com.quickblox.messages.QBPushNotifications;
+import com.quickblox.messages.model.QBEnvironment;
+import com.quickblox.messages.model.QBNotificationChannel;
+import com.quickblox.messages.model.QBSubscription;
 import com.quickblox.users.model.QBUser;
+
+import java.util.ArrayList;
 
 /**
  * Created by neilconnatty on 2016-09-29.

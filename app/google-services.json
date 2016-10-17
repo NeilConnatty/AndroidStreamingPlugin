@@ -1,0 +1,116 @@
+{
+  "project_info": {
+    "project_number": "930479996681",
+    "firebase_url": "https://streaming-plugin.firebaseio.com",
+    "project_id": "streaming-plugin",
+    "storage_bucket": "streaming-plugin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930479996681:android:549c8f2bba6d2341",
+        "android_client_info": {
+          "package_name": "com.bcch.neilconnatty.libstreamingplugin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930479996681-n5bp3mm4ajrd2n1egdmuq2eh5r2cu1h2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "930479996681-bo5nat8c77htbivk08amk1d85igag11t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5XD5B9_TR8_6Ke74sQP0Ykn4y6DZj35c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930479996681:android:c60666103c1bfd2f",
+        "android_client_info": {
+          "package_name": "com.bcch.neilconnatty.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930479996681-n5bp3mm4ajrd2n1egdmuq2eh5r2cu1h2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "930479996681-bo5nat8c77htbivk08amk1d85igag11t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5XD5B9_TR8_6Ke74sQP0Ykn4y6DZj35c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930479996681:android:a9b90106a7e6f1d6",
+        "android_client_info": {
+          "package_name": "com.bcch.neilconnatty.streamingplugin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930479996681-n5bp3mm4ajrd2n1egdmuq2eh5r2cu1h2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "930479996681-bo5nat8c77htbivk08amk1d85igag11t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5XD5B9_TR8_6Ke74sQP0Ykn4y6DZj35c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

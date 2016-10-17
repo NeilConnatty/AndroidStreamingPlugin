@@ -1,5 +1,6 @@
 package com.bcch.neilconnatty.streamingplugin.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,11 +13,17 @@ import android.widget.ImageView;
 
 import com.bcch.neilconnatty.libstreamingplugin.StreamingPlugin;
 import com.bcch.neilconnatty.libstreamingplugin.activites.BaseActivity;
+import com.bcch.neilconnatty.libstreamingplugin.callbacks.QBSessionCallback;
 import com.bcch.neilconnatty.streamingplugin.R;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.BitmapWorkerTask;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ImageDetailFragment;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
+import com.bcch.neilconnatty.streamingplugin.pushNotifications.PushNotificationSubscriber;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
 
 import io.fabric.sdk.android.Fabric;
@@ -25,10 +32,13 @@ public class MainActivity extends BaseActivity
 {
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private Activity _activity;
+
     private ImagePagerAdapter mAdapter;
     private ViewPager mPager;
     private ImageView mImageView;
     private int _currentPosition;
+    private String gcmToken = null;
 
     private ZoomAnimator _zoomAnimator = null;
 
@@ -46,11 +56,19 @@ public class MainActivity extends BaseActivity
         Fabric.with (this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
+        _activity = this;
+
         setViewReferences();
         initImageAdapter();
 
+        if (checkPlayServices()) {
+            while (gcmToken == null) {
+                gcmToken = FirebaseInstanceId.getInstance().getToken();
+            }
+        }
+
         StreamingPlugin plugin = new StreamingPlugin (this, false);
-        plugin.StartStreamingPlugin ();
+        startStreaming (plugin);
     }
 
 
@@ -85,6 +103,55 @@ public class MainActivity extends BaseActivity
 
 
     /*********** Private/Protected Methods **********/
+
+    private void startStreaming (final StreamingPlugin plugin)
+    {
+        plugin.initApp();
+        plugin.StartStreamingPlugin(new QBSessionCallback() {
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, "successfully created session, starting subscription to push notifications");
+                PushNotificationSubscriber.subscribe(gcmToken, _activity, new QBSessionCallback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d(TAG, "successfully subscribed to notifications");
+                    }
+
+                    @Override
+                    public void onError(QBResponseException error) {
+                        Log.e(TAG, "error subscribing to notifications");
+                    }
+                });
+            }
+
+            @Override
+            public void onError(QBResponseException error) {
+                Log.e(TAG, "error creating new session, attempting again");
+                startStreaming(plugin);
+            }
+        });
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, 1).show();
+            } else {
+                Log.e(TAG, "This device is not supported.");
+                //finish();
+            }
+            return false;
+        }
+        Log.d(TAG, "checkPlayService() returned true");
+        return true;
+    }
 
     @Override
     protected void setViewReferences ()
