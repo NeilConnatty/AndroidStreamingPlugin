@@ -1,6 +1,5 @@
 package com.bcch.neilconnatty.streamingplugin.activities;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,8 +27,6 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
 import com.bcch.neilconnatty.streamingplugin.pushNotifications.GooglePlayServicesHelper;
 import com.bcch.neilconnatty.streamingplugin.pushNotifications.constants.GcmConsts;
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
 
@@ -46,13 +43,10 @@ public class MainActivity extends BaseActivity
 {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private Activity _activity;
-
     private ImagePagerAdapter mAdapter;
     private ViewPager mPager;
     private ImageView mImageView;
     private int _currentPosition;
-    private String gcmToken = null;
 
     private ZoomAnimator _zoomAnimator = null;
 
@@ -83,23 +77,12 @@ public class MainActivity extends BaseActivity
         Fabric.with (this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
-        _activity = this;
-
         receivedPushes = new ArrayList<>();
         googlePlayServicesHelper = new GooglePlayServicesHelper();
 
         setViewReferences();
         initImageAdapter();
         initMessagesUI();
-
-        /*
-        if (checkPlayServices()) {
-            while (gcmToken == null) {
-                gcmToken = FirebaseInstanceId.getInstance().getToken();
-                Log.d(TAG, "GCMToken:" + gcmToken);
-            }
-        }
-        */
 
         String message = getIntent().getStringExtra(GcmConsts.EXTRA_GCM_MESSAGE);
         if (message != null) {
