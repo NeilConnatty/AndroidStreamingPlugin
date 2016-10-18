@@ -24,11 +24,12 @@ public interface Consts {
     String ACCOUNT_KEY = "91hFTEbcgD8aDURaNvW7";
 
     // In GCM, the Sender ID is a project ID that you acquire from the API console
-    String GCM_SENDER_ID = "761750217637";
+    //String GCM_SENDER_ID = "761750217637";
 
-    String DEFAULT_USER_LOGIN = "surgeon2";
+    String DEFAULT_USER_LOGIN = "surgeon";
     String DEFAULT_USER_PASSWORD = "asdfqwerty";
     String DEFAULT_ROOM_NAME = "bcch";
+    int    DEFAULT_USER_ID = 19225784;
 
     String VERSION_NUMBER = "1.0";
 

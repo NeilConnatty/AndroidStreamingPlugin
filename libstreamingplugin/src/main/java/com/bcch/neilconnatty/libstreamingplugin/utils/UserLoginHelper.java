@@ -1,24 +1,16 @@
 package com.bcch.neilconnatty.libstreamingplugin.utils;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.quickblox.auth.QBAuth;
+import com.quickblox.auth.model.QBSession;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.QBEntityCallbackImpl;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.core.helper.StringifyArrayList;
-import com.quickblox.messages.QBPushNotifications;
-import com.quickblox.messages.model.QBEnvironment;
-import com.quickblox.messages.model.QBNotificationChannel;
-import com.quickblox.messages.model.QBSubscription;
 import com.quickblox.users.model.QBUser;
-
-import java.util.ArrayList;
 
 /**
  * Created by neilconnatty on 2016-09-29.
@@ -45,6 +37,7 @@ public class UserLoginHelper
         return createUser(Consts.DEFAULT_USER_LOGIN, Consts.DEFAULT_ROOM_NAME);
     }
 
+    /*
     public void startSignUpNewUser (final QBUser newUser, final QBEntityCallback<QBUser> callback)
     {
         requestExecutor.signUpNewUser(newUser, new QBEntityCallback<QBUser>() {
@@ -84,10 +77,32 @@ public class UserLoginHelper
                 }
         );
     }
+    */
+    public void startSignUpNewUser (final QBUser qbUser, final QBEntityCallback<QBUser> callback)
+    {
+        createSession(qbUser, callback);
+    }
+
 
 
 
     /************ Private Methods ************/
+
+    private void createSession (final QBUser qbUser, final QBEntityCallback<QBUser> callback)
+    {
+        QBAuth.createSession(qbUser, new QBEntityCallback<QBSession>() {
+            @Override
+            public void onSuccess(QBSession qbSession, Bundle bundle) {
+                qbUser.setId(qbSession.getUserId());
+                loginUser(qbUser, callback);
+            }
+
+            @Override
+            public void onError(QBResponseException e) {
+                Log.e (TAG, "error creating session, " + e.toString());
+            }
+        });
+    }
 
     private QBUser createUser (String userName, String roomName)
     {
@@ -99,7 +114,7 @@ public class UserLoginHelper
         qbUser.setLogin(Consts.DEFAULT_USER_LOGIN);
         qbUser.setPassword(Consts.DEFAULT_USER_PASSWORD);
         qbUser.setTags(userTags);
-        qbUser.setId (2001);
+        qbUser.setId (Consts.DEFAULT_USER_ID);
 
         return qbUser;
     }
@@ -116,11 +131,11 @@ public class UserLoginHelper
 
             @Override
             public void onError(QBResponseException e) {
-                callback.onError(e);
+                Log.e (TAG, "error logging in user to chat service, " + e.toString());
             }
         });
     }
-
+    /*
     private void signInCreatedUser (final QBUser user, final boolean deleteCurrentUser, final QBEntityCallback<QBUser> callback) {
         requestExecutor.signInUser(user, new QBEntityCallbackImpl<QBUser>() {
             @Override
@@ -172,4 +187,5 @@ public class UserLoginHelper
             }
         });
     }
+    */
 }

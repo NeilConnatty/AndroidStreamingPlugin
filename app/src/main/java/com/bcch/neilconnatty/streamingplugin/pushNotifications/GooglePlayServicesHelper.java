@@ -108,7 +108,7 @@ public class GooglePlayServicesHelper
      * Stores the registration ID and app versionCode in the application's
      * shared preferences.
      */
-    private void registerInGcmInBackground (String senderId, final Context context)
+    private void registerInGcmInBackground (final String senderId, final Context context)
     {
         new AsyncTask<String, Void, String>() {
             @Override
@@ -149,7 +149,7 @@ public class GooglePlayServicesHelper
 
                                 @Override
                                 public void onError(QBResponseException error) {
-                                    Log.w(TAG, "Unable to subscribe for QB push messages; " + error.toString());
+                                    Log.e(TAG, "Unable to subscribe for QB push messages; " + error.toString());
                                 }
                             });
                 }

@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity
             @Override
             public void onSuccess() {
                 Log.d(TAG, "successfully created session, starting subscription to push notifications");
-                if (googlePlayServicesHelper.checkPlayServicesAvailable(_activity)) {
+                if (checkPlayServices()) {
                     googlePlayServicesHelper.registerForGcm(GcmConsts.GCM_SENDER_ID);
                 }
                 /*
@@ -172,7 +172,7 @@ public class MainActivity extends BaseActivity
 
             @Override
             public void onError(QBResponseException error) {
-                Log.e(TAG, "error creating new session, attempting again");
+                Log.e(TAG, "error creating new session, attempting again " + error.toString());
                 startStreaming(plugin);
             }
         });
@@ -184,20 +184,7 @@ public class MainActivity extends BaseActivity
      * the Google Play Store or enable it in the device's system settings.
      */
     private boolean checkPlayServices() {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(this, resultCode, 1).show();
-            } else {
-                Log.e(TAG, "This device is not supported.");
-                //finish();
-            }
-            Log.e(TAG, "checkPlayServices() returned false");
-            return false;
-        }
-        Log.d(TAG, "checkPlayService() returned true");
-        return true;
+        return googlePlayServicesHelper.checkPlayServicesAvailable(this);
     }
 
     private void initMessagesUI ()

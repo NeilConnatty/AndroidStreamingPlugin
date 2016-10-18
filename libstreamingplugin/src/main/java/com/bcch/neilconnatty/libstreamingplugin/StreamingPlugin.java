@@ -98,7 +98,7 @@ public class StreamingPlugin extends CallbacksListener {
             @Override
             public void onSuccess(QBUser qbUser, Bundle bundle) {
                 Log.d(TAG, "successfully created session");
-                addSignalingManager();
+                addSignalingManager(callback);
                 callback.onSuccess();
             }
 
@@ -110,7 +110,7 @@ public class StreamingPlugin extends CallbacksListener {
         });
     }
 
-    private void addSignalingManager ()
+    private void addSignalingManager (final QBSessionCallback callback)
     {
         QBChatService.getInstance().getVideoChatWebRTCSignalingManager()
                 .addSignalingManagerListener(new QBVideoChatSignalingManagerListener() {
@@ -130,5 +130,6 @@ public class StreamingPlugin extends CallbacksListener {
         QBRTCClient rtcClient = QBRTCClient.getInstance(_mActivity);
         rtcClient.addSessionCallbacksListener(this);
         rtcClient.prepareToProcessCalls();
+        Log.d (TAG, "signalling manager and callbacks listener registered");
     }
 }
