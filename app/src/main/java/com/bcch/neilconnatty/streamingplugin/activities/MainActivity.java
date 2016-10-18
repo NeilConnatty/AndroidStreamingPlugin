@@ -154,20 +154,6 @@ public class MainActivity extends BaseActivity
                 if (checkPlayServices()) {
                     googlePlayServicesHelper.registerForGcm(GcmConsts.GCM_SENDER_ID);
                 }
-                /*
-                String registrationID = FirebaseInstanceId.getInstance().getId();
-                PushNotificationSubscriber.subscribe(registrationID, _activity, new QBSessionCallback() {
-                    @Override
-                    public void onSuccess() {
-                        Log.d(TAG, "successfully subscribed to notifications");
-                    }
-
-                    @Override
-                    public void onError(QBResponseException error) {
-                        Log.e(TAG, "error subscribing to notifications");
-                    }
-                });
-                */
             }
 
             @Override
