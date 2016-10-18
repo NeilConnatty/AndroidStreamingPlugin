@@ -24,6 +24,7 @@ import com.quickblox.videochat.webrtc.view.QBRTCVideoTrack;
 
 /**
  * Created by neilconnatty on 2016-09-28.
+ * Extended from Quickblox sample projects at https://github.com/QuickBlox/quickblox-android-sdk/
  */
 
 public class StreamingPlugin extends CallbacksListener {

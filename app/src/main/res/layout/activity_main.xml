@@ -38,4 +38,27 @@
         android:visibility="gone"
         android:contentDescription="@string/description_zoom" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:id="@+id/text_messages_header"
+            style="@style/HeaderStyle"
+            android:layout_marginTop="@dimen/margin_large"
+            android:text="@string/received_messages" />
+
+        <TextView
+            android:id="@+id/text_empty_messages"
+            style="@style/PushMessageItemStyle"
+            android:gravity="center"
+            android:text="@string/no_messages" />
+
+        <ListView
+            android:id="@+id/list_messages"
+            style="@style/MatchParent" />
+    </LinearLayout>
+
 </RelativeLayout>

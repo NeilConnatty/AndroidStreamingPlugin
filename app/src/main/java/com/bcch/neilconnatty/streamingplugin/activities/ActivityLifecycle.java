@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 /**
  * Created by neilconnatty on 2016-10-17.
+ * Extended from Quickblox sample projects at https://github.com/QuickBlox/quickblox-android-sdk/
  */
 
 public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks {

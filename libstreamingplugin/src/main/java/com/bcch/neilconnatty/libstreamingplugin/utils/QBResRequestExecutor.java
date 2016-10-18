@@ -12,6 +12,7 @@ import com.quickblox.users.model.QBUser;
 
 /**
  * Created by tereha on 26.04.16.
+ * Extended by Neil Connatty from Quickblox sample projects at https://github.com/QuickBlox/quickblox-android-sdk/
  */
 public class QBResRequestExecutor
 {

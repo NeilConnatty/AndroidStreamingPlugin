@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="robototextview-2.5.1">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.johnkil.android-robototextview/robototextview/2.5.1/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.johnkil.android-robototextview/robototextview/2.5.1/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.johnkil.android-robototextview/robototextview/2.5.1/144f22170f8ca1a93626bce2c8951f9f6ae879d2/robototextview-2.5.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

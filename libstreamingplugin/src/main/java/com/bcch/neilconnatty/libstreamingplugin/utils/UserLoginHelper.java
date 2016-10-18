@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 /**
  * Created by neilconnatty on 2016-09-29.
+ * Extended from Quickblox sample projects at https://github.com/QuickBlox/quickblox-android-sdk/
  */
 
 public class UserLoginHelper

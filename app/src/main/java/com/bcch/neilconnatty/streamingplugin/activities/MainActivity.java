@@ -1,15 +1,22 @@
 package com.bcch.neilconnatty.streamingplugin.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.bcch.neilconnatty.libstreamingplugin.StreamingPlugin;
 import com.bcch.neilconnatty.libstreamingplugin.activites.BaseActivity;
@@ -18,15 +25,22 @@ import com.bcch.neilconnatty.streamingplugin.R;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.BitmapWorkerTask;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ImageDetailFragment;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
-import com.bcch.neilconnatty.streamingplugin.pushNotifications.PushNotificationSubscriber;
+import com.bcch.neilconnatty.streamingplugin.pushNotifications.GooglePlayServicesHelper;
+import com.bcch.neilconnatty.streamingplugin.pushNotifications.constants.GcmConsts;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.fabric.sdk.android.Fabric;
+
+/**
+ * Created by neilconnatty on 2016-10-6.
+ */
 
 public class MainActivity extends BaseActivity
 {
@@ -42,10 +56,23 @@ public class MainActivity extends BaseActivity
 
     private ZoomAnimator _zoomAnimator = null;
 
+    private List<String> receivedPushes;
+    private ArrayAdapter<String> adapter;
+    private GooglePlayServicesHelper googlePlayServicesHelper;
+
 
     /** A static dataset to back the ViewPager adapter */
     public final static Integer[] imageResIds = new Integer[] {
             R.raw.image_one, R.raw.image_two, R.raw.image_three
+    };
+
+    private BroadcastReceiver pushBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String message = intent.getStringExtra(GcmConsts.EXTRA_GCM_MESSAGE);
+            Log.i(TAG, "Receiving event " + GcmConsts.ACTION_NEW_GCM_EVENT + " with data: " + message);
+            retrieveMessage(message);
+        }
     };
 
     /** Constructor */
@@ -58,15 +85,27 @@ public class MainActivity extends BaseActivity
 
         _activity = this;
 
+        receivedPushes = new ArrayList<>();
+        googlePlayServicesHelper = new GooglePlayServicesHelper();
+
         setViewReferences();
         initImageAdapter();
+        initMessagesUI();
 
+        /*
         if (checkPlayServices()) {
             while (gcmToken == null) {
                 gcmToken = FirebaseInstanceId.getInstance().getToken();
                 Log.d(TAG, "GCMToken:" + gcmToken);
             }
         }
+        */
+
+        String message = getIntent().getStringExtra(GcmConsts.EXTRA_GCM_MESSAGE);
+        if (message != null) {
+            retrieveMessage(message);
+        }
+        registerReceiver();
 
         StreamingPlugin plugin = new StreamingPlugin (this, false);
         startStreaming (plugin);
@@ -112,6 +151,10 @@ public class MainActivity extends BaseActivity
             @Override
             public void onSuccess() {
                 Log.d(TAG, "successfully created session, starting subscription to push notifications");
+                if (googlePlayServicesHelper.checkPlayServicesAvailable(_activity)) {
+                    googlePlayServicesHelper.registerForGcm(GcmConsts.GCM_SENDER_ID);
+                }
+                /*
                 String registrationID = FirebaseInstanceId.getInstance().getId();
                 PushNotificationSubscriber.subscribe(registrationID, _activity, new QBSessionCallback() {
                     @Override
@@ -124,6 +167,7 @@ public class MainActivity extends BaseActivity
                         Log.e(TAG, "error subscribing to notifications");
                     }
                 });
+                */
             }
 
             @Override
@@ -156,6 +200,14 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
+    private void initMessagesUI ()
+    {
+        ListView incomingMessagesListView = (ListView) findViewById(R.id.list_messages);
+        adapter = new ArrayAdapter<>(this, R.layout.list_item_message, R.id.item_message, receivedPushes);
+        incomingMessagesListView.setAdapter(adapter);
+        incomingMessagesListView.setEmptyView(findViewById(R.id.text_empty_messages));
+    }
+
     @Override
     protected void setViewReferences ()
     {
@@ -172,6 +224,20 @@ public class MainActivity extends BaseActivity
         mPager.setVisibility(View.VISIBLE);
         _currentPosition = 0;
         createPagerListener(mPager);
+    }
+
+    private void registerReceiver ()
+    {
+        googlePlayServicesHelper.checkPlayServicesAvailable(this);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(pushBroadcastReceiver,
+                new IntentFilter(GcmConsts.ACTION_NEW_GCM_EVENT));
+    }
+
+    private void retrieveMessage (String message)
+    {
+        receivedPushes.add(0, message);
+        adapter.notifyDataSetChanged();
     }
 
     private void handleZoom ()
