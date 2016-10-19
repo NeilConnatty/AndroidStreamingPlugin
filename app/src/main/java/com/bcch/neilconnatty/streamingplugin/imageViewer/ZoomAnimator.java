@@ -26,9 +26,9 @@ public class ZoomAnimator
     private int _shortAnimationDuration;
     private Activity _currentActivity;
 
-    final Rect startBounds = new Rect();
-    final Rect finalBounds = new Rect();
-    final Point globalOffset = new Point();
+    private final Rect startBounds = new Rect();
+    private final Rect finalBounds = new Rect();
+    private final Point globalOffset = new Point();
 
     private float _startScaleFinal;
 

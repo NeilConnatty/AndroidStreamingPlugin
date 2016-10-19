@@ -77,11 +77,6 @@ public class ImageDetailFragment extends Fragment
             } else {
                 displayFile(files.get(mImageNum));
             }
-            /*
-            final int resId = MainActivity.imageResIds[mImageNum];
-            // Call out to ImageDetailActivity to load the bitmap in a background thread
-            ((MainActivity) getActivity()).loadBitmap(resId, mImageView);
-            */
         }
     }
 

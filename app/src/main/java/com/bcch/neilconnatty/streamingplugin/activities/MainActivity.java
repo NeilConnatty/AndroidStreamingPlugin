@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity
 {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private ImagePagerAdapter mAdapter;
+    private ImagePagerAdapter mAdapter = null;
     private ViewPager mPager;
     private ImageView mImageView;
     private int _currentPosition = 0;
@@ -90,7 +90,6 @@ public class MainActivity extends BaseActivity
 
         setViewReferences();
         initMessagesUI();
-        initImageAdapter();
 
         String message = getIntent().getStringExtra(GcmConsts.EXTRA_GCM_MESSAGE);
         if (message != null) {
@@ -146,7 +145,7 @@ public class MainActivity extends BaseActivity
     {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_CENTER:
-                handleHideImage();
+                handleZoom();
                 return true;
 
             case KeyEvent.KEYCODE_MENU:
@@ -155,7 +154,11 @@ public class MainActivity extends BaseActivity
 
             case KeyEvent.KEYCODE_BACK:
                 Log.d(TAG, "KEYCODE_BACK");
-                handleZoom();
+                if (mAdapter == null) {
+                    initImageAdapter();
+                } else {
+                    handleHideImage();
+                }
                 return true;
         }
         return false;
@@ -218,7 +221,7 @@ public class MainActivity extends BaseActivity
 
                 @Override
                 public void onError(QBResponseException e) {
-                    Log.e(TAG, "Error retreiving files from server: " + e.toString());
+                    Log.e(TAG, "Error retrieving files from server: " + e.toString());
                 }
             });
         } else {
