@@ -3,21 +3,26 @@ package com.bcch.neilconnatty.streamingplugin.imageViewer;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+
+import java.io.InputStream;
 
 /**
  * Created by neilconnatty on 2016-10-11.
  */
 
-public class BitmapDecoder
+class BitmapDecoder
 {
-    public static Bitmap decodeBitmapFromResource (Resources res, int resId)
+    /*********** Static Functions **********/
+
+    static Bitmap decodeBitmapFromResource (Resources res, int resId)
     {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeResource(res, resId, options);
     }
 
-    public static Bitmap decodeSampledBitmapFromResource
+    static Bitmap decodeSampledBitmapFromResource
               (Resources res, int resId, int reqWidth, int reqHeight)
     {
         // First decode with inJustDecodeBounds=true to check dimensions
@@ -35,6 +40,26 @@ public class BitmapDecoder
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeResource(res, resId, options);
     }
+
+    static Bitmap decodeBitmapFromStream (InputStream is)
+    {
+        return BitmapFactory.decodeStream(is);
+    }
+
+    static Bitmap decodeSampledBitmapFromStream (InputStream is, int reqWidth, int reqHeight)
+    {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(is, null, options);
+
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeStream(is, null, options);
+    }
+
+    
+    /********** Private Methods **********/
 
     private static int calculateInSampleSize
             (BitmapFactory.Options options, int reqWidth, int reqHeight)

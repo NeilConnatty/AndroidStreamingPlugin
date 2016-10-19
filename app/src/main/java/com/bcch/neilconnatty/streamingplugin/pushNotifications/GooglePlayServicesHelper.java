@@ -80,7 +80,7 @@ public class GooglePlayServicesHelper
                         .show();
             } else {
                 Log.i(TAG, "This device is not supported.");
-                activity.finish();
+                //activity.finish();
             }
             return false;
         }

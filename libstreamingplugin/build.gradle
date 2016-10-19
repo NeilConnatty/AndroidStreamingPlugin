@@ -38,7 +38,6 @@ dependencies {
 
     compile 'com.quickblox:quickblox-android-sdk-chat:2.6.1'
     compile 'com.quickblox:quickblox-android-sdk-videochat-webrtc:2.6.1'
-    compile 'com.quickblox:quickblox-android-sdk-messages:2.6.1'
 }
 
 task cleanLibs (type: Delete) {

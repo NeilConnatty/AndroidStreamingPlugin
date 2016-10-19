@@ -14,6 +14,8 @@ import android.widget.ImageView;
 
 import com.bcch.neilconnatty.streamingplugin.R;
 
+import java.io.InputStream;
+
 /**
  * Created by neilconnatty on 2016-10-13.
  */
@@ -47,8 +49,18 @@ public class ZoomAnimator
         // proceed with this one
         if (_currentAnimator != null) _currentAnimator.cancel();
 
-        BitmapWorkerTask task = new BitmapWorkerTask (_currentActivity, targetView);
+        BitmapWorkerTask task = new BitmapResourceWorkerTask (_currentActivity, targetView);
         task.execute(imageResId);
+
+        zoomImageHelper(sourceView, targetView);
+    }
+
+    public void zoomImage (final View sourceView, final ImageView targetView, InputStream is)
+    {
+        if (_currentAnimator != null) _currentAnimator.cancel();
+
+        BitmapStreamWorkerTask task = new BitmapStreamWorkerTask(targetView);
+        task.execute(is);
 
         zoomImageHelper(sourceView, targetView);
     }
