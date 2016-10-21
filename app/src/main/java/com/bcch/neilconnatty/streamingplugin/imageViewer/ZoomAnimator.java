@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.View;
@@ -55,11 +56,18 @@ public class ZoomAnimator
         zoomImageHelper(sourceView, targetView);
     }
 
+    public void zoomImage (final View sourceView, final ImageView targetView, Bitmap bitmap)
+    {
+        if (_currentAnimator != null) _currentAnimator.cancel();
+        targetView.setImageBitmap(bitmap);
+        zoomImageHelper(sourceView, targetView);
+    }
+
     public void zoomImage (final View sourceView, final ImageView targetView, InputStream is)
     {
         if (_currentAnimator != null) _currentAnimator.cancel();
 
-        BitmapStreamWorkerTask task = new BitmapStreamWorkerTask(targetView);
+        BitmapStreamWorkerTask task = new BitmapStreamWorkerTask(_currentActivity, targetView);
         task.execute(is);
 
         zoomImageHelper(sourceView, targetView);
@@ -90,14 +98,14 @@ public class ZoomAnimator
         set.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                sourceView.setAlpha(1f);
+                sourceView.setVisibility(View.VISIBLE);
                 targetView.setVisibility(View.GONE);
                 _currentAnimator = null;
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
-                sourceView.setAlpha(1f);
+                sourceView.setVisibility(View.VISIBLE);
                 targetView.setVisibility(View.GONE);
                 _currentAnimator = null;
             }
@@ -150,7 +158,7 @@ public class ZoomAnimator
         // Hide the thumbnail and show the zoomed-in view. When the animation
         // begins, it will position the zoomed-in view in the place of the
         // thumbnail.
-        sourceView.setAlpha(0f);
+        sourceView.setVisibility(View.INVISIBLE);
         targetView.setVisibility(View.VISIBLE);
 
         // Set the pivot point for SCALE_X and SCALE_Y transformations

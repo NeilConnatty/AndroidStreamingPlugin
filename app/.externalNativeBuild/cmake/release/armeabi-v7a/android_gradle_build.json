@@ -26,7 +26,7 @@
 					"workingDirectory" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/armeabi-v7a"
 				}
 			],
-			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/obj/armeabi-v7a/libStreamingPluginBridge.so",
+			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/build/intermediates/cmake/release/obj/armeabi-v7a/libStreamingPluginBridge.so",
 			"toolchain" : "6353194796715766795"
 		},
 		"native-lib-Release-armeabi-v7a" : 
@@ -44,7 +44,7 @@
 					"workingDirectory" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/armeabi-v7a"
 				}
 			],
-			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/obj/armeabi-v7a/libnative-lib.so",
+			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/build/intermediates/cmake/release/obj/armeabi-v7a/libnative-lib.so",
 			"toolchain" : "6353194796715766795"
 		}
 	},

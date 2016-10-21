@@ -26,7 +26,7 @@
 					"workingDirectory" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/arm64-v8a"
 				}
 			],
-			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/obj/arm64-v8a/libStreamingPluginBridge.so",
+			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/build/intermediates/cmake/release/obj/arm64-v8a/libStreamingPluginBridge.so",
 			"toolchain" : "6353194796715766795"
 		},
 		"native-lib-Release-arm64-v8a" : 
@@ -44,7 +44,7 @@
 					"workingDirectory" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/arm64-v8a"
 				}
 			],
-			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/obj/arm64-v8a/libnative-lib.so",
+			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so",
 			"toolchain" : "6353194796715766795"
 		}
 	},

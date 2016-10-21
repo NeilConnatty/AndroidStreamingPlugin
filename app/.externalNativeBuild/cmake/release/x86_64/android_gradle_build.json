@@ -26,7 +26,7 @@
 					"workingDirectory" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/x86_64"
 				}
 			],
-			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/obj/x86_64/libStreamingPluginBridge.so",
+			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/build/intermediates/cmake/release/obj/x86_64/libStreamingPluginBridge.so",
 			"toolchain" : "6353194796715766795"
 		},
 		"native-lib-Release-x86_64" : 
@@ -44,7 +44,7 @@
 					"workingDirectory" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/x86_64"
 				}
 			],
-			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/release/obj/x86_64/libnative-lib.so",
+			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/build/intermediates/cmake/release/obj/x86_64/libnative-lib.so",
 			"toolchain" : "6353194796715766795"
 		}
 	},

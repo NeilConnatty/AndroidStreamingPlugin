@@ -26,7 +26,7 @@
 					"workingDirectory" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/mips64"
 				}
 			],
-			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/obj/mips64/libStreamingPluginBridge.so",
+			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/build/intermediates/cmake/debug/obj/mips64/libStreamingPluginBridge.so",
 			"toolchain" : "6353194796715766795"
 		},
 		"native-lib-Debug-mips64" : 
@@ -44,7 +44,7 @@
 					"workingDirectory" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/mips64"
 				}
 			],
-			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/obj/mips64/libnative-lib.so",
+			"output" : "/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/build/intermediates/cmake/debug/obj/mips64/libnative-lib.so",
 			"toolchain" : "6353194796715766795"
 		}
 	},

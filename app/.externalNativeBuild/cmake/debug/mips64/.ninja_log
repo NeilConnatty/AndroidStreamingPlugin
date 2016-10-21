@@ -1,5 +1,5 @@
 # ninja log v5
-1	472	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	d7c429d2854ae6fa
-473	688	0	../obj/mips64/libnative-lib.so	aedd0065ba87cb48
-0	105	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	148efa87d7357a2d
-105	142	0	../obj/mips64/libStreamingPluginBridge.so	edd45d55b8c6c55c
+1	383	0	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	d7c429d2854ae6fa
+383	590	0	../../../../build/intermediates/cmake/debug/obj/mips64/libnative-lib.so	486d8d610e8e6152
+0	100	0	CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o	148efa87d7357a2d
+100	128	0	../../../../build/intermediates/cmake/debug/obj/mips64/libStreamingPluginBridge.so	ba519eba0849d488

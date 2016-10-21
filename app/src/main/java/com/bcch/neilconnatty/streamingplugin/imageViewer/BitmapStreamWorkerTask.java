@@ -1,8 +1,12 @@
 package com.bcch.neilconnatty.streamingplugin.imageViewer;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.widget.ImageView;
+
+import com.bcch.neilconnatty.streamingplugin.activities.MainActivity;
 
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
@@ -18,11 +22,13 @@ public class BitmapStreamWorkerTask extends AsyncTask<InputStream, Void, Bitmap>
     private int _reqWidth;
     private int _reqHeight;
     private boolean _scaleImage;
+    private Context _currentContext;
 
-    public BitmapStreamWorkerTask (ImageView imageView)
+    public BitmapStreamWorkerTask (Context context, ImageView imageView)
     {
         imageViewReference = new WeakReference<>(imageView);
         _scaleImage = false;
+        _currentContext = context;
     }
 
     public BitmapStreamWorkerTask (ImageView imageView, int reqWidth, int reqHeight)

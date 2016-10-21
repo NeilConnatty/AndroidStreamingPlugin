@@ -1,14 +1,13 @@
 package com.bcch.neilconnatty.streamingplugin.activities;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -20,6 +19,7 @@ import android.widget.ListView;
 import com.bcch.neilconnatty.libstreamingplugin.StreamingPlugin;
 import com.bcch.neilconnatty.libstreamingplugin.activites.BaseActivity;
 import com.bcch.neilconnatty.libstreamingplugin.callbacks.QBSessionCallback;
+import com.bcch.neilconnatty.streamingplugin.App;
 import com.bcch.neilconnatty.streamingplugin.R;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.BitmapResourceWorkerTask;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.BitmapStreamWorkerTask;
@@ -27,8 +27,6 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.BitmapWorkerTask;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ContentRetriever;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ImageDetailFragment;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
-import com.bcch.neilconnatty.streamingplugin.pushNotifications.GooglePlayServicesHelper;
-import com.bcch.neilconnatty.streamingplugin.pushNotifications.constants.GcmConsts;
 import com.crashlytics.android.Crashlytics;
 import com.quickblox.content.model.QBFile;
 import com.quickblox.core.QBEntityCallback;
@@ -49,16 +47,19 @@ public class MainActivity extends BaseActivity
 {
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private Bitmap _currentBitmap = null;
+
     private ImagePagerAdapter mAdapter = null;
     private ViewPager mPager;
     private ImageView mImageView;
     private int _currentPosition = 0;
+    private boolean _imageViewOn = false;
 
     private ZoomAnimator _zoomAnimator = null;
 
     private List<String> receivedPushes;
     private ArrayAdapter<String> adapter;
-    private GooglePlayServicesHelper googlePlayServicesHelper;
+    //private GooglePlayServicesHelper googlePlayServicesHelper;
 
 
     /** A static dataset to back the ViewPager adapter */
@@ -68,6 +69,7 @@ public class MainActivity extends BaseActivity
 
     public static ArrayList<QBFile> files = null;
 
+    /* Was used for push notifications--doesn't work on ODG R-7
     private BroadcastReceiver pushBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -76,6 +78,7 @@ public class MainActivity extends BaseActivity
             retrieveMessage(message);
         }
     };
+    */
 
     /** Constructor */
     @Override
@@ -86,25 +89,29 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
 
         receivedPushes = new ArrayList<>();
-        googlePlayServicesHelper = new GooglePlayServicesHelper();
+        //googlePlayServicesHelper = new GooglePlayServicesHelper();
 
         setViewReferences();
         initMessagesUI();
 
+        /* Was used for push notifications--doesn't work on ODG R-7
         String message = getIntent().getStringExtra(GcmConsts.EXTRA_GCM_MESSAGE);
         if (message != null) {
             retrieveMessage(message);
         }
         registerReceiver();
+        */
 
         StreamingPlugin plugin = new StreamingPlugin (this, false);
         startStreaming(plugin, new QBSessionCallback() {
             @Override
             public void onSuccess() {
-                Log.d (TAG, "streaming started, starting gcm registration");
+                Log.d (TAG, "streaming started");
+                /* Was used for push notifications--doesn't work on ODG R-7
                 if (checkPlayServices()) {
                     googlePlayServicesHelper.registerForGcm(GcmConsts.GCM_SENDER_ID);
                 }
+                */
             }
 
             @Override
@@ -126,7 +133,7 @@ public class MainActivity extends BaseActivity
     public void loadBitmap (QBFile file, ImageView imageView)
     {
         imageView.setImageResource(R.drawable.image_placeholder);
-        final BitmapStreamWorkerTask task = new BitmapStreamWorkerTask(imageView);
+        final BitmapStreamWorkerTask task = new BitmapStreamWorkerTask(this, imageView);
         ContentRetriever.downloadFile (file, new QBEntityCallback<InputStream>() {
             @Override
             public void onSuccess(InputStream inputStream, Bundle bundle) {
@@ -140,22 +147,30 @@ public class MainActivity extends BaseActivity
         });
     }
 
+    public void setCurrentBitmap (Bitmap bitmap)
+    {
+        _currentBitmap = bitmap;
+    }
+
     @Override
     public boolean onKeyDown (int keyCode, KeyEvent event)
     {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_CENTER:
+                if (!_imageViewOn) return true;
                 handleZoom();
                 return true;
 
             case KeyEvent.KEYCODE_MENU:
                 Log.d(TAG, "KEYCODE_MENU");
+                handleReloadImages();
                 return true;
 
             case KeyEvent.KEYCODE_BACK:
                 Log.d(TAG, "KEYCODE_BACK");
                 if (mAdapter == null) {
                     initImageAdapter();
+                    _imageViewOn = true;
                 } else {
                     handleHideImage();
                 }
@@ -189,10 +204,11 @@ public class MainActivity extends BaseActivity
      * Check the device to make sure it has the Google Play Services APK. If
      * it doesn't, display a dialog that allows users to download the APK from
      * the Google Play Store or enable it in the device's system settings.
-     */
+     *//* Was used for push notifications--doesn't work on ODG R-7
     private boolean checkPlayServices() {
         return googlePlayServicesHelper.checkPlayServicesAvailable(this);
     }
+    */
 
     private void initMessagesUI ()
     {
@@ -212,7 +228,7 @@ public class MainActivity extends BaseActivity
     private void initImageAdapter ()
     {
         if (files == null) {
-            ContentRetriever.retrieveFilesFromServer(new QBEntityCallback<ArrayList<QBFile>>() {
+            retrieveFilesFromServer(new QBEntityCallback<ArrayList<QBFile>>() {
                 @Override
                 public void onSuccess(ArrayList<QBFile> qbFiles, Bundle bundle) {
                     files = qbFiles;
@@ -229,6 +245,21 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    private void retrieveFilesFromServer (final QBEntityCallback<ArrayList<QBFile>> callback)
+    {
+        ContentRetriever.retrieveFilesFromServer(new QBEntityCallback<ArrayList<QBFile>>() {
+            @Override
+            public void onSuccess(ArrayList<QBFile> qbFiles, Bundle bundle) {
+                callback.onSuccess(qbFiles, bundle);
+            }
+
+            @Override
+            public void onError(QBResponseException e) {
+                callback.onError(e);
+            }
+        });
+    }
+
     private void initImageAdapterHelper ()
     {
         mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), files.size());
@@ -239,6 +270,7 @@ public class MainActivity extends BaseActivity
         createPagerListener(mPager);
     }
 
+    /* Was used for push notifications--doesn't work on ODG R-7
     private void registerReceiver ()
     {
         googlePlayServicesHelper.checkPlayServicesAvailable(this);
@@ -246,6 +278,7 @@ public class MainActivity extends BaseActivity
         LocalBroadcastManager.getInstance(this).registerReceiver(pushBroadcastReceiver,
                 new IntentFilter(GcmConsts.ACTION_NEW_GCM_EVENT));
     }
+    */
 
     private void retrieveMessage (String message)
     {
@@ -257,18 +290,23 @@ public class MainActivity extends BaseActivity
     {
         if (_zoomAnimator == null) {
             _zoomAnimator = new ZoomAnimator(this);
-            final ZoomAnimator animator = _zoomAnimator;
-            ContentRetriever.downloadFile(files.get(_currentPosition), new QBEntityCallback<InputStream>() {
-                @Override
-                public void onSuccess(InputStream inputStream, Bundle bundle) {
-                    animator.zoomImage(mPager, mImageView, inputStream);
-                }
+            // if there is a current bitmap saved, zoom image with it. Else download new bitmap
+            if (_currentBitmap != null) {
+                _zoomAnimator.zoomImage(mPager, mImageView, _currentBitmap);
+            } else {
+                final ZoomAnimator animator = _zoomAnimator;
+                ContentRetriever.downloadFile(files.get(_currentPosition), new QBEntityCallback<InputStream>() {
+                    @Override
+                    public void onSuccess(InputStream inputStream, Bundle bundle) {
+                        animator.zoomImage(mPager, mImageView, inputStream);
+                    }
 
-                @Override
-                public void onError(QBResponseException e) {
-                    Log.e (TAG, "Error downloading file to hand stream: " + e.toString());
-                }
-            });
+                    @Override
+                    public void onError(QBResponseException e) {
+                        Log.e(TAG, "Error downloading file to hand stream: " + e.toString());
+                    }
+                });
+            }
         } else {
             _zoomAnimator.shrinkImage(mPager, mImageView);
             _zoomAnimator = null;
@@ -277,8 +315,33 @@ public class MainActivity extends BaseActivity
 
     private void handleHideImage ()
     {
-        if (mPager.getVisibility() == View.VISIBLE) mPager.setVisibility(View.INVISIBLE);
-        else mPager.setVisibility(View.VISIBLE);
+        if (mPager.getVisibility() == View.VISIBLE) {
+            mPager.setVisibility(View.INVISIBLE);
+            _imageViewOn = false;
+        }
+        else {
+            mPager.setVisibility(View.VISIBLE);
+            _imageViewOn = true;
+        }
+    }
+
+    private void handleReloadImages ()
+    {
+        retrieveFilesFromServer(new QBEntityCallback<ArrayList<QBFile>>() {
+            @Override
+            public void onSuccess(ArrayList<QBFile> qbFiles, Bundle bundle) {
+                files.clear();
+                files = qbFiles;
+                mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), files.size());
+                mPager.setAdapter(mAdapter);
+                mPager.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onError(QBResponseException e) {
+                Log.e (TAG, "error retrieving files from server: " + e.toString());
+            }
+        });
     }
 
     private void createPagerListener (ViewPager pager)
@@ -292,11 +355,19 @@ public class MainActivity extends BaseActivity
             @Override
             public void onPageSelected(int position) {
                 _currentPosition = position;
+
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        pager.addOnAdapterChangeListener(new ViewPager.OnAdapterChangeListener() {
+            @Override
+            public void onAdapterChanged(@NonNull ViewPager viewPager, @Nullable PagerAdapter oldAdapter, @Nullable PagerAdapter newAdapter) {
+                // TODO
             }
         });
     }

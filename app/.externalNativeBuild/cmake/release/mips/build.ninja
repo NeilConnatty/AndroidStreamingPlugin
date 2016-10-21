@@ -65,9 +65,9 @@ build CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cp
 
 
 #############################################
-# Link the shared library ../obj/mips/libStreamingPluginBridge.so
+# Link the shared library ../../../../build/intermediates/cmake/release/obj/mips/libStreamingPluginBridge.so
 
-build ../obj/mips/libStreamingPluginBridge.so: CXX_SHARED_LIBRARY_LINKER__StreamingPluginBridge CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o | /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-17/arch-mips/usr/lib/liblog.so
+build ../../../../build/intermediates/cmake/release/obj/mips/libStreamingPluginBridge.so: CXX_SHARED_LIBRARY_LINKER__StreamingPluginBridge CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o | /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-17/arch-mips/usr/lib/liblog.so
   LANGUAGE_COMPILE_FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O2 -DNDEBUG -O2 -DNDEBUG
   LINK_FLAGS = -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now
   LINK_LIBRARIES = -llog -lm "/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips/libgnustl_static.a"
@@ -76,7 +76,7 @@ build ../obj/mips/libStreamingPluginBridge.so: CXX_SHARED_LIBRARY_LINKER__Stream
   PRE_LINK = :
   SONAME = libStreamingPluginBridge.so
   SONAME_FLAG = -Wl,-soname,
-  TARGET_FILE = ../obj/mips/libStreamingPluginBridge.so
+  TARGET_FILE = ../../../../build/intermediates/cmake/release/obj/mips/libStreamingPluginBridge.so
   TARGET_PDB = StreamingPluginBridge.so.dbg
 # =============================================================================
 # Object build statements for SHARED_LIBRARY target native-lib
@@ -95,9 +95,9 @@ build CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o: CXX_COMPILER__nat
 
 
 #############################################
-# Link the shared library ../obj/mips/libnative-lib.so
+# Link the shared library ../../../../build/intermediates/cmake/release/obj/mips/libnative-lib.so
 
-build ../obj/mips/libnative-lib.so: CXX_SHARED_LIBRARY_LINKER__native-lib CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o | /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-17/arch-mips/usr/lib/liblog.so
+build ../../../../build/intermediates/cmake/release/obj/mips/libnative-lib.so: CXX_SHARED_LIBRARY_LINKER__native-lib CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o | /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-17/arch-mips/usr/lib/liblog.so
   LANGUAGE_COMPILE_FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O2 -DNDEBUG -O2 -DNDEBUG
   LINK_FLAGS = -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now
   LINK_LIBRARIES = -llog -lm "/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/mips/libgnustl_static.a"
@@ -106,15 +106,15 @@ build ../obj/mips/libnative-lib.so: CXX_SHARED_LIBRARY_LINKER__native-lib CMakeF
   PRE_LINK = :
   SONAME = libnative-lib.so
   SONAME_FLAG = -Wl,-soname,
-  TARGET_FILE = ../obj/mips/libnative-lib.so
+  TARGET_FILE = ../../../../build/intermediates/cmake/release/obj/mips/libnative-lib.so
   TARGET_PDB = native-lib.so.dbg
 # =============================================================================
 # Target aliases.
 
-build StreamingPluginBridge: phony ../obj/mips/libStreamingPluginBridge.so
-build libStreamingPluginBridge.so: phony ../obj/mips/libStreamingPluginBridge.so
-build libnative-lib.so: phony ../obj/mips/libnative-lib.so
-build native-lib: phony ../obj/mips/libnative-lib.so
+build StreamingPluginBridge: phony ../../../../build/intermediates/cmake/release/obj/mips/libStreamingPluginBridge.so
+build libStreamingPluginBridge.so: phony ../../../../build/intermediates/cmake/release/obj/mips/libStreamingPluginBridge.so
+build libnative-lib.so: phony ../../../../build/intermediates/cmake/release/obj/mips/libnative-lib.so
+build native-lib: phony ../../../../build/intermediates/cmake/release/obj/mips/libnative-lib.so
 # =============================================================================
 # Folder targets.
 
@@ -126,7 +126,7 @@ build native-lib: phony ../obj/mips/libnative-lib.so
 #############################################
 # The main all target.
 
-build all: phony ../obj/mips/libStreamingPluginBridge.so ../obj/mips/libnative-lib.so
+build all: phony ../../../../build/intermediates/cmake/release/obj/mips/libStreamingPluginBridge.so ../../../../build/intermediates/cmake/release/obj/mips/libnative-lib.so
 
 #############################################
 # Make the all target the default.

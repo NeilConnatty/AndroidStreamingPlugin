@@ -28,7 +28,6 @@ public abstract class BaseActivity extends AppCompatActivity
 
     public void renderVideo (QBRTCVideoTrack videoTrack, boolean remoteRenderer)
     {
-        Log.e (TAG, "renderVideo() called");
         if (remoteRenderer) {
             if (opponentView != null)
                 fillVideoView(opponentView, videoTrack, remoteRenderer);
