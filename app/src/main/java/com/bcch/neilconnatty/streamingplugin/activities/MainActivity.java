@@ -2,6 +2,7 @@ package com.bcch.neilconnatty.streamingplugin.activities;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,14 +13,12 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bcch.neilconnatty.libstreamingplugin.StreamingPlugin;
 import com.bcch.neilconnatty.libstreamingplugin.activites.BaseActivity;
 import com.bcch.neilconnatty.libstreamingplugin.callbacks.QBSessionCallback;
-import com.bcch.neilconnatty.streamingplugin.App;
 import com.bcch.neilconnatty.streamingplugin.R;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.BitmapResourceWorkerTask;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.BitmapStreamWorkerTask;
@@ -27,6 +26,8 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.BitmapWorkerTask;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ContentRetriever;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ImageDetailFragment;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
+import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
+import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
 import com.crashlytics.android.Crashlytics;
 import com.quickblox.content.model.QBFile;
 import com.quickblox.core.QBEntityCallback;
@@ -35,7 +36,9 @@ import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -54,13 +57,11 @@ public class MainActivity extends BaseActivity
     private ImageView mImageView;
     private int _currentPosition = 0;
     private boolean _imageViewOn = false;
+    private Handler _timerHandler;
+    private TextView _timerText;
+    private Timer _timer;
 
     private ZoomAnimator _zoomAnimator = null;
-
-    private List<String> receivedPushes;
-    private ArrayAdapter<String> adapter;
-    //private GooglePlayServicesHelper googlePlayServicesHelper;
-
 
     /** A static dataset to back the ViewPager adapter */
     public final static Integer[] imageResIds = new Integer[] {
@@ -69,16 +70,6 @@ public class MainActivity extends BaseActivity
 
     public static ArrayList<QBFile> files = null;
 
-    /* Was used for push notifications--doesn't work on ODG R-7
-    private BroadcastReceiver pushBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String message = intent.getStringExtra(GcmConsts.EXTRA_GCM_MESSAGE);
-            Log.i(TAG, "Receiving event " + GcmConsts.ACTION_NEW_GCM_EVENT + " with data: " + message);
-            retrieveMessage(message);
-        }
-    };
-    */
 
     /** Constructor */
     @Override
@@ -88,36 +79,36 @@ public class MainActivity extends BaseActivity
         Fabric.with (this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
-        receivedPushes = new ArrayList<>();
-        //googlePlayServicesHelper = new GooglePlayServicesHelper();
-
         setViewReferences();
-        initMessagesUI();
 
-        /* Was used for push notifications--doesn't work on ODG R-7
-        String message = getIntent().getStringExtra(GcmConsts.EXTRA_GCM_MESSAGE);
-        if (message != null) {
-            retrieveMessage(message);
-        }
-        registerReceiver();
-        */
+        _timerText = (TextView) findViewById(R.id.timer);
+        _timerHandler = new Handler();
+        _timer = initChronometer(_timerHandler, new TimerCallback() {
+            @Override
+            public void onTimerTick() {
+                String time = getCurrentTime();
+                _timerText.setText(time);
+            }
+        });
 
         StreamingPlugin plugin = new StreamingPlugin (this, false);
         startStreaming(plugin, new QBSessionCallback() {
             @Override
             public void onSuccess() {
                 Log.d (TAG, "streaming started");
-                /* Was used for push notifications--doesn't work on ODG R-7
-                if (checkPlayServices()) {
-                    googlePlayServicesHelper.registerForGcm(GcmConsts.GCM_SENDER_ID);
-                }
-                */
             }
 
             @Override
             public void onError(QBResponseException error) {
             }
         });
+    }
+
+    @Override
+    protected void onDestroy ()
+    {
+        super.onDestroy();
+        _timer.cancel();
     }
 
 
@@ -200,22 +191,20 @@ public class MainActivity extends BaseActivity
         });
     }
 
-    /**
-     * Check the device to make sure it has the Google Play Services APK. If
-     * it doesn't, display a dialog that allows users to download the APK from
-     * the Google Play Store or enable it in the device's system settings.
-     *//* Was used for push notifications--doesn't work on ODG R-7
-    private boolean checkPlayServices() {
-        return googlePlayServicesHelper.checkPlayServicesAvailable(this);
-    }
-    */
-
-    private void initMessagesUI ()
+    private Timer initChronometer (Handler handler, TimerCallback callback)
     {
-        ListView incomingMessagesListView = (ListView) findViewById(R.id.list_messages);
-        adapter = new ArrayAdapter<>(this, R.layout.list_item_message, R.id.item_message, receivedPushes);
-        incomingMessagesListView.setAdapter(adapter);
-        incomingMessagesListView.setEmptyView(findViewById(R.id.text_empty_messages));
+        return new TimerHelper().createTimer(handler, callback, 0, 1000);
+    }
+
+    private String getCurrentTime ()
+    {
+        Calendar c = Calendar.getInstance();
+        String hour = String.valueOf(c.get(Calendar.HOUR));
+        String min  = String.valueOf(c.get(Calendar.MINUTE));
+        String sec  = String.valueOf(c.get(Calendar.SECOND));
+        if (min.length() == 1) min = "0"+min;
+        if (sec.length() == 1) sec = "0"+sec;
+        return hour+":"+min+":"+sec;
     }
 
     @Override
@@ -268,22 +257,6 @@ public class MainActivity extends BaseActivity
         mPager.setAdapter(mAdapter);
         mPager.setVisibility(View.VISIBLE);
         createPagerListener(mPager);
-    }
-
-    /* Was used for push notifications--doesn't work on ODG R-7
-    private void registerReceiver ()
-    {
-        googlePlayServicesHelper.checkPlayServicesAvailable(this);
-
-        LocalBroadcastManager.getInstance(this).registerReceiver(pushBroadcastReceiver,
-                new IntentFilter(GcmConsts.ACTION_NEW_GCM_EVENT));
-    }
-    */
-
-    private void retrieveMessage (String message)
-    {
-        receivedPushes.add(0, message);
-        adapter.notifyDataSetChanged();
     }
 
     private void handleZoom ()
