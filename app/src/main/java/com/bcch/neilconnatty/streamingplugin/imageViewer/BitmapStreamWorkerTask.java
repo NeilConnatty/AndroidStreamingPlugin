@@ -23,20 +23,23 @@ public class BitmapStreamWorkerTask extends AsyncTask<InputStream, Void, Bitmap>
     private int _reqHeight;
     private boolean _scaleImage;
     private Context _currentContext;
+    private  int _position;
 
-    public BitmapStreamWorkerTask (Context context, ImageView imageView)
+    public BitmapStreamWorkerTask (Context context, ImageView imageView, int pos)
     {
         imageViewReference = new WeakReference<>(imageView);
         _scaleImage = false;
         _currentContext = context;
+        _position = pos;
     }
 
-    public BitmapStreamWorkerTask (ImageView imageView, int reqWidth, int reqHeight)
+    public BitmapStreamWorkerTask (ImageView imageView, int reqWidth, int reqHeight, int pos)
     {
         imageViewReference = new WeakReference<>(imageView);
         _scaleImage = true;
         _reqHeight = reqHeight;
         _reqWidth = reqWidth;
+        _position = pos;
     }
 
 
@@ -62,6 +65,9 @@ public class BitmapStreamWorkerTask extends AsyncTask<InputStream, Void, Bitmap>
             final ImageView imageView = imageViewReference.get();
             if (imageView != null) {
                 imageView.setImageBitmap(bitmap);
+            }
+            if (MainActivity.class.isInstance(_currentContext)) {
+                ((MainActivity) _currentContext).setBitmapPosition(bitmap, _position);
             }
         }
     }

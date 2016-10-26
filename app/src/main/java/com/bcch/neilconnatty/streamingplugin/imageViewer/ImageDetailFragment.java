@@ -1,5 +1,6 @@
 package com.bcch.neilconnatty.streamingplugin.imageViewer;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -59,6 +60,11 @@ public class ImageDetailFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
         if (MainActivity.class.isInstance(getActivity()))
         {
+            Bitmap bitmap = ((MainActivity) getActivity()).getBitmapAtPosition(mImageNum);
+            if (bitmap != null) {
+                mImageView.setImageBitmap(bitmap);
+                return;
+            }
             final ArrayList<QBFile> files = MainActivity.files;
             if (files == null) {
                 ContentRetriever.retrieveFilesFromServer(new QBEntityCallback<ArrayList<QBFile>>() {
@@ -82,6 +88,6 @@ public class ImageDetailFragment extends Fragment
 
     private void displayFile (QBFile file)
     {
-        ((MainActivity) getActivity()).loadBitmap(file, mImageView);
+        ((MainActivity) getActivity()).loadBitmap(file, mImageView, mImageNum);
     }
 }

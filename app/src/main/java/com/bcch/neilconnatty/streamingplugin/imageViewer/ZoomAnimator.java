@@ -63,11 +63,11 @@ public class ZoomAnimator
         zoomImageHelper(sourceView, targetView);
     }
 
-    public void zoomImage (final View sourceView, final ImageView targetView, InputStream is)
+    public void zoomImage (final View sourceView, final ImageView targetView, InputStream is, int pos)
     {
         if (_currentAnimator != null) _currentAnimator.cancel();
 
-        BitmapStreamWorkerTask task = new BitmapStreamWorkerTask(_currentActivity, targetView);
+        BitmapStreamWorkerTask task = new BitmapStreamWorkerTask(_currentActivity, targetView, pos);
         task.execute(is);
 
         zoomImageHelper(sourceView, targetView);

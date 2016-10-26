@@ -50,8 +50,6 @@ public class MainActivity extends BaseActivity
 {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private Bitmap _currentBitmap = null;
-
     private ImagePagerAdapter mAdapter = null;
     private ViewPager mPager;
     private ImageView mImageView;
@@ -60,6 +58,7 @@ public class MainActivity extends BaseActivity
     private Handler _timerHandler;
     private TextView _timerText;
     private Timer _timer;
+    private Bitmap[] bitmaps;
 
     private ZoomAnimator _zoomAnimator = null;
 
@@ -121,10 +120,10 @@ public class MainActivity extends BaseActivity
         task.execute(resId);
     }
 
-    public void loadBitmap (QBFile file, ImageView imageView)
+    public void loadBitmap (QBFile file, ImageView imageView, int pos)
     {
         imageView.setImageResource(R.drawable.image_placeholder);
-        final BitmapStreamWorkerTask task = new BitmapStreamWorkerTask(this, imageView);
+        final BitmapStreamWorkerTask task = new BitmapStreamWorkerTask(this, imageView, pos);
         ContentRetriever.downloadFile (file, new QBEntityCallback<InputStream>() {
             @Override
             public void onSuccess(InputStream inputStream, Bundle bundle) {
@@ -138,9 +137,14 @@ public class MainActivity extends BaseActivity
         });
     }
 
-    public void setCurrentBitmap (Bitmap bitmap)
+    public void setBitmapPosition (Bitmap bitmap, int pos)
     {
-        _currentBitmap = bitmap;
+        bitmaps[pos] = bitmap;
+    }
+
+    public Bitmap getBitmapAtPosition (int pos)
+    {
+        return bitmaps[pos];
     }
 
     @Override
@@ -220,8 +224,7 @@ public class MainActivity extends BaseActivity
             retrieveFilesFromServer(new QBEntityCallback<ArrayList<QBFile>>() {
                 @Override
                 public void onSuccess(ArrayList<QBFile> qbFiles, Bundle bundle) {
-                    files = qbFiles;
-                    initImageAdapterHelper();
+                    initImageAdapterHelper(qbFiles);
                 }
 
                 @Override
@@ -230,7 +233,7 @@ public class MainActivity extends BaseActivity
                 }
             });
         } else {
-            initImageAdapterHelper();
+            initImageAdapterHelper(files);
         }
     }
 
@@ -249,8 +252,10 @@ public class MainActivity extends BaseActivity
         });
     }
 
-    private void initImageAdapterHelper ()
+    private void initImageAdapterHelper (ArrayList<QBFile> qbFiles)
     {
+        files = qbFiles;
+        bitmaps = new Bitmap[files.size()];
         mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), files.size());
         mImageView = (ImageView) findViewById(R.id.expanded_image);
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -264,14 +269,14 @@ public class MainActivity extends BaseActivity
         if (_zoomAnimator == null) {
             _zoomAnimator = new ZoomAnimator(this);
             // if there is a current bitmap saved, zoom image with it. Else download new bitmap
-            if (_currentBitmap != null) {
-                _zoomAnimator.zoomImage(mPager, mImageView, _currentBitmap);
+            if (bitmaps[_currentPosition] != null) {
+                _zoomAnimator.zoomImage(mPager, mImageView, bitmaps[_currentPosition]);
             } else {
                 final ZoomAnimator animator = _zoomAnimator;
                 ContentRetriever.downloadFile(files.get(_currentPosition), new QBEntityCallback<InputStream>() {
                     @Override
                     public void onSuccess(InputStream inputStream, Bundle bundle) {
-                        animator.zoomImage(mPager, mImageView, inputStream);
+                        animator.zoomImage(mPager, mImageView, inputStream, _currentPosition);
                     }
 
                     @Override
@@ -305,6 +310,8 @@ public class MainActivity extends BaseActivity
             public void onSuccess(ArrayList<QBFile> qbFiles, Bundle bundle) {
                 files.clear();
                 files = qbFiles;
+                bitmaps = null;
+                bitmaps = new Bitmap[files.size()];
                 mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), files.size());
                 mPager.setAdapter(mAdapter);
                 mPager.setVisibility(View.VISIBLE);
