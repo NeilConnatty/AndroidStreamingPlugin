@@ -55,12 +55,15 @@ public class MainActivity extends BaseActivity
     private ImageView mImageView;
     private int _currentPosition = 0;
     private boolean _imageViewOn = false;
-    private Handler _timerHandler;
     private TextView _timerText;
     private Timer _timer;
     private Bitmap[] bitmaps;
 
     private ZoomAnimator _zoomAnimator = null;
+
+    static {
+        System.loadLibrary("MessagingService");
+    }
 
     /** A static dataset to back the ViewPager adapter */
     public final static Integer[] imageResIds = new Integer[] {
@@ -81,7 +84,7 @@ public class MainActivity extends BaseActivity
         setViewReferences();
 
         _timerText = (TextView) findViewById(R.id.timer);
-        _timerHandler = new Handler();
+        Handler _timerHandler = new Handler();
         _timer = initChronometer(_timerHandler, new TimerCallback() {
             @Override
             public void onTimerTick() {
@@ -94,13 +97,16 @@ public class MainActivity extends BaseActivity
         startStreaming(plugin, new QBSessionCallback() {
             @Override
             public void onSuccess() {
-                Log.d (TAG, "streaming started");
+                Log.d (TAG, "streaming started, starting messaging");
+                startMessagingService();
             }
 
             @Override
             public void onError(QBResponseException error) {
             }
         });
+
+        Log.e (TAG, "Native test: " + retrieveNewMessage());
     }
 
     @Override
@@ -108,6 +114,7 @@ public class MainActivity extends BaseActivity
     {
         super.onDestroy();
         _timer.cancel();
+        stopMessenger();
     }
 
 
@@ -193,6 +200,22 @@ public class MainActivity extends BaseActivity
                 startStreaming(plugin, callback);
             }
         });
+    }
+
+    private void startMessagingService ()
+    {
+        if (initializeMessenger()) {
+            Handler handler = new Handler();
+            TimerCallback callback = new TimerCallback() {
+                @Override
+                public void onTimerTick() {
+                    Log.d(TAG, retrieveNewMessage());
+                }
+            };
+            new TimerHelper().createTimer(handler, callback, 10000);
+        } else {
+            Log.e(TAG, "error starting messaging service");
+        }
     }
 
     private Timer initChronometer (Handler handler, TimerCallback callback)
@@ -343,13 +366,6 @@ public class MainActivity extends BaseActivity
 
             }
         });
-
-        pager.addOnAdapterChangeListener(new ViewPager.OnAdapterChangeListener() {
-            @Override
-            public void onAdapterChanged(@NonNull ViewPager viewPager, @Nullable PagerAdapter oldAdapter, @Nullable PagerAdapter newAdapter) {
-                // TODO
-            }
-        });
     }
 
     /*********** Local Classes **********/
@@ -374,5 +390,12 @@ public class MainActivity extends BaseActivity
             return ImageDetailFragment.newInstance(position);
         }
     }
+
+
+    /********** Native Methods **********/
+
+    private native Boolean initializeMessenger ();
+    private native String retrieveNewMessage ();
+    private native void stopMessenger ();
 
 }

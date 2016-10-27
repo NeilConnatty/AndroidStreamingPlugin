@@ -1,4 +1,6 @@
 /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/edit_cache.dir
+/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/PubNub.dir
+/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/MessagingService.dir
 /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/rebuild_cache.dir
 /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/StreamingPluginBridge.dir
 /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/.externalNativeBuild/cmake/debug/mips/CMakeFiles/native-lib.dir

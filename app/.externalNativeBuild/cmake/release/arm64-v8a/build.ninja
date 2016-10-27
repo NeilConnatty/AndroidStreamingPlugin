@@ -38,6 +38,234 @@ build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
   DESC = No interactive CMake dialog available...
   restat = 1
 build edit_cache: phony CMakeFiles/edit_cache.util
+# =============================================================================
+# Object build statements for SHARED_LIBRARY target PubNub
+
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_coreapi.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_coreapi.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_coreapi.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_coreapi.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_coreapi_ex.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_coreapi_ex.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_coreapi_ex.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_coreapi_ex.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_ccore.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_ccore.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_ccore.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_ccore.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_netcore.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_netcore.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_netcore.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_netcore.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets/pbpal_sockets.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/lib/sockets/pbpal_sockets.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets/pbpal_sockets.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/lib/sockets/pbpal_sockets.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets/pbpal_resolv_and_connect_sockets.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/lib/sockets/pbpal_resolv_and_connect_sockets.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets/pbpal_resolv_and_connect_sockets.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/lib/sockets/pbpal_resolv_and_connect_sockets.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets/pbpal_adns_sockets.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/lib/sockets/pbpal_adns_sockets.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets/pbpal_adns_sockets.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/lib/sockets/pbpal_adns_sockets.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/base64/pbbase64.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/lib/base64/pbbase64.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/base64/pbbase64.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/lib/base64/pbbase64.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/base64
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_alloc_std.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_alloc_std.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_alloc_std.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_alloc_std.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_assert_std.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_assert_std.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_assert_std.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_assert_std.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_generate_uuid.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_generate_uuid.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_generate_uuid.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_generate_uuid.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_blocking_io.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_blocking_io.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_blocking_io.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_blocking_io.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_timers.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_timers.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_timers.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_timers.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_json_parse.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_json_parse.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_json_parse.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_json_parse.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_helper.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_helper.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_helper.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_helper.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/pubnub_version_posix.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/posix/pubnub_version_posix.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/pubnub_version_posix.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/posix/pubnub_version_posix.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/pubnub_generate_uuid_posix.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/posix/pubnub_generate_uuid_posix.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/pubnub_generate_uuid_posix.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/posix/pubnub_generate_uuid_posix.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/pbpal_posix_blocking_io.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/posix/pbpal_posix_blocking_io.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/pbpal_posix_blocking_io.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/posix/pbpal_posix_blocking_io.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/monotonic_clock_get_time_posix.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/posix/monotonic_clock_get_time_posix.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/monotonic_clock_get_time_posix.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/posix/monotonic_clock_get_time_posix.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/cpp/pubnub_futres_sync.cpp.o: CXX_COMPILER__PubNub ../../../../src/main/cpp/c-core/cpp/pubnub_futres_sync.cpp
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/cpp/pubnub_futres_sync.cpp.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API -Wall -std=c++11 -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/android/support/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++abi/include
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/cpp/pubnub_futres_sync.cpp
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/cpp
+build CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_ntf_sync.c.o: C_COMPILER__PubNub ../../../../src/main/cpp/c-core/core/pubnub_ntf_sync.c
+  DEFINES = -DPubNub_EXPORTS
+  DEP_FILE = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_ntf_sync.c.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/c-core/core/pubnub_ntf_sync.c
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  OBJECT_FILE_DIR = CMakeFiles/PubNub.dir/src/main/cpp/c-core/core
+
+# =============================================================================
+# Link build statements for SHARED_LIBRARY target PubNub
+
+
+#############################################
+# Link the shared library ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libPubNub.so
+
+build ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libPubNub.so: CXX_SHARED_LIBRARY_LINKER__PubNub CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_coreapi.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_coreapi_ex.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_ccore.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_netcore.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets/pbpal_sockets.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets/pbpal_resolv_and_connect_sockets.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/sockets/pbpal_adns_sockets.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/lib/base64/pbbase64.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_alloc_std.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_assert_std.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_generate_uuid.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_blocking_io.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_timers.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_json_parse.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_helper.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/pubnub_version_posix.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/pubnub_generate_uuid_posix.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/pbpal_posix_blocking_io.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/posix/monotonic_clock_get_time_posix.c.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/cpp/pubnub_futres_sync.cpp.o CMakeFiles/PubNub.dir/src/main/cpp/c-core/core/pubnub_ntf_sync.c.o
+  LANGUAGE_COMPILE_FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API -Wall -std=c++11 -O2 -DNDEBUG -O2 -DNDEBUG
+  LINK_FLAGS = -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now
+  LINK_LIBRARIES = -lm "/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++/libs/arm64-v8a/libc++_shared.so"
+  OBJECT_DIR = CMakeFiles/PubNub.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  SONAME = libPubNub.so
+  SONAME_FLAG = -Wl,-soname,
+  TARGET_FILE = ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libPubNub.so
+  TARGET_PDB = PubNub.so.dbg
+# =============================================================================
+# Object build statements for SHARED_LIBRARY target MessagingService
+
+build CMakeFiles/MessagingService.dir/src/main/cpp/messaging_bridge.cpp.o: CXX_COMPILER__MessagingService ../../../../src/main/cpp/messaging_bridge.cpp
+  DEFINES = -DMessagingService_EXPORTS
+  DEP_FILE = CMakeFiles/MessagingService.dir/src/main/cpp/messaging_bridge.cpp.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API -Wall -std=c++11 -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/android/support/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++abi/include
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/messaging_bridge.cpp
+  OBJECT_DIR = CMakeFiles/MessagingService.dir
+  OBJECT_FILE_DIR = CMakeFiles/MessagingService.dir/src/main/cpp
+build CMakeFiles/MessagingService.dir/src/main/cpp/messenger.cpp.o: CXX_COMPILER__MessagingService ../../../../src/main/cpp/messenger.cpp
+  DEFINES = -DMessagingService_EXPORTS
+  DEP_FILE = CMakeFiles/MessagingService.dir/src/main/cpp/messenger.cpp.o.d
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API -Wall -std=c++11 -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/android/support/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++abi/include
+  IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/messenger.cpp
+  OBJECT_DIR = CMakeFiles/MessagingService.dir
+  OBJECT_FILE_DIR = CMakeFiles/MessagingService.dir/src/main/cpp
+
+# =============================================================================
+# Link build statements for SHARED_LIBRARY target MessagingService
+
+
+#############################################
+# Link the shared library ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libMessagingService.so
+
+build ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libMessagingService.so: CXX_SHARED_LIBRARY_LINKER__MessagingService CMakeFiles/MessagingService.dir/src/main/cpp/messaging_bridge.cpp.o CMakeFiles/MessagingService.dir/src/main/cpp/messenger.cpp.o | /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-21/arch-arm64/usr/lib/liblog.so
+  LANGUAGE_COMPILE_FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API -Wall -std=c++11 -O2 -DNDEBUG -O2 -DNDEBUG
+  LINK_FLAGS = -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now
+  LINK_LIBRARIES = -llog -lm "/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++/libs/arm64-v8a/libc++_shared.so"
+  OBJECT_DIR = CMakeFiles/MessagingService.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  SONAME = libMessagingService.so
+  SONAME_FLAG = -Wl,-soname,
+  TARGET_FILE = ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libMessagingService.so
+  TARGET_PDB = MessagingService.so.dbg
 
 #############################################
 # Utility command for rebuild_cache
@@ -54,8 +282,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 build CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o: CXX_COMPILER__StreamingPluginBridge ../../../../src/main/cpp/StreamingPluginBridge.cpp
   DEFINES = -DStreamingPluginBridge_EXPORTS
   DEP_FILE = CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o.d
-  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC
-  INCLUDES = -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/arm64-v8a/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API -Wall -std=c++11 -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/android/support/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++abi/include
   IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/StreamingPluginBridge.cpp
   OBJECT_DIR = CMakeFiles/StreamingPluginBridge.dir
   OBJECT_FILE_DIR = CMakeFiles/StreamingPluginBridge.dir/src/main/cpp
@@ -68,9 +296,9 @@ build CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cp
 # Link the shared library ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libStreamingPluginBridge.so
 
 build ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libStreamingPluginBridge.so: CXX_SHARED_LIBRARY_LINKER__StreamingPluginBridge CMakeFiles/StreamingPluginBridge.dir/src/main/cpp/StreamingPluginBridge.cpp.o | /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-21/arch-arm64/usr/lib/liblog.so
-  LANGUAGE_COMPILE_FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O2 -DNDEBUG -O2 -DNDEBUG
+  LANGUAGE_COMPILE_FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API -Wall -std=c++11 -O2 -DNDEBUG -O2 -DNDEBUG
   LINK_FLAGS = -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now
-  LINK_LIBRARIES = -llog -lm "/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/arm64-v8a/libgnustl_static.a"
+  LINK_LIBRARIES = -llog -lm "/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++/libs/arm64-v8a/libc++_shared.so"
   OBJECT_DIR = CMakeFiles/StreamingPluginBridge.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -84,8 +312,8 @@ build ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libStreamingPl
 build CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o: CXX_COMPILER__native-lib ../../../../src/main/cpp/native-lib.cpp
   DEFINES = -Dnative_lib_EXPORTS
   DEP_FILE = CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o.d
-  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC
-  INCLUDES = -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/arm64-v8a/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/include/backward
+  FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API -Wall -std=c++11 -O2 -DNDEBUG -O2 -DNDEBUG  -fPIC   -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API
+  INCLUDES = -I../../../../src/main/cpp/include -I../../../../src/main/cpp/c-core/cpp -I../../../../src/main/cpp/c-core/posix -I../../../../src/main/cpp/c-core/core -I../../../../src/main/cpp/c-core/lib/base64 -I../../../../src/main/cpp/c-core/lib/sockets -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/android/support/include -isystem /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++abi/include
   IN_ABS = /Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app/src/main/cpp/native-lib.cpp
   OBJECT_DIR = CMakeFiles/native-lib.dir
   OBJECT_FILE_DIR = CMakeFiles/native-lib.dir/src/main/cpp
@@ -98,9 +326,9 @@ build CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o: CXX_COMPILER__nat
 # Link the shared library ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so
 
 build ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so: CXX_SHARED_LIBRARY_LINKER__native-lib CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o | /Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-21/arch-arm64/usr/lib/liblog.so
-  LANGUAGE_COMPILE_FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti  -O2 -DNDEBUG -O2 -DNDEBUG
+  LANGUAGE_COMPILE_FLAGS = -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -Wa,--noexecstack -Wformat -Werror=format-security -fno-exceptions -fno-rtti -std=c++11 -fexceptions -D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API -Wall -std=c++11 -O2 -DNDEBUG -O2 -DNDEBUG
   LINK_FLAGS = -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now -Wl,--build-id -Wl,--warn-shared-textrel -Wl,--fatal-warnings -Wl,--no-undefined -Wl,-z,noexecstack -Qunused-arguments -Wl,-z,relro -Wl,-z,now
-  LINK_LIBRARIES = -llog -lm "/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/gnu-libstdc++/4.9/libs/arm64-v8a/libgnustl_static.a"
+  LINK_LIBRARIES = -llog -lm "/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/sources/cxx-stl/llvm-libc++/libs/arm64-v8a/libc++_shared.so"
   OBJECT_DIR = CMakeFiles/native-lib.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -111,7 +339,11 @@ build ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.
 # =============================================================================
 # Target aliases.
 
+build MessagingService: phony ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libMessagingService.so
+build PubNub: phony ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libPubNub.so
 build StreamingPluginBridge: phony ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libStreamingPluginBridge.so
+build libMessagingService.so: phony ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libMessagingService.so
+build libPubNub.so: phony ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libPubNub.so
 build libStreamingPluginBridge.so: phony ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libStreamingPluginBridge.so
 build libnative-lib.so: phony ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so
 build native-lib: phony ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so
@@ -126,7 +358,7 @@ build native-lib: phony ../../../../build/intermediates/cmake/release/obj/arm64-
 #############################################
 # The main all target.
 
-build all: phony ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libStreamingPluginBridge.so ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so
+build all: phony ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libPubNub.so ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libMessagingService.so ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libStreamingPluginBridge.so ../../../../build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so
 
 #############################################
 # Make the all target the default.
