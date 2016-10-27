@@ -101,7 +101,7 @@ public class MainActivity extends BaseActivity
         startStreaming(plugin, new QBSessionCallback() {
             @Override
             public void onSuccess() {
-                Log.d (TAG, "streaming started");cd C
+                Log.d (TAG, "streaming started");
             }
 
             @Override
