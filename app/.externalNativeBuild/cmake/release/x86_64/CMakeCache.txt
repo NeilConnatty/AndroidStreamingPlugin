@@ -43,7 +43,7 @@ CMAKE_AR:FILEPATH=/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle
 CMAKE_BUILD_TYPE:STRING=Release
 
 //Flags used by the compiler during all build types.
-CMAKE_CXX_FLAGS:STRING=-D PUBNUB_THREADSAFE -D PUBNUB_CALLBACK_API -Wall -std=c++11
+CMAKE_CXX_FLAGS:STRING=-Wall -std=c++11 -v
 
 //Flags used by the compiler during debug builds.
 CMAKE_CXX_FLAGS_DEBUG:STRING=
@@ -198,17 +198,11 @@ Project_BINARY_DIR:STATIC=/Users/neilconnatty/AndroidStudioProjects/StreamingPlu
 //Value Computed by CMake
 Project_SOURCE_DIR:STATIC=/Users/neilconnatty/AndroidStudioProjects/StreamingPlugin/app
 
-//Dependencies for target
-PubNub_LIB_DEPENDS:STATIC=
-
 //Dependencies for the target
 StreamingPluginBridge_LIB_DEPENDS:STATIC=general;/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-21/arch-x86_64/usr/lib64/liblog.so;
 
 //Path to a library.
 log-lib:FILEPATH=/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-21/arch-x86_64/usr/lib64/liblog.so
-
-//Dependencies for the target
-native-lib_LIB_DEPENDS:STATIC=general;/Users/neilconnatty/AndroidTools/android-sdk-macosx/ndk-bundle/platforms/android-21/arch-x86_64/usr/lib64/liblog.so;
 
 
 ########################

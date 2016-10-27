@@ -33,11 +33,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
-                cppFlags.addAll(['-D PUBNUB_THREADSAFE', "-D PUBNUB_CALLBACK_API", '-Wall', '-std=c++11'])
+                cppFlags '-Wall', '-std=c++11', '-v'
                 arguments "-DANDROID_TOOLCHAIN=clang"
                 arguments "-DANDROID_STL=c++_shared"
                 arguments "-DANDROID_CPP_FEATURES=exceptions"
                 arguments "-DANDROID_ALLOW_UNDEFINED_SYMBOLS=false"
+                //abiFilters 'armeabi-v7a'
             }
         }
     }

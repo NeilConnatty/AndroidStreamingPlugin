@@ -93,20 +93,21 @@ public class MainActivity extends BaseActivity
             }
         });
 
+        if (initializeMessenger() == 1) {
+            Log.e (TAG, "Native test: " + retrieveNewMessage());
+        }
+
         StreamingPlugin plugin = new StreamingPlugin (this, false);
         startStreaming(plugin, new QBSessionCallback() {
             @Override
             public void onSuccess() {
-                Log.d (TAG, "streaming started, starting messaging");
-                startMessagingService();
+                Log.d (TAG, "streaming started");cd C
             }
 
             @Override
             public void onError(QBResponseException error) {
             }
         });
-
-        Log.e (TAG, "Native test: " + retrieveNewMessage());
     }
 
     @Override
@@ -204,7 +205,7 @@ public class MainActivity extends BaseActivity
 
     private void startMessagingService ()
     {
-        if (initializeMessenger()) {
+        if (initializeMessenger() == 1) {
             Handler handler = new Handler();
             TimerCallback callback = new TimerCallback() {
                 @Override
@@ -394,7 +395,7 @@ public class MainActivity extends BaseActivity
 
     /********** Native Methods **********/
 
-    private native Boolean initializeMessenger ();
+    private native int initializeMessenger ();
     private native String retrieveNewMessage ();
     private native void stopMessenger ();
 

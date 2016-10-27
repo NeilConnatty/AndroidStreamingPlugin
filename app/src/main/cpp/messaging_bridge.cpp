@@ -13,23 +13,23 @@ messaging::messenger* messenger = 0;
 extern "C"
 {
     /** return false on unsuccessful initialize */
-    jboolean Java_com_bcch_neilconnatty_streamingplugin_activities_MainActivity_initializeMessenger
+    int Java_com_bcch_neilconnatty_streamingplugin_activities_MainActivity_initializeMessenger
             (JNIEnv* env, jobject)
     {
         messenger = new messaging::messenger;
         if (messenger == 0) {
             __android_log_print(ANDROID_LOG_ERROR, "messaging_bridge", "error creating messenger");
-            return (jboolean) false;
+            return 0;
         }
 
         context = messenger->start_messenger();
         if (context == 0) {
             __android_log_print(ANDROID_LOG_ERROR, "messaging_bridge", "error creating context");
             delete messenger;
-            return (jboolean) false;
+            return  0;
         }
 
-        return (jboolean) true;
+        return 1;
     }
 
     /** return empty string on no new messages or on error */
