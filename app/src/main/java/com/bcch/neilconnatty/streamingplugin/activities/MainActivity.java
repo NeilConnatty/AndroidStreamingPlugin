@@ -3,12 +3,9 @@ package com.bcch.neilconnatty.streamingplugin.activities;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -26,6 +23,7 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.BitmapWorkerTask;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ContentRetriever;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ImageDetailFragment;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
+import com.bcch.neilconnatty.streamingplugin.messaging.Messenger;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
 import com.crashlytics.android.Crashlytics;
@@ -38,7 +36,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -58,12 +55,11 @@ public class MainActivity extends BaseActivity
     private TextView _timerText;
     private Timer _timer;
     private Bitmap[] bitmaps;
+    private Messenger _messenger;
+
+    final private Handler _messageHandler = new Handler();
 
     private ZoomAnimator _zoomAnimator = null;
-
-    static {
-        System.loadLibrary("MessagingService");
-    }
 
     /** A static dataset to back the ViewPager adapter */
     public final static Integer[] imageResIds = new Integer[] {
@@ -93,9 +89,8 @@ public class MainActivity extends BaseActivity
             }
         });
 
-        if (initializeMessenger() == 1) {
-            Log.e (TAG, "Native test: " + retrieveNewMessage());
-        }
+        _messenger = new Messenger(_messageHandler);
+        startMessagingService();
 
         StreamingPlugin plugin = new StreamingPlugin (this, false);
         startStreaming(plugin, new QBSessionCallback() {
@@ -115,7 +110,7 @@ public class MainActivity extends BaseActivity
     {
         super.onDestroy();
         _timer.cancel();
-        stopMessenger();
+        _messenger.stopMessenger();
     }
 
 
@@ -205,15 +200,8 @@ public class MainActivity extends BaseActivity
 
     private void startMessagingService ()
     {
-        if (initializeMessenger() == 1) {
-            Handler handler = new Handler();
-            TimerCallback callback = new TimerCallback() {
-                @Override
-                public void onTimerTick() {
-                    Log.d(TAG, retrieveNewMessage());
-                }
-            };
-            new TimerHelper().createTimer(handler, callback, 10000);
+        if (_messenger.initializeMessenger() == 1) {
+            Log.d(TAG, "Messaging service started");
         } else {
             Log.e(TAG, "error starting messaging service");
         }
@@ -391,12 +379,5 @@ public class MainActivity extends BaseActivity
             return ImageDetailFragment.newInstance(position);
         }
     }
-
-
-    /********** Native Methods **********/
-
-    private native int initializeMessenger ();
-    private native String retrieveNewMessage ();
-    private native void stopMessenger ();
 
 }
