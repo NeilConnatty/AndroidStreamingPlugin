@@ -26,6 +26,7 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
 import com.bcch.neilconnatty.streamingplugin.messaging.Messenger;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
+import com.bcch.neilconnatty.streamingplugin.timer.TimerUICallback;
 import com.crashlytics.android.Crashlytics;
 import com.quickblox.content.model.QBFile;
 import com.quickblox.core.QBEntityCallback;
@@ -80,14 +81,7 @@ public class MainActivity extends BaseActivity
         setViewReferences();
 
         _timerText = (TextView) findViewById(R.id.timer);
-        Handler _timerHandler = new Handler();
-        _timer = initChronometer(_timerHandler, new TimerCallback() {
-            @Override
-            public void onTimerTick() {
-                String time = getCurrentTime();
-                _timerText.setText(time);
-            }
-        });
+        _timer = initChronometer(new Handler(), new TimerUICallback(_timerText));
 
         _messenger = new Messenger(_messageHandler);
         startMessagingService();
@@ -210,17 +204,6 @@ public class MainActivity extends BaseActivity
     private Timer initChronometer (Handler handler, TimerCallback callback)
     {
         return new TimerHelper().createTimer(handler, callback, 0, 1000);
-    }
-
-    private String getCurrentTime ()
-    {
-        Calendar c = Calendar.getInstance();
-        String hour = String.valueOf(c.get(Calendar.HOUR));
-        String min  = String.valueOf(c.get(Calendar.MINUTE));
-        String sec  = String.valueOf(c.get(Calendar.SECOND));
-        if (min.length() == 1) min = "0"+min;
-        if (sec.length() == 1) sec = "0"+sec;
-        return hour+":"+min+":"+sec;
     }
 
     @Override
