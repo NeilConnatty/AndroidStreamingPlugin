@@ -9,7 +9,8 @@
 
 extern "C"
 {
-    pubnub::context* context = 0;
+    pubnub::context* msg_context = 0;
+    pubnub::context* input_context = 0;
     messaging::messenger* messenger = 0;
     jobject j_messenger;
     jmethodID j_method;
@@ -33,13 +34,35 @@ extern "C"
         java_vm->DetachCurrentThread();
     }
 
+    void send_input_to_activity (const char* str)
+    {
+        JNIEnv* jni_env = 0;
+        java_vm->AttachCurrentThread(&jni_env, 0);
+
+        jclass messenger_cls = jni_env->GetObjectClass(j_messenger);
+        j_method = jni_env->GetMethodID(messenger_cls, "receiveInput", "(Ljava/lang/String;)V");
+        jni_env->CallVoidMethod(j_messenger, j_method, jni_env->NewStringUTF(str));
+
+        java_vm->DetachCurrentThread();
+    }
+
     void on_subscribe (pubnub::context &pb, pubnub_res res)
     {
         if (PNR_OK == res) {
             send_message_to_activity(pb.get().c_str());
-            messenger->get_latest_message(&pb, on_subscribe);
+            messenger->subscribe_to_messages(&pb, on_subscribe);
         } else {
             __android_log_print(ANDROID_LOG_ERROR, "on_subscribe", "error subscribing, error code %d", res);
+        }
+    }
+
+    void on_input (pubnub::context &pb, pubnub_res res)
+    {
+        if (PNR_OK == res) {
+            send_input_to_activity(pb.get().c_str());
+            messenger->subscribe_to_input(&pb, on_input);
+        } else {
+            __android_log_print(ANDROID_LOG_ERROR, "on_input", "error subscribing, error code %d", res);
         }
     }
 
@@ -54,14 +77,27 @@ extern "C"
             return 0;
         }
 
-        context = messenger->start_messenger();
-        if (context == 0) {
-            __android_log_print(ANDROID_LOG_ERROR, "messaging_bridge", "error creating context");
+        msg_context = messenger->start_messenger();
+        if (msg_context == 0) {
+            __android_log_print(ANDROID_LOG_ERROR, "messaging_bridge", "error creating messaging context");
             delete messenger;
             return  0;
         }
+
+        input_context = messenger->start_input();
+        if (input_context == 0) {
+            __android_log_print(ANDROID_LOG_ERROR, "messaging_bridge",
+                                "error creating input context");
+            delete messenger;
+            delete msg_context;
+            return 0;
+        }
+
         __android_log_print(ANDROID_LOG_DEBUG, "messaging_bridge", "starting message loop");
-        messenger->get_latest_message(context, on_subscribe);
+        messenger->subscribe_to_messages(msg_context, on_subscribe);
+        __android_log_print(ANDROID_LOG_DEBUG, "messaging_bridge", "starting input loop");
+        messenger->subscribe_to_input(input_context, on_input);
+
         return 1;
     }
 
@@ -69,6 +105,6 @@ extern "C"
             (JNIEnv* env, jobject)
     {
         delete messenger;
-        delete context;
+        delete msg_context;
     }
 }

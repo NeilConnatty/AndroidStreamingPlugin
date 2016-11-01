@@ -55,3 +55,6 @@
 973	1117	0	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libMessagingService.so	eb6e109997ee8662
 2	1083	0	CMakeFiles/MessagingService.dir/src/main/cpp/messenger.cpp.o	8b146d627cf59272
 1084	1197	0	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libMessagingService.so	eb6e109997ee8662
+2	935	0	CMakeFiles/MessagingService.dir/src/main/cpp/messenger.cpp.o	8b146d627cf59272
+2	950	0	CMakeFiles/MessagingService.dir/src/main/cpp/messaging_bridge.cpp.o	adb7e36bb45cdeda
+951	1085	0	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libMessagingService.so	eb6e109997ee8662

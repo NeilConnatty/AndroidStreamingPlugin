@@ -1,6 +1,7 @@
 package com.bcch.neilconnatty.streamingplugin.messaging;
 
 import android.os.Handler;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -8,6 +9,8 @@ import android.widget.TextView;
  */
 
 public class Messenger {
+
+    private final String TAG = Messenger.class.getSimpleName();
 
     private Handler _handler;
     private TextView _textView;
@@ -25,6 +28,11 @@ public class Messenger {
     public void displayMessage (String msg)
     {
         _handler.post(new MessageUIUpdater(msg, _textView, _handler));
+    }
+
+    public void receiveInput (String input)
+    {
+        Log.d(TAG, "Received input: " + input);
     }
 
     /********** Native Methods **********/

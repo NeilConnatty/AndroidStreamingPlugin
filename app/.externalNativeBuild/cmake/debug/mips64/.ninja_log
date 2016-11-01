@@ -55,3 +55,6 @@
 1375	1564	0	../../../../build/intermediates/cmake/debug/obj/mips64/libMessagingService.so	e1e43d915d7e3a1e
 2	1290	0	CMakeFiles/MessagingService.dir/src/main/cpp/messenger.cpp.o	5a73b204f1990273
 1290	1469	0	../../../../build/intermediates/cmake/debug/obj/mips64/libMessagingService.so	e1e43d915d7e3a1e
+2	1370	0	CMakeFiles/MessagingService.dir/src/main/cpp/messaging_bridge.cpp.o	a961f83027582440
+2	1370	0	CMakeFiles/MessagingService.dir/src/main/cpp/messenger.cpp.o	5a73b204f1990273
+1371	1556	0	../../../../build/intermediates/cmake/debug/obj/mips64/libMessagingService.so	e1e43d915d7e3a1e

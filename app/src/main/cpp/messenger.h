@@ -15,8 +15,13 @@ namespace messaging
     public:
         /** returns null on unsuccessful start */
         pubnub::context* start_messenger ();
+        /** returns null on unsuccessful start */
+        pubnub::context* start_input ();
         /** returns empty string if no message */
-        void get_latest_message (pubnub::context *pb, std::function<void(pubnub::context &, pubnub_res)> callback);
+        void subscribe_to_messages (pubnub::context *pb,
+                                   std::function<void(pubnub::context &, pubnub_res)> callback);
+        void subscribe_to_input (pubnub::context *pb,
+                                 std::function<void(pubnub::context &, pubnub_res)> callback);
     };
 }
 

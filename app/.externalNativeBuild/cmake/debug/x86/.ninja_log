@@ -55,3 +55,6 @@
 952	1066	0	../../../../build/intermediates/cmake/debug/obj/x86/libMessagingService.so	28757243d7845ac6
 2	944	0	CMakeFiles/MessagingService.dir/src/main/cpp/messenger.cpp.o	6bd2b07be59ab9e9
 944	1072	0	../../../../build/intermediates/cmake/debug/obj/x86/libMessagingService.so	28757243d7845ac6
+1	909	0	CMakeFiles/MessagingService.dir/src/main/cpp/messenger.cpp.o	6bd2b07be59ab9e9
+1	937	0	CMakeFiles/MessagingService.dir/src/main/cpp/messaging_bridge.cpp.o	f200ed6e984435d7
+938	1064	0	../../../../build/intermediates/cmake/debug/obj/x86/libMessagingService.so	28757243d7845ac6
