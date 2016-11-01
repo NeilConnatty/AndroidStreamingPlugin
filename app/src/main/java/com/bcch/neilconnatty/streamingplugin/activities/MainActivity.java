@@ -83,7 +83,8 @@ public class MainActivity extends BaseActivity
         _timerText = (TextView) findViewById(R.id.timer);
         _timer = initChronometer(new Handler(), new TimerUICallback(_timerText));
 
-        _messenger = new Messenger(_messageHandler);
+        TextView notificationText = (TextView) findViewById(R.id.notification);
+        _messenger = new Messenger(_messageHandler, notificationText);
         startMessagingService();
 
         StreamingPlugin plugin = new StreamingPlugin (this, false);

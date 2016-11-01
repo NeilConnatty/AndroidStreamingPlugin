@@ -11,7 +11,6 @@
 #define SUBSCRIBE_KEY "sub-c-3dc063c8-9bc0-11e6-814f-0619f8945a4f"
 #define CHANNEL "bcch"
 
-using namespace pubnub;
 using namespace messaging;
 
 pubnub::context* messenger::start_messenger()
