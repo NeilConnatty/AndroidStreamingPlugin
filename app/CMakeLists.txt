@@ -4,8 +4,7 @@ set (CPP src/main/cpp)
 
 set(MESSAGING_FILES
     ${CPP}/messaging_bridge.cpp
-    ${CPP}/messenger.cpp
-    ${CPP}/message_formatting_helper.cpp )
+    ${CPP}/messenger.cpp )
 
 set (PUBNUB_FILES
         ${CPP}/c-core/cpp/pubnub.hpp
@@ -54,11 +53,6 @@ add_library (MessagingService
              ${PUBNUB_FILES}
              ${CALLBACK_FILES})
 
-#add_library (PubNub
- #            SHARED
-  #           ${PUBNUB_FILES}
-   #          ${CALLBACK_FILES})
-
 add_definitions (
         -D PUBNUB_THREADSAFE
         -D PUBNUB_CALLBACK_API
@@ -81,5 +75,3 @@ find_library( # Sets the name of the path variable.
 target_link_libraries (StreamingPluginBridge ${log-lib})
 
 target_link_libraries (MessagingService ${log-lib})
-
-#target_link_libraries (MessagingService ${PubNub})

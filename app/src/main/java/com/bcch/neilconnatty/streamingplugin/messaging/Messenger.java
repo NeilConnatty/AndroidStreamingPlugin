@@ -1,8 +1,10 @@
 package com.bcch.neilconnatty.streamingplugin.messaging;
 
 import android.os.Handler;
-import android.util.Log;
 import android.widget.TextView;
+
+import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInputCallbackListener;
+import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInputHandle;
 
 /**
  * Created by neilconnatty on 2016-10-31.
@@ -14,15 +16,17 @@ public class Messenger {
 
     private Handler _handler;
     private TextView _textView;
+    private RemoteInputCallbackListener _listener;
 
     static {
         System.loadLibrary("MessagingService");
     }
 
-    public Messenger (Handler handler, TextView textView)
+    public Messenger (Handler handler, TextView textView, RemoteInputCallbackListener listener)
     {
         _handler = handler;
         _textView = textView;
+        _listener = listener;
     }
 
     public void displayMessage (String msg)
@@ -32,7 +36,7 @@ public class Messenger {
 
     public void receiveInput (String input)
     {
-        Log.d(TAG, "Received input: " + input);
+        _handler.post(new RemoteInputHandle(input, _listener));
     }
 
     /********** Native Methods **********/

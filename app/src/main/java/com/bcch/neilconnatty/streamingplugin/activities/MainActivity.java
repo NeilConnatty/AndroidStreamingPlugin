@@ -24,6 +24,8 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.ContentRetriever;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ImageDetailFragment;
 import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
 import com.bcch.neilconnatty.streamingplugin.messaging.Messenger;
+import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInput;
+import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInputCallbackListener;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerUICallback;
@@ -35,7 +37,6 @@ import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Timer;
 
 import io.fabric.sdk.android.Fabric;
@@ -84,7 +85,25 @@ public class MainActivity extends BaseActivity
         _timer = initChronometer(new Handler(), new TimerUICallback(_timerText));
 
         TextView notificationText = (TextView) findViewById(R.id.notification);
-        _messenger = new Messenger(_messageHandler, notificationText);
+        _messenger = new Messenger(_messageHandler, notificationText, new RemoteInputCallbackListener() {
+            @Override
+            public void receiveInput(RemoteInput input) {
+                switch (input) {
+                    case ZOOM_IMAGE:
+                        handleZoom();
+                        break;
+                    case SHOW_IMAGE:
+                        handleShowImage();
+                        break;
+                    case HIDE_IMAGE:
+                        handleShowImage();
+                        break;
+                    case RELOAD_IMAGE:
+                        handleReloadImages();
+                        break;
+                }
+            }
+        });
         startMessagingService();
 
         StreamingPlugin plugin = new StreamingPlugin (this, false);
@@ -161,12 +180,7 @@ public class MainActivity extends BaseActivity
 
             case KeyEvent.KEYCODE_BACK:
                 Log.d(TAG, "KEYCODE_BACK");
-                if (mAdapter == null) {
-                    initImageAdapter();
-                    _imageViewOn = true;
-                } else {
-                    handleHideImage();
-                }
+                handleShowImage();
                 return true;
         }
         return false;
@@ -296,6 +310,16 @@ public class MainActivity extends BaseActivity
         else {
             mPager.setVisibility(View.VISIBLE);
             _imageViewOn = true;
+        }
+    }
+
+
+    private void handleShowImage() {
+        if (mAdapter == null) {
+            initImageAdapter();
+            _imageViewOn = true;
+        } else {
+            handleHideImage();
         }
     }
 
