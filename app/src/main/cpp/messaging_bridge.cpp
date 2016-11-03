@@ -53,6 +53,7 @@ extern "C"
             messenger->subscribe_to_messages(&pb, on_subscribe);
         } else {
             __android_log_print(ANDROID_LOG_ERROR, "on_subscribe", "error subscribing, error code %d", res);
+            messenger->subscribe_to_messages(&pb, on_subscribe);
         }
     }
 
@@ -63,6 +64,7 @@ extern "C"
             messenger->subscribe_to_input(&pb, on_input);
         } else {
             __android_log_print(ANDROID_LOG_ERROR, "on_input", "error subscribing, error code %d", res);
+            messenger->subscribe_to_input(&pb, on_input);
         }
     }
 

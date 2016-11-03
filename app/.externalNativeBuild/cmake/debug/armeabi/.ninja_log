@@ -27,3 +27,9 @@
 1	1953	0	CMakeFiles/MessagingService.dir/src/main/cpp/messenger.cpp.o	a28f50a17322038c
 1	1991	0	CMakeFiles/MessagingService.dir/src/main/cpp/messaging_bridge.cpp.o	c0e951cae32d27ab
 1991	2054	0	../../../../build/intermediates/cmake/debug/obj/armeabi/libMessagingService.so	bdbc6055e85fc8d5
+1	958	0	CMakeFiles/MessagingService.dir/src/main/cpp/messaging_bridge.cpp.o	c0e951cae32d27ab
+958	1035	0	../../../../build/intermediates/cmake/debug/obj/armeabi/libMessagingService.so	bdbc6055e85fc8d5
+1	994	0	CMakeFiles/MessagingService.dir/src/main/cpp/messaging_bridge.cpp.o	c0e951cae32d27ab
+994	1078	0	../../../../build/intermediates/cmake/debug/obj/armeabi/libMessagingService.so	bdbc6055e85fc8d5
+1	1006	0	CMakeFiles/MessagingService.dir/src/main/cpp/messaging_bridge.cpp.o	c0e951cae32d27ab
+1007	1086	0	../../../../build/intermediates/cmake/debug/obj/armeabi/libMessagingService.so	bdbc6055e85fc8d5

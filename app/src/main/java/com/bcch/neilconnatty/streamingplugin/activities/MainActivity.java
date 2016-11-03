@@ -169,7 +169,7 @@ public class MainActivity extends BaseActivity
     {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_CENTER:
-                if (!_imageViewOn) return true;
+                Log.d(TAG, "KEYCODE_DPAD_CENTER");
                 handleZoom();
                 return true;
 
@@ -276,6 +276,7 @@ public class MainActivity extends BaseActivity
 
     private void handleZoom ()
     {
+        if (!_imageViewOn) return;
         if (_zoomAnimator == null) {
             _zoomAnimator = new ZoomAnimator(this);
             // if there is a current bitmap saved, zoom image with it. Else download new bitmap
