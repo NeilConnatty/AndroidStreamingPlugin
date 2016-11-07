@@ -1,11 +1,16 @@
 package com.bcch.neilconnatty.streamingplugin.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -26,6 +31,7 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
 import com.bcch.neilconnatty.streamingplugin.messaging.Messenger;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInput;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInputCallbackListener;
+import com.bcch.neilconnatty.streamingplugin.screenshot.PhotoUploader;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerUICallback;
@@ -35,8 +41,12 @@ import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 
 import io.fabric.sdk.android.Fabric;
@@ -49,6 +59,8 @@ public class MainActivity extends BaseActivity
 {
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     private ImagePagerAdapter mAdapter = null;
     private ViewPager mPager;
     private ImageView mImageView;
@@ -58,6 +70,7 @@ public class MainActivity extends BaseActivity
     private Timer _timer;
     private Bitmap[] bitmaps;
     private Messenger _messenger;
+    private String _currentPhotoPath;
 
     final private Handler _messageHandler = new Handler();
 
@@ -125,6 +138,13 @@ public class MainActivity extends BaseActivity
         super.onDestroy();
         _timer.cancel();
         _messenger.stopMessenger();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            PhotoUploader.updateFile(new File(_currentPhotoPath));
+        }
     }
 
 
@@ -364,6 +384,47 @@ public class MainActivity extends BaseActivity
 
             }
         });
+    }
+
+    private File createImageFile () throws IOException
+    {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        _currentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+
+    private void dispatchTakePictureIntent ()
+    {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                Log.e(TAG, "error creating file: " + ex);
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.bcch.neilconnatty.streamingplugin.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
     }
 
     /*********** Local Classes **********/
