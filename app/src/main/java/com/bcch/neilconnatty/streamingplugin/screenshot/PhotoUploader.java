@@ -35,7 +35,7 @@ public class PhotoUploader
 
     public static void updateFile (File file)
     {
-        QBContent.updateFileTask(file, 6060580, "bcch", new QBEntityCallback<QBFile>() {
+        QBContent.updateFileTask(file, 6304083, "bcch", new QBEntityCallback<QBFile>() {
             @Override
             public void onSuccess(QBFile qbFile, Bundle bundle) {
                 Log.d(TAG, "file update success");
