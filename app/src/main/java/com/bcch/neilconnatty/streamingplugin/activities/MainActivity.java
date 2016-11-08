@@ -72,7 +72,6 @@ public class MainActivity extends BaseActivity
     private Timer _timer;
     private Bitmap[] bitmaps;
     private Messenger _messenger;
-    private String _currentPhotoPath;
 
     final private Handler _messageHandler = new Handler();
 
@@ -398,8 +397,6 @@ public class MainActivity extends BaseActivity
                 storageDir      /* directory */
         );
 
-        // Save a file: path for use with ACTION_VIEW intents
-        _currentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
 
@@ -450,23 +447,38 @@ public class MainActivity extends BaseActivity
         private final String TAG = PhotoTakerCallback.class.getSimpleName();
 
         @Override
-        public void onCameraNotOpened() {
+        public void onCameraNotOpened(File file) {
             Log.e(this.TAG, "camera not opened");
+            file.delete();
         }
 
         @Override
-        public void onIllegalFilePath(FileNotFoundException e) {
+        public void onIllegalFilePath(FileNotFoundException e, File file) {
             Log.e(this.TAG, "file not found: " + e.toString());
+            file.delete();
         }
 
         @Override
         public void onBitmapNotCompressedToFile(File file) {
             Log.e(this.TAG, "bitmap not compressed to file: " + file.toString());
+            file.delete();
         }
 
         @Override
-        public void onPhotoTaken(File file) {
-            PhotoUploader.updateFile(file);
+        public void onPhotoTaken(final File file) {
+            PhotoUploader.updateFile(file, new QBEntityCallback<QBFile>() {
+                @Override
+                public void onSuccess(QBFile qbFile, Bundle bundle) {
+                    Log.d(TAG, "File upload success");
+                    file.delete();
+                }
+
+                @Override
+                public void onError(QBResponseException e) {
+                    Log.e(TAG, "File upload error: " + e.toString());
+                    file.delete();
+                }
+            });
         }
     }
 

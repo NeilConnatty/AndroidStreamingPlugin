@@ -61,7 +61,7 @@ public class PhotoTaker implements Runnable
                             _callback.onBitmapNotCompressedToFile(_file);
                         }
                     } catch (FileNotFoundException e) {
-                        _callback.onIllegalFilePath(e);
+                        _callback.onIllegalFilePath(e, _file);
                     }
                     try {
                         if (ioStream != null) ioStream.close();
@@ -73,7 +73,7 @@ public class PhotoTaker implements Runnable
                 }
             });
         } else {
-            _callback.onCameraNotOpened();
+            _callback.onCameraNotOpened(_file);
         }
     }
 
@@ -91,8 +91,8 @@ public class PhotoTaker implements Runnable
 
     public interface PhotoCallback
     {
-        void onCameraNotOpened ();
-        void onIllegalFilePath (FileNotFoundException e);
+        void onCameraNotOpened (File file);
+        void onIllegalFilePath (FileNotFoundException e, File file);
         void onBitmapNotCompressedToFile (File file);
         void onPhotoTaken (File file);
     }

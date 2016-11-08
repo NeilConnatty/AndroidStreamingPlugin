@@ -18,34 +18,13 @@ public class PhotoUploader
 {
     private static final String TAG = PhotoUploader.class.getSimpleName();
 
-    public static void uploadNewFile (File file)
+    public static void uploadNewFile (final File file, QBEntityCallback<QBFile> callback)
     {
-        QBContent.uploadFileTask(file, true, "bcch", new QBEntityCallback<QBFile>() {
-            @Override
-            public void onSuccess(QBFile qbFile, Bundle bundle) {
-                Log.d(TAG, "file upload success");
-            }
-
-            @Override
-            public void onError(QBResponseException e) {
-                Log.e(TAG, "file upload error: " + e.toString());
-            }
-        });
+        QBContent.uploadFileTask(file, true, "bcch", callback);
     }
 
-    public static void updateFile (File file)
+    public static void updateFile (final File file, QBEntityCallback<QBFile> callback)
     {
-        QBContent.updateFileTask(file, 6304083, "bcch", new QBEntityCallback<QBFile>() {
-            @Override
-            public void onSuccess(QBFile qbFile, Bundle bundle) {
-                Log.d(TAG, "file update success");
-            }
-
-            @Override
-            public void onError(QBResponseException e) {
-                Log.e(TAG, "File update error: " + e.toString());
-            }
-        });
+        QBContent.updateFileTask(file, 6304083, "bcch", callback);
     }
-
 }
