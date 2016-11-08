@@ -25,6 +25,8 @@ public class RemoteInputHandle implements Runnable
             _listener.receiveInput(RemoteInput.RELOAD_IMAGE);
         } else if (_input.contains("hide image")) {
             _listener.receiveInput(RemoteInput.HIDE_IMAGE);
+        } else if (_input.contains("upload image")) {
+            _listener.receiveInput(RemoteInput.UPLOAD_IMAGE);
         }
     }
 }

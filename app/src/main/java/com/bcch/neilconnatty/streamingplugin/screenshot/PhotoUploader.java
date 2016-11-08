@@ -28,7 +28,7 @@ public class PhotoUploader
 
             @Override
             public void onError(QBResponseException e) {
-                Log.e(TAG, "file upload error: " + e);
+                Log.e(TAG, "file upload error: " + e.toString());
             }
         });
     }
@@ -43,7 +43,7 @@ public class PhotoUploader
 
             @Override
             public void onError(QBResponseException e) {
-                Log.e(TAG, "File update error: " + e);
+                Log.e(TAG, "File update error: " + e.toString());
             }
         });
     }

@@ -31,6 +31,7 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
 import com.bcch.neilconnatty.streamingplugin.messaging.Messenger;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInput;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInputCallbackListener;
+import com.bcch.neilconnatty.streamingplugin.screenshot.PhotoTaker;
 import com.bcch.neilconnatty.streamingplugin.screenshot.PhotoUploader;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
@@ -42,6 +43,7 @@ import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -114,6 +116,10 @@ public class MainActivity extends BaseActivity
                     case RELOAD_IMAGE:
                         handleReloadImages();
                         break;
+                    case UPLOAD_IMAGE:
+                        Log.d(TAG, "upload image input received");
+                        takePhoto();
+                        break;
                 }
             }
         });
@@ -138,13 +144,6 @@ public class MainActivity extends BaseActivity
         super.onDestroy();
         _timer.cancel();
         _messenger.stopMessenger();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            PhotoUploader.updateFile(new File(_currentPhotoPath));
-        }
     }
 
 
@@ -388,6 +387,7 @@ public class MainActivity extends BaseActivity
 
     private File createImageFile () throws IOException
     {
+        Log.d(TAG, "create image file called");
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
@@ -403,27 +403,21 @@ public class MainActivity extends BaseActivity
         return image;
     }
 
-    private void dispatchTakePictureIntent ()
+    private void takePhoto ()
     {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                Log.e(TAG, "error creating file: " + ex);
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.bcch.neilconnatty.streamingplugin.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException e) {
+            Log.e(TAG, "error creating file: " + e.toString());
+        }
+        // Continue only if the File was successfully created
+        if (photoFile != null) {
+            PhotoTaker photoTaker = new PhotoTaker(photoFile, new PhotoTakerCallback());
+            Thread t = new Thread(photoTaker);
+            t.start();
+        } else {
+            Log.d(TAG, "photo file == null");
         }
     }
 
@@ -447,6 +441,32 @@ public class MainActivity extends BaseActivity
         @Override
         public Fragment getItem (int position) {
             return ImageDetailFragment.newInstance(position);
+        }
+    }
+
+    /** PhotoCallback */
+    private class PhotoTakerCallback implements PhotoTaker.PhotoCallback
+    {
+        private final String TAG = PhotoTakerCallback.class.getSimpleName();
+
+        @Override
+        public void onCameraNotOpened() {
+            Log.e(this.TAG, "camera not opened");
+        }
+
+        @Override
+        public void onIllegalFilePath(FileNotFoundException e) {
+            Log.e(this.TAG, "file not found: " + e.toString());
+        }
+
+        @Override
+        public void onBitmapNotCompressedToFile(File file) {
+            Log.e(this.TAG, "bitmap not compressed to file: " + file.toString());
+        }
+
+        @Override
+        public void onPhotoTaken(File file) {
+            PhotoUploader.updateFile(file);
         }
     }
 

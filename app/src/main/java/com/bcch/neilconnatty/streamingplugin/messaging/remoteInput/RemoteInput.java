@@ -5,5 +5,5 @@ package com.bcch.neilconnatty.streamingplugin.messaging.remoteInput;
  */
 
 public enum RemoteInput {
-    ZOOM_IMAGE, SHOW_IMAGE, HIDE_IMAGE, RELOAD_IMAGE
+    ZOOM_IMAGE, SHOW_IMAGE, HIDE_IMAGE, RELOAD_IMAGE, UPLOAD_IMAGE
 }
