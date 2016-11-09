@@ -25,6 +25,6 @@ public class PhotoUploader
 
     public static void updateFile (final File file, QBEntityCallback<QBFile> callback)
     {
-        QBContent.updateFileTask(file, 6304083, "bcch", callback);
+        QBContent.updateFileTask(file, 6316512, "bcch", callback);
     }
 }

@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity
     private ImageView mImageView;
     private int _currentPosition = 0;
     private boolean _imageViewOn = false;
+    private boolean _imageViewZoomed = false;
     private TextView _timerText;
     private Timer _timer;
     private Bitmap[] bitmaps;
@@ -107,6 +108,14 @@ public class MainActivity extends BaseActivity
                     case UPLOAD_IMAGE:
                         Log.d(TAG, "upload image input received");
                         takePhoto();
+                        break;
+                    case SCROLL_LEFT:
+                        Log.d(TAG, "scroll left input received");
+                        scrollLeft();
+                        break;
+                    case SCROLL_RIGHT:
+                        Log.d(TAG, "scroll right input received");
+                        scrollRight();
                         break;
                 }
             }
@@ -289,14 +298,15 @@ public class MainActivity extends BaseActivity
             // if there is a current bitmap saved, zoom image with it. Else download new bitmap
             if (bitmaps[_currentPosition] != null) {
                 _zoomAnimator.zoomImage(mPager, mImageView, bitmaps[_currentPosition]);
+                _imageViewZoomed = true;
             } else {
                 final ZoomAnimator animator = _zoomAnimator;
                 ContentRetriever.downloadFile(files.get(_currentPosition), new QBEntityCallback<InputStream>() {
                     @Override
                     public void onSuccess(InputStream inputStream, Bundle bundle) {
                         animator.zoomImage(mPager, mImageView, inputStream, _currentPosition);
+                        _imageViewZoomed = true;
                     }
-
                     @Override
                     public void onError(QBResponseException e) {
                         Log.e(TAG, "Error downloading file to hand stream: " + e.toString());
@@ -306,6 +316,7 @@ public class MainActivity extends BaseActivity
         } else {
             _zoomAnimator.shrinkImage(mPager, mImageView);
             _zoomAnimator = null;
+            _imageViewZoomed = false;
         }
     }
 
@@ -343,6 +354,7 @@ public class MainActivity extends BaseActivity
                 mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), files.size());
                 mPager.setAdapter(mAdapter);
                 mPager.setVisibility(View.VISIBLE);
+                _currentPosition = 0;
             }
 
             @Override
@@ -370,6 +382,18 @@ public class MainActivity extends BaseActivity
 
             }
         });
+    }
+
+    private void scrollLeft ()
+    {
+        if (!_imageViewOn || _imageViewZoomed) return;
+        mPager.arrowScroll(View.FOCUS_LEFT);
+    }
+
+    private void scrollRight ()
+    {
+        if (!_imageViewOn || _imageViewZoomed) return;
+        mPager.arrowScroll(View.FOCUS_RIGHT);
     }
 
     private void takePhoto ()
