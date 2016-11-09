@@ -2,16 +2,11 @@ package com.bcch.neilconnatty.streamingplugin.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.hardware.Camera;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,9 +27,10 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
 import com.bcch.neilconnatty.streamingplugin.messaging.Messenger;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInput;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInputCallbackListener;
-import com.bcch.neilconnatty.streamingplugin.screenshot.CameraPreview;
 import com.bcch.neilconnatty.streamingplugin.screenshot.PhotoTaker;
 import com.bcch.neilconnatty.streamingplugin.screenshot.PhotoUploader;
+import com.bcch.neilconnatty.streamingplugin.screenshot.TakePhotoService;
+import com.bcch.neilconnatty.streamingplugin.screenshot.TakePhotoTask;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerUICallback;
@@ -48,9 +44,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Timer;
 
 import io.fabric.sdk.android.Fabric;
@@ -386,43 +380,15 @@ public class MainActivity extends BaseActivity
         });
     }
 
-    private File createImageFile () throws IOException
-    {
-        Log.d(TAG, "create image file called");
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        return image;
-    }
-
     private void takePhoto ()
     {
-        try {
-            final File photoFile = createImageFile();
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                new CameraPreview(this, new CameraPreview.CameraCallback() {
-                    @Override
-                    public void onCameraSetUpComplete(Camera camera) {
-                        PhotoTaker photoTaker = new PhotoTaker(photoFile, camera, new PhotoTakerCallback());
-                        Thread t = new Thread(photoTaker);
-                        t.start();
-                    }
-                });
-            } else {
-                Log.d(TAG, "photo file == null");
-            }
-
-        } catch (IOException e) {
-            Log.e(TAG, "error creating file: " + e.toString());
-        }
+        /*
+        Log.d(TAG, "creating TakePhotoService intent");
+        Intent intent = new Intent(this, TakePhotoService.class);
+        startService(intent);
+        */
+        Log.d(TAG, "starting take photo task");
+        new TakePhotoTask(this).run();
     }
 
     /*********** Local Classes **********/
@@ -445,47 +411,6 @@ public class MainActivity extends BaseActivity
         @Override
         public Fragment getItem (int position) {
             return ImageDetailFragment.newInstance(position);
-        }
-    }
-
-    /** PhotoCallback */
-    private class PhotoTakerCallback implements PhotoTaker.PhotoCallback
-    {
-        private final String TAG = PhotoTakerCallback.class.getSimpleName();
-
-        @Override
-        public void onCameraNotOpened(File file) {
-            Log.e(this.TAG, "camera not opened");
-            file.delete();
-        }
-
-        @Override
-        public void onIllegalFilePath(FileNotFoundException e, File file) {
-            Log.e(this.TAG, "file not found: " + e.toString());
-            file.delete();
-        }
-
-        @Override
-        public void onIOError (IOException e, File file) {
-            Log.e(this.TAG, "Error in IOStream: " + e.toString());
-            file.delete();
-        }
-
-        @Override
-        public void onPhotoTaken(final File file) {
-            PhotoUploader.updateFile(file, new QBEntityCallback<QBFile>() {
-                @Override
-                public void onSuccess(QBFile qbFile, Bundle bundle) {
-                    Log.d(TAG, "File upload success");
-                    file.delete();
-                }
-
-                @Override
-                public void onError(QBResponseException e) {
-                    Log.e(TAG, "File upload error: " + e.toString());
-                    file.delete();
-                }
-            });
         }
     }
 

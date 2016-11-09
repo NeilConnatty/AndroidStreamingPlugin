@@ -20,6 +20,7 @@
         android:name="com.bcch.neilconnatty.streamingplugin.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name="com.bcch.neilconnatty.streamingplugin.App"
@@ -27,6 +28,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/DarkAppTheme.NoTitleBar">
         <activity   android:name=".activities.MainActivity">
             <intent-filter>
@@ -35,6 +37,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".screenshot.TakePhotoService" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

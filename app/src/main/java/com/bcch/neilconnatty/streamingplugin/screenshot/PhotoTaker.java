@@ -2,12 +2,7 @@ package com.bcch.neilconnatty.streamingplugin.screenshot;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
-import android.os.Handler;
-import android.util.Log;
-
-import com.bcch.neilconnatty.streamingplugin.App;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,7 +22,7 @@ public class PhotoTaker implements Runnable
     private File _file;
     private PhotoCallback _callback;
 
-    public PhotoTaker (File file, Camera camera, PhotoCallback callback)
+    PhotoTaker (File file, Camera camera, PhotoCallback callback)
     {
         _file = file;
         _callback = callback;
