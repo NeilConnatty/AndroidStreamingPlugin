@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bcch.neilconnatty.libstreamingplugin.StreamingPlugin;
@@ -55,6 +56,7 @@ public class MainActivity extends BaseActivity
     private ImagePagerAdapter mAdapter = null;
     private ViewPager mPager;
     private ImageView mImageView;
+    private boolean _viewFlipped = false;
     private int _currentPosition = 0;
     private boolean _imageViewOn = false;
     private boolean _imageViewZoomed = false;
@@ -116,6 +118,10 @@ public class MainActivity extends BaseActivity
                     case SCROLL_RIGHT:
                         Log.d(TAG, "scroll right input received");
                         scrollRight();
+                        break;
+                    case FLIP_VIEW:
+                        Log.d(TAG, "flip view input received");
+                        flipInterface();
                         break;
                 }
             }
@@ -400,6 +406,43 @@ public class MainActivity extends BaseActivity
     {
         Log.d(TAG, "starting take photo task");
         new Handler().post(new TakePhotoTask(this));
+    }
+
+    private void flipInterface ()
+    {
+        RelativeLayout.LayoutParams params;
+        if (_viewFlipped) {
+            params = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_END);
+            params.removeRule(RelativeLayout.ALIGN_PARENT_START);
+            mPager.setLayoutParams(params);
+
+            params = (RelativeLayout.LayoutParams) _timerText.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_START);
+            params.removeRule(RelativeLayout.ALIGN_PARENT_END);
+            _timerText.setLayoutParams(params);
+
+            params = (RelativeLayout.LayoutParams) localView.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_START);
+            params.removeRule(RelativeLayout.ALIGN_PARENT_END);
+            localView.setLayoutParams(params);
+        } else {
+            params = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_START);
+            params.removeRule(RelativeLayout.ALIGN_PARENT_END);
+            mPager.setLayoutParams(params);
+
+            params = (RelativeLayout.LayoutParams) _timerText.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_END);
+            params.removeRule(RelativeLayout.ALIGN_PARENT_START);
+            _timerText.setLayoutParams(params);
+
+            params = (RelativeLayout.LayoutParams) localView.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_END);
+            params.removeRule(RelativeLayout.ALIGN_PARENT_START);
+            localView.setLayoutParams(params);
+        }
+        _viewFlipped = !_viewFlipped;
     }
 
     /*********** Local Classes **********/

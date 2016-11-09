@@ -31,6 +31,8 @@ public class RemoteInputHandle implements Runnable
             _listener.receiveInput(RemoteInput.SCROLL_LEFT);
         } else if (_input.contains("scroll right")) {
             _listener.receiveInput(RemoteInput.SCROLL_RIGHT);
+        } else if (_input.contains("flip view")) {
+            _listener.receiveInput(RemoteInput.FLIP_VIEW);
         }
     }
 }
