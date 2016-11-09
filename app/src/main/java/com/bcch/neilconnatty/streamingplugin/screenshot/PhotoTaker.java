@@ -2,8 +2,12 @@ package com.bcch.neilconnatty.streamingplugin.screenshot;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.os.Handler;
 import android.util.Log;
+
+import com.bcch.neilconnatty.streamingplugin.App;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,20 +27,12 @@ public class PhotoTaker implements Runnable
     private File _file;
     private PhotoCallback _callback;
 
-    public PhotoTaker (File file, PhotoCallback callback)
+    public PhotoTaker (File file, Camera camera, PhotoCallback callback)
     {
         _file = file;
         _callback = callback;
-        _cameraOpened = false;
-
-        try {
-            releaseCamera();
-            _camera = Camera.open();
-            _cameraOpened = (_camera != null);
-        } catch (Exception e) {
-            Log.e(TAG, "failed to open camera: " + e.toString());
-            e.printStackTrace();
-        }
+        _camera = camera;
+        _cameraOpened = (_camera != null);
     }
 
     public boolean cameraOpened ()
@@ -55,21 +51,24 @@ public class PhotoTaker implements Runnable
                     FileOutputStream ioStream = null;
                     try {
                         ioStream = new FileOutputStream(_file);
+                        ioStream.write(data);
+                        ioStream.close();
+                        _callback.onPhotoTaken(_file);
+                        /*
                         if (bmp.compress(Bitmap.CompressFormat.JPEG, 100, ioStream)) {
                             _callback.onPhotoTaken(_file);
                         } else {
-                            _callback.onBitmapNotCompressedToFile(_file);
+                            _callback.onIOError(_file);
                         }
+                        */
                     } catch (FileNotFoundException e) {
                         _callback.onIllegalFilePath(e, _file);
-                    }
-                    try {
-                        if (ioStream != null) ioStream.close();
                     } catch (IOException e) {
-                        Log.e(TAG, "error closing ioStream: " + e.toString());
+                        _callback.onIOError(e, _file);
+                    } finally {
+                        bmp.recycle();
+                        releaseCamera();
                     }
-                    bmp.recycle();
-                    releaseCamera();
                 }
             });
         } else {
@@ -82,6 +81,7 @@ public class PhotoTaker implements Runnable
     private void releaseCamera ()
     {
         if (_camera != null) {
+            _camera.stopPreview();
             _camera.release();
             _camera = null;
         }
@@ -93,7 +93,7 @@ public class PhotoTaker implements Runnable
     {
         void onCameraNotOpened (File file);
         void onIllegalFilePath (FileNotFoundException e, File file);
-        void onBitmapNotCompressedToFile (File file);
+        void onIOError(IOException e, File file);
         void onPhotoTaken (File file);
     }
 }

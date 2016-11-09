@@ -2,6 +2,7 @@ package com.bcch.neilconnatty.streamingplugin.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,6 +32,7 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
 import com.bcch.neilconnatty.streamingplugin.messaging.Messenger;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInput;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInputCallbackListener;
+import com.bcch.neilconnatty.streamingplugin.screenshot.CameraPreview;
 import com.bcch.neilconnatty.streamingplugin.screenshot.PhotoTaker;
 import com.bcch.neilconnatty.streamingplugin.screenshot.PhotoUploader;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
@@ -402,19 +404,24 @@ public class MainActivity extends BaseActivity
 
     private void takePhoto ()
     {
-        File photoFile = null;
         try {
-            photoFile = createImageFile();
+            final File photoFile = createImageFile();
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                new CameraPreview(this, new CameraPreview.CameraCallback() {
+                    @Override
+                    public void onCameraSetUpComplete(Camera camera) {
+                        PhotoTaker photoTaker = new PhotoTaker(photoFile, camera, new PhotoTakerCallback());
+                        Thread t = new Thread(photoTaker);
+                        t.start();
+                    }
+                });
+            } else {
+                Log.d(TAG, "photo file == null");
+            }
+
         } catch (IOException e) {
             Log.e(TAG, "error creating file: " + e.toString());
-        }
-        // Continue only if the File was successfully created
-        if (photoFile != null) {
-            PhotoTaker photoTaker = new PhotoTaker(photoFile, new PhotoTakerCallback());
-            Thread t = new Thread(photoTaker);
-            t.start();
-        } else {
-            Log.d(TAG, "photo file == null");
         }
     }
 
@@ -459,8 +466,8 @@ public class MainActivity extends BaseActivity
         }
 
         @Override
-        public void onBitmapNotCompressedToFile(File file) {
-            Log.e(this.TAG, "bitmap not compressed to file: " + file.toString());
+        public void onIOError (IOException e, File file) {
+            Log.e(this.TAG, "Error in IOStream: " + e.toString());
             file.delete();
         }
 
