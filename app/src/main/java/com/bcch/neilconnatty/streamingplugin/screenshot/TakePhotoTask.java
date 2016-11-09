@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.TextureView;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.quickblox.content.model.QBFile;
@@ -114,7 +115,8 @@ public class TakePhotoTask implements Runnable, SurfaceHolder.Callback, TextureV
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = context.getFilesDir();
+//        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -135,18 +137,20 @@ public class TakePhotoTask implements Runnable, SurfaceHolder.Callback, TextureV
 
         _callback = callback;
 
-        /*
         _texture = new TextureView(context);
         _texture.setSurfaceTextureListener(this);
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams(1, 1, WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
-                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED, PixelFormat.TRANSPARENT);
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                PixelFormat.TRANSPARENT);
         params.alpha = 0;
         wm.addView(_texture, params);
         if (_texture.isAvailable()) {
             onSurfaceTextureAvailable(_texture.getSurfaceTexture(), _texture.getWidth(), _texture.getHeight());
         }
-        */
+        /*
         _view = new SurfaceView(context);
         _holder = _view.getHolder();
         _holder.addCallback(this);
@@ -156,6 +160,7 @@ public class TakePhotoTask implements Runnable, SurfaceHolder.Callback, TextureV
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(1, 1, WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
                 0, PixelFormat.UNKNOWN);
         wm.addView(_view, params);
+        */
     }
 
 
@@ -231,6 +236,13 @@ public class TakePhotoTask implements Runnable, SurfaceHolder.Callback, TextureV
         @Override
         public void onIOError (IOException e, File file) {
             Log.e(this.TAG, "Error in IOStream: " + e.toString());
+            file.delete();
+        }
+
+        @Override
+        public void onBitmapNotCompressed (File file)
+        {
+            Log.e(TAG, "error compressing bitmap");
             file.delete();
         }
 

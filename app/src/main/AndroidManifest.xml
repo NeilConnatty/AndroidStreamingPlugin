@@ -38,8 +38,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".screenshot.TakePhotoService" />
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="c3689c99cb56b9dbf54f264f15ce10fe177821f3" />

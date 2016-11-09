@@ -30,15 +30,13 @@ public class PhotoTaker implements Runnable
         _cameraOpened = (_camera != null);
     }
 
-    public boolean cameraOpened ()
-    {
-        return _cameraOpened;
-    }
-
     @Override
     public void run ()
     {
         if (_cameraOpened) {
+            Camera.Parameters params = _camera.getParameters();
+            params.setJpegQuality(100);
+            _camera.setParameters(params);
             _camera.takePicture(null, null, new Camera.PictureCallback() {
                 @Override
                 public void onPictureTaken(byte[] data, Camera camera) {
@@ -49,13 +47,7 @@ public class PhotoTaker implements Runnable
                         ioStream.write(data);
                         ioStream.close();
                         _callback.onPhotoTaken(_file);
-                        /*
-                        if (bmp.compress(Bitmap.CompressFormat.JPEG, 100, ioStream)) {
-                            _callback.onPhotoTaken(_file);
-                        } else {
-                            _callback.onIOError(_file);
-                        }
-                        */
+
                     } catch (FileNotFoundException e) {
                         _callback.onIllegalFilePath(e, _file);
                     } catch (IOException e) {
@@ -88,6 +80,7 @@ public class PhotoTaker implements Runnable
     {
         void onCameraNotOpened (File file);
         void onIllegalFilePath (FileNotFoundException e, File file);
+        void onBitmapNotCompressed (File file);
         void onIOError(IOException e, File file);
         void onPhotoTaken (File file);
     }

@@ -1,6 +1,5 @@
 package com.bcch.neilconnatty.streamingplugin.activities;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,9 +26,6 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
 import com.bcch.neilconnatty.streamingplugin.messaging.Messenger;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInput;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInputCallbackListener;
-import com.bcch.neilconnatty.streamingplugin.screenshot.PhotoTaker;
-import com.bcch.neilconnatty.streamingplugin.screenshot.PhotoUploader;
-import com.bcch.neilconnatty.streamingplugin.screenshot.TakePhotoService;
 import com.bcch.neilconnatty.streamingplugin.screenshot.TakePhotoTask;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
@@ -40,9 +36,6 @@ import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -370,7 +363,6 @@ public class MainActivity extends BaseActivity
             @Override
             public void onPageSelected(int position) {
                 _currentPosition = position;
-
             }
 
             @Override
@@ -382,13 +374,8 @@ public class MainActivity extends BaseActivity
 
     private void takePhoto ()
     {
-        /*
-        Log.d(TAG, "creating TakePhotoService intent");
-        Intent intent = new Intent(this, TakePhotoService.class);
-        startService(intent);
-        */
         Log.d(TAG, "starting take photo task");
-        new TakePhotoTask(this).run();
+        new Handler().post(new TakePhotoTask(this));
     }
 
     /*********** Local Classes **********/
