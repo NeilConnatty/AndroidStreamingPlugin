@@ -99,10 +99,16 @@ public class MainActivity extends BaseActivity
                         handleZoom();
                         break;
                     case SHOW_IMAGE:
+                        Log.d(TAG, "show image input received");
                         handleShowImage();
                         break;
                     case HIDE_IMAGE:
-                        handleShowImage();
+                        Log.d(TAG, "hide image input received");
+                        handleHideImage();
+                        break;
+                    case HIDE_OR_SHOW_IMAGE:
+                        Log.d(TAG, "hide or show image input received");
+                        handleHideOrShowImage();
                         break;
                     case RELOAD_IMAGE:
                         handleReloadImages();
@@ -202,7 +208,7 @@ public class MainActivity extends BaseActivity
 
             case KeyEvent.KEYCODE_BACK:
                 Log.d(TAG, "KEYCODE_BACK");
-                handleShowImage();
+                handleHideOrShowImage();
                 return true;
         }
         return false;
@@ -328,23 +334,35 @@ public class MainActivity extends BaseActivity
 
     private void handleHideImage ()
     {
-        if (mPager.getVisibility() == View.VISIBLE) {
-            mPager.setVisibility(View.INVISIBLE);
-            _imageViewOn = false;
-        }
-        else {
-            mPager.setVisibility(View.VISIBLE);
-            _imageViewOn = true;
-        }
+        if (!_imageViewOn) return;
+        if (mAdapter == null) return;
+
+        mPager.setVisibility(View.INVISIBLE);
+        _imageViewOn = false;
+
     }
 
 
-    private void handleShowImage() {
+    private void handleShowImage()
+    {
+        if (_imageViewOn) return;
+
         if (mAdapter == null) {
             initImageAdapter();
             _imageViewOn = true;
-        } else {
+            return;
+        }
+
+        mPager.setVisibility(View.VISIBLE);
+        _imageViewOn = true;
+    }
+
+    private void handleHideOrShowImage ()
+    {
+        if (_imageViewOn) {
             handleHideImage();
+        } else {
+            handleShowImage();
         }
     }
 

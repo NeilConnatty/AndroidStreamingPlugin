@@ -19,6 +19,8 @@ public class RemoteInputHandle implements Runnable
     public void run() {
         if (_input.contains("zoom image")) {
             _listener.receiveInput(RemoteInput.ZOOM_IMAGE);
+        } else if (_input.contains("hide or show image")) {
+            _listener.receiveInput(RemoteInput.HIDE_OR_SHOW_IMAGE);
         } else if (_input.contains("show image")) {
             _listener.receiveInput(RemoteInput.SHOW_IMAGE);
         } else if (_input.contains("reload image")) {
