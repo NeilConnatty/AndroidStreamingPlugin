@@ -67,6 +67,7 @@ public class MainActivity extends BaseActivity
     private Timer _timer;
     private Bitmap[] bitmaps;
     private Messenger _messenger;
+    private View _footpedal;
 
     final private Handler _messageHandler = new Handler();
 
@@ -93,7 +94,8 @@ public class MainActivity extends BaseActivity
         _timerText = (TextView) findViewById(R.id.timer);
         _timer = initChronometer(new Handler(), new TimerUICallback(_timerText));
 
-        _leftFootPedal = (TextView) findViewById(R.id.leftButton);
+        _footpedal = findViewById(R.id.footpedal);
+        _leftFootPedal = (TextView) findViewById(R.id.centreButton);
         _rightFootPedal = (TextView) findViewById(R.id.rightButton);
         setDefaulPedalFunctions();
 
@@ -308,7 +310,20 @@ public class MainActivity extends BaseActivity
         mImageView = (ImageView) findViewById(R.id.expanded_image);
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
+
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
+        if (_viewFlipped) {
+            Log.d(TAG, "view flipped");
+            params.addRule(RelativeLayout.ALIGN_PARENT_START);
+            params.removeRule(RelativeLayout.ALIGN_PARENT_END);
+        } else {
+            Log.d(TAG, "view not flipped");
+            params.addRule(RelativeLayout.ALIGN_PARENT_END);
+            params.removeRule(RelativeLayout.ALIGN_PARENT_START);
+        }
+        mPager.setLayoutParams(params);
         mPager.setVisibility(View.VISIBLE);
+
         createPagerListener(mPager);
     }
 
@@ -440,10 +455,12 @@ public class MainActivity extends BaseActivity
     {
         RelativeLayout.LayoutParams params;
         if (_viewFlipped) {
-            params = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
-            params.addRule(RelativeLayout.ALIGN_PARENT_END);
-            params.removeRule(RelativeLayout.ALIGN_PARENT_START);
-            mPager.setLayoutParams(params);
+            if (mPager != null) {
+                params = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
+                params.addRule(RelativeLayout.ALIGN_PARENT_END);
+                params.removeRule(RelativeLayout.ALIGN_PARENT_START);
+                mPager.setLayoutParams(params);
+            }
 
             params = (RelativeLayout.LayoutParams) _timerText.getLayoutParams();
             params.addRule(RelativeLayout.ALIGN_PARENT_START);
@@ -454,11 +471,18 @@ public class MainActivity extends BaseActivity
             params.addRule(RelativeLayout.ALIGN_PARENT_START);
             params.removeRule(RelativeLayout.ALIGN_PARENT_END);
             localView.setLayoutParams(params);
+
+            params = (RelativeLayout.LayoutParams) _footpedal.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_END);
+            params.removeRule(RelativeLayout.ALIGN_PARENT_START);
+            _footpedal.setLayoutParams(params);
         } else {
-            params = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
-            params.addRule(RelativeLayout.ALIGN_PARENT_START);
-            params.removeRule(RelativeLayout.ALIGN_PARENT_END);
-            mPager.setLayoutParams(params);
+            if (mPager != null) {
+                params = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
+                params.addRule(RelativeLayout.ALIGN_PARENT_START);
+                params.removeRule(RelativeLayout.ALIGN_PARENT_END);
+                mPager.setLayoutParams(params);
+            }
 
             params = (RelativeLayout.LayoutParams) _timerText.getLayoutParams();
             params.addRule(RelativeLayout.ALIGN_PARENT_END);
@@ -469,6 +493,11 @@ public class MainActivity extends BaseActivity
             params.addRule(RelativeLayout.ALIGN_PARENT_END);
             params.removeRule(RelativeLayout.ALIGN_PARENT_START);
             localView.setLayoutParams(params);
+
+            params = (RelativeLayout.LayoutParams) _footpedal.getLayoutParams();
+            params.addRule(RelativeLayout.ALIGN_PARENT_START);
+            params.removeRule(RelativeLayout.ALIGN_PARENT_END);
+            _footpedal.setLayoutParams(params);
         }
         _viewFlipped = !_viewFlipped;
     }
