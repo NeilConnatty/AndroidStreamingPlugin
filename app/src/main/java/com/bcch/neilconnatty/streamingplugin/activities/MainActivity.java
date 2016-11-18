@@ -61,6 +61,9 @@ public class MainActivity extends BaseActivity
     private boolean _imageViewOn = false;
     private boolean _imageViewZoomed = false;
     private TextView _timerText;
+    private TextView _leftFootPedal;
+    private TextView _rightFootPedal;
+    private boolean _defaulPedalFunctions;
     private Timer _timer;
     private Bitmap[] bitmaps;
     private Messenger _messenger;
@@ -89,6 +92,10 @@ public class MainActivity extends BaseActivity
 
         _timerText = (TextView) findViewById(R.id.timer);
         _timer = initChronometer(new Handler(), new TimerUICallback(_timerText));
+
+        _leftFootPedal = (TextView) findViewById(R.id.leftButton);
+        _rightFootPedal = (TextView) findViewById(R.id.rightButton);
+        setDefaulPedalFunctions();
 
         TextView notificationText = (TextView) findViewById(R.id.notification);
         _messenger = new Messenger(_messageHandler, notificationText, new RemoteInputCallbackListener() {
@@ -129,6 +136,9 @@ public class MainActivity extends BaseActivity
                         Log.d(TAG, "flip view input received");
                         flipInterface();
                         break;
+                    case TOGGLE_FUNCTION:
+                        Log.d(TAG, "toggle function input received");
+                        togglePedalFunctions();
                 }
             }
         });
@@ -461,6 +471,26 @@ public class MainActivity extends BaseActivity
             localView.setLayoutParams(params);
         }
         _viewFlipped = !_viewFlipped;
+    }
+
+    private void setDefaulPedalFunctions ()
+    {
+        _leftFootPedal.setText(R.string.default_left_pedal);
+        _rightFootPedal.setText(R.string.default_right_pedal);
+        _defaulPedalFunctions = true;
+    }
+
+    private void togglePedalFunctions ()
+    {
+        if (_defaulPedalFunctions) {
+            _leftFootPedal.setText(R.string.alt_left_pedal);
+            _rightFootPedal.setText(R.string.alt_right_pedal);
+        } else {
+            _leftFootPedal.setText(R.string.default_left_pedal);
+            _rightFootPedal.setText(R.string.default_right_pedal);
+        }
+
+        _defaulPedalFunctions = !_defaulPedalFunctions;
     }
 
     /*********** Local Classes **********/

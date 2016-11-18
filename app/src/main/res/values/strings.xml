@@ -9,4 +9,11 @@
     <string name="no_messages">No Messages</string>
     <string name="message">Incoming Message</string>
     <string name="received_messages">Received Messages</string>
+
+    <string name="default_left_pedal">Zoom Image</string>
+    <string name="alt_left_pedal">Scroll Left</string>
+    <string name="default_right_pedal">Show Image</string>
+    <string name="alt_right_pedal">Scroll Right</string>
+    <string name="footpedal_title">Footpedal</string>
+    <string name="toggle_default">Toggle Funciton</string>
 </resources>
