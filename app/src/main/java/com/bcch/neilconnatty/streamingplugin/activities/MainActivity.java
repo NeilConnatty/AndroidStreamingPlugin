@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -88,6 +89,7 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         Fabric.with (this, new Crashlytics());
         setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setViewReferences();
 
@@ -100,50 +102,7 @@ public class MainActivity extends BaseActivity
         setDefaulPedalFunctions();
 
         TextView notificationText = (TextView) findViewById(R.id.notification);
-        _messenger = new Messenger(_messageHandler, notificationText, new RemoteInputCallbackListener() {
-            @Override
-            public void receiveInput(RemoteInput input) {
-                switch (input) {
-                    case ZOOM_IMAGE:
-                        handleZoom();
-                        break;
-                    case SHOW_IMAGE:
-                        Log.d(TAG, "show image input received");
-                        handleShowImage();
-                        break;
-                    case HIDE_IMAGE:
-                        Log.d(TAG, "hide image input received");
-                        handleHideImage();
-                        break;
-                    case HIDE_OR_SHOW_IMAGE:
-                        Log.d(TAG, "hide or show image input received");
-                        handleHideOrShowImage();
-                        break;
-                    case RELOAD_IMAGE:
-                        handleReloadImages();
-                        break;
-                    case UPLOAD_IMAGE:
-                        Log.d(TAG, "upload image input received");
-                        takePhoto();
-                        break;
-                    case SCROLL_LEFT:
-                        Log.d(TAG, "scroll left input received");
-                        scrollLeft();
-                        break;
-                    case SCROLL_RIGHT:
-                        Log.d(TAG, "scroll right input received");
-                        scrollRight();
-                        break;
-                    case FLIP_VIEW:
-                        Log.d(TAG, "flip view input received");
-                        flipInterface();
-                        break;
-                    case TOGGLE_FUNCTION:
-                        Log.d(TAG, "toggle function input received");
-                        togglePedalFunctions();
-                }
-            }
-        });
+        _messenger = new Messenger(_messageHandler, notificationText, new RemoteInputListenerImpl());
         startMessagingService();
 
         StreamingPlugin plugin = new StreamingPlugin (this, false);
@@ -545,4 +504,48 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    public class RemoteInputListenerImpl implements RemoteInputCallbackListener {
+        @Override
+        public void receiveInput(RemoteInput input) {
+            switch (input) {
+                case ZOOM_IMAGE:
+                    handleZoom();
+                    break;
+                case SHOW_IMAGE:
+                    Log.d(TAG, "show image input received");
+                    handleShowImage();
+                    break;
+                case HIDE_IMAGE:
+                    Log.d(TAG, "hide image input received");
+                    handleHideImage();
+                    break;
+                case HIDE_OR_SHOW_IMAGE:
+                    Log.d(TAG, "hide or show image input received");
+                    handleHideOrShowImage();
+                    break;
+                case RELOAD_IMAGE:
+                    handleReloadImages();
+                    break;
+                case UPLOAD_IMAGE:
+                    Log.d(TAG, "upload image input received");
+                    takePhoto();
+                    break;
+                case SCROLL_LEFT:
+                    Log.d(TAG, "scroll left input received");
+                    scrollLeft();
+                    break;
+                case SCROLL_RIGHT:
+                    Log.d(TAG, "scroll right input received");
+                    scrollRight();
+                    break;
+                case FLIP_VIEW:
+                    Log.d(TAG, "flip view input received");
+                    flipInterface();
+                    break;
+                case TOGGLE_FUNCTION:
+                    Log.d(TAG, "toggle function input received");
+                    togglePedalFunctions();
+            }
+        }
+    }
 }
