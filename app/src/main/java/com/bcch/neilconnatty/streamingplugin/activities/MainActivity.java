@@ -33,6 +33,7 @@ import com.bcch.neilconnatty.streamingplugin.screenshot.TakePhotoTask;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerUICallback;
+import com.bcch.neilconnatty.streamingplugin.ui.InterfaceFlipHandle;
 import com.crashlytics.android.Crashlytics;
 import com.quickblox.content.model.QBFile;
 import com.quickblox.core.QBEntityCallback;
@@ -314,10 +315,15 @@ public class MainActivity extends BaseActivity
             }
         } else
         {
-            _zoomAnimator.shrinkImage(mPager, mImageView);
-            _zoomAnimator = null;
-            _imageViewZoomed = false;
+            shrinkImage();
         }
+    }
+
+    private void shrinkImage ()
+    {
+        _zoomAnimator.shrinkImage(mPager, mImageView);
+        _zoomAnimator = null;
+        _imageViewZoomed = false;
     }
 
     private void handleHideImage ()
@@ -355,6 +361,10 @@ public class MainActivity extends BaseActivity
 
     private void handleReloadImages ()
     {
+        if (_zoomAnimator != null) {
+            shrinkImage();
+        }
+        // after un-zooming, we perform the reload
         retrieveFilesFromServer(new QBEntityCallback<ArrayList<QBFile>>() {
             @Override
             public void onSuccess(ArrayList<QBFile> qbFiles, Bundle bundle) {
@@ -433,53 +443,8 @@ public class MainActivity extends BaseActivity
 
     private void flipInterface ()
     {
-        RelativeLayout.LayoutParams params;
-        if (_viewFlipped) {
-            if (mPager != null) {
-                params = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
-                params.addRule(RelativeLayout.ALIGN_PARENT_END);
-                params.removeRule(RelativeLayout.ALIGN_PARENT_START);
-                mPager.setLayoutParams(params);
-            }
-
-            params = (RelativeLayout.LayoutParams) _timerText.getLayoutParams();
-            params.addRule(RelativeLayout.ALIGN_PARENT_START);
-            params.removeRule(RelativeLayout.ALIGN_PARENT_END);
-            _timerText.setLayoutParams(params);
-
-            params = (RelativeLayout.LayoutParams) localView.getLayoutParams();
-            params.addRule(RelativeLayout.ALIGN_PARENT_START);
-            params.removeRule(RelativeLayout.ALIGN_PARENT_END);
-            localView.setLayoutParams(params);
-
-            params = (RelativeLayout.LayoutParams) _footpedal.getLayoutParams();
-            params.addRule(RelativeLayout.ALIGN_PARENT_END);
-            params.removeRule(RelativeLayout.ALIGN_PARENT_START);
-            _footpedal.setLayoutParams(params);
-        } else {
-            if (mPager != null) {
-                params = (RelativeLayout.LayoutParams) mPager.getLayoutParams();
-                params.addRule(RelativeLayout.ALIGN_PARENT_START);
-                params.removeRule(RelativeLayout.ALIGN_PARENT_END);
-                mPager.setLayoutParams(params);
-            }
-
-            params = (RelativeLayout.LayoutParams) _timerText.getLayoutParams();
-            params.addRule(RelativeLayout.ALIGN_PARENT_END);
-            params.removeRule(RelativeLayout.ALIGN_PARENT_START);
-            _timerText.setLayoutParams(params);
-
-            params = (RelativeLayout.LayoutParams) localView.getLayoutParams();
-            params.addRule(RelativeLayout.ALIGN_PARENT_END);
-            params.removeRule(RelativeLayout.ALIGN_PARENT_START);
-            localView.setLayoutParams(params);
-
-            params = (RelativeLayout.LayoutParams) _footpedal.getLayoutParams();
-            params.addRule(RelativeLayout.ALIGN_PARENT_START);
-            params.removeRule(RelativeLayout.ALIGN_PARENT_END);
-            _footpedal.setLayoutParams(params);
-        }
-        _viewFlipped = !_viewFlipped;
+        InterfaceFlipHandle handle = new InterfaceFlipHandle(mPager, _timerText, localView, _footpedal, _viewFlipped);
+        _viewFlipped = handle.flipView();
     }
 
     private void setDefaulPedalFunctions ()
