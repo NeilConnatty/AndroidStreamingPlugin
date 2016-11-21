@@ -1,5 +1,6 @@
 package com.bcch.neilconnatty.streamingplugin.activities;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -292,10 +293,12 @@ public class MainActivity extends BaseActivity
         if (_zoomAnimator == null) {
             _zoomAnimator = new ZoomAnimator(this);
             // if there is a current bitmap saved, zoom image with it. Else download new bitmap
-            if (bitmaps[_currentPosition] != null) {
+            if (bitmaps[_currentPosition] != null)
+            {
                 _zoomAnimator.zoomImage(mPager, mImageView, bitmaps[_currentPosition]);
                 _imageViewZoomed = true;
-            } else {
+            } else
+            {
                 final ZoomAnimator animator = _zoomAnimator;
                 ContentRetriever.downloadFile(files.get(_currentPosition), new QBEntityCallback<InputStream>() {
                     @Override
@@ -309,7 +312,8 @@ public class MainActivity extends BaseActivity
                     }
                 });
             }
-        } else {
+        } else
+        {
             _zoomAnimator.shrinkImage(mPager, mImageView);
             _zoomAnimator = null;
             _imageViewZoomed = false;
@@ -326,8 +330,7 @@ public class MainActivity extends BaseActivity
 
     }
 
-
-    private void handleShowImage()
+    private void handleShowImage ()
     {
         if (_imageViewOn) return;
 
@@ -374,6 +377,7 @@ public class MainActivity extends BaseActivity
 
     private void createPagerListener (ViewPager pager)
     {
+        final Context context = this;
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener () {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -383,6 +387,23 @@ public class MainActivity extends BaseActivity
             @Override
             public void onPageSelected(int position) {
                 _currentPosition = position;
+                if (_imageViewZoomed) {
+                    if (bitmaps[_currentPosition] != null) {
+                        mImageView.setImageBitmap(bitmaps[_currentPosition]);
+                    } else {
+                        ContentRetriever.downloadFile(files.get(_currentPosition), new QBEntityCallback<InputStream>() {
+                            @Override
+                            public void onSuccess(InputStream inputStream, Bundle bundle) {
+                                BitmapStreamWorkerTask task = new BitmapStreamWorkerTask(context, mImageView, _currentPosition);
+                                task.execute(inputStream);
+                            }
+                            @Override
+                            public void onError(QBResponseException e) {
+                                Log.e(TAG, "Error downloading file to hand stream: " + e.toString());
+                            }
+                        });
+                    }
+                }
             }
 
             @Override
@@ -394,13 +415,13 @@ public class MainActivity extends BaseActivity
 
     private void scrollLeft ()
     {
-        if (!_imageViewOn || _imageViewZoomed) return;
+        if (!_imageViewOn) return;
         mPager.arrowScroll(View.FOCUS_LEFT);
     }
 
     private void scrollRight ()
     {
-        if (!_imageViewOn || _imageViewZoomed) return;
+        if (!_imageViewOn) return;
         mPager.arrowScroll(View.FOCUS_RIGHT);
     }
 
