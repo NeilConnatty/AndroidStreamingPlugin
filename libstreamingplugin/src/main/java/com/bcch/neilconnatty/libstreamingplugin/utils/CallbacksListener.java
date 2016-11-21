@@ -133,7 +133,7 @@ public abstract class CallbacksListener implements QBRTCSessionConnectionCallbac
         currentSession = qbrtcSession;
 
         QBMediaStreamManager mediaStreamManager = qbrtcSession.getMediaStreamManager();
-        mediaStreamManager.setAudioEnabled(false);
+        mediaStreamManager.setAudioEnabled(true);
         QBRTCMediaConfig.setVideoFps (30);
         QBRTCMediaConfig.setVideoWidth(1920);
         QBRTCMediaConfig.setVideoHeight(1080);
