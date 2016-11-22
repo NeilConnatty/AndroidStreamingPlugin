@@ -50,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity
         videoTrack.addRenderer(new VideoRenderer(videoView));
 
         if (!remoteRenderer) {
-            updateVideoView(videoView, true);
+            updateVideoView(videoView, false);
         }
         Log.d(TAG, (remoteRenderer ? "remote" : "local") + " Track is rendering");
     }
