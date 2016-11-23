@@ -1,10 +1,10 @@
 package com.bcch.neilconnatty.libstreamingplugin.utils;
 
 
-import android.app.Activity;
 import android.support.annotation.CallSuper;
 import android.util.Log;
 
+import com.bcch.neilconnatty.libstreamingplugin.activites.BaseActivity;
 import com.quickblox.videochat.webrtc.QBMediaStreamManager;
 import com.quickblox.videochat.webrtc.QBRTCMediaConfig;
 import com.quickblox.videochat.webrtc.QBRTCSession;
@@ -21,29 +21,37 @@ import java.util.Map;
  * Created by neilconnatty on 2016-09-28.
  */
 
-public abstract class CallbacksListener implements QBRTCSessionConnectionCallbacks, QBRTCClientVideoTracksCallbacks, QBRTCClientSessionCallbacks
-{
+public abstract class CallbacksListener implements QBRTCSessionConnectionCallbacks, QBRTCClientVideoTracksCallbacks, QBRTCClientSessionCallbacks {
     private final String TAG = CallbacksListener.class.getSimpleName();
 
-    protected Activity _mActivity;
+    protected BaseActivity _baseActivity;
 
     private QBRTCSession currentSession;
+    private StreamingCallback streamingCallback = null;
     private boolean inCurrentSession = false;
 
-    /** Constructor */
-    public CallbacksListener (Activity currentActivity)
-    {
-        _mActivity = currentActivity;
+    /**
+     * Constructor
+     */
+    public CallbacksListener(BaseActivity currentActivity) {
+        _baseActivity = currentActivity;
     }
 
-    /************** QBRTCClientSessionCallbacks ***********/
+    public void registerCallback (StreamingCallback callback)
+    {
+        streamingCallback = callback;
+    }
+
+    /**************
+     * QBRTCClientSessionCallbacks
+     ***********/
 
     @Override
     public void onReceiveNewSession(QBRTCSession qbrtcSession) {
-        Log.d (TAG, "onReceiveNewSession");
+        Log.d(TAG, "onReceiveNewSession");
         if (inCurrentSession) {
-            Log.d (TAG, "In current session, ignoring incoming call");
-            Map<String,String> userInfo = new HashMap<String,String> ();
+            Log.d(TAG, "In current session, ignoring incoming call");
+            Map<String, String> userInfo = new HashMap<String, String>();
             userInfo.put("Key", "Value");
             qbrtcSession.rejectCall(userInfo);
             return;
@@ -54,7 +62,7 @@ public abstract class CallbacksListener implements QBRTCSessionConnectionCallbac
 
         // Set userInfo
         // User can set any string key and value in user info
-        Map<String,String> userInfo = new HashMap<String,String> ();
+        Map<String, String> userInfo = new HashMap<String, String>();
         userInfo.put("Key", "Value");
 
         // Accept incoming call
@@ -63,102 +71,106 @@ public abstract class CallbacksListener implements QBRTCSessionConnectionCallbac
 
     @Override
     public void onUserNotAnswer(QBRTCSession qbrtcSession, Integer integer) {
-        Log.d (TAG, "onUserNotAnswer");
+        Log.d(TAG, "onUserNotAnswer");
     }
 
     @Override
     public void onCallRejectByUser(QBRTCSession qbrtcSession, Integer integer, Map<String, String> map) {
-        Log.d (TAG, "onCallRejectByUser");
+        Log.d(TAG, "onCallRejectByUser");
     }
 
     @Override
     public void onCallAcceptByUser(QBRTCSession qbrtcSession, Integer integer, Map<String, String> map) {
-        Log.d (TAG, "onCallAcceptByUser");
+        Log.d(TAG, "onCallAcceptByUser");
     }
 
     @Override
     public void onReceiveHangUpFromUser(QBRTCSession qbrtcSession, Integer integer, Map<String, String> map) {
-        Log.d (TAG, "onReceiveHangUpFromUser");
+        Log.d(TAG, "onReceiveHangUpFromUser");
 
     }
 
     @Override
     public void onUserNoActions(QBRTCSession qbrtcSession, Integer integer) {
-        Log.d (TAG, "OnUserNoActions");
+        Log.d(TAG, "OnUserNoActions");
     }
 
     @Override
     public void onSessionClosed(QBRTCSession qbrtcSession) {
-        Log.d (TAG, "onSessionClosed");
+        Log.d(TAG, "onSessionClosed");
         inCurrentSession = false;
-
+        if (streamingCallback != null) {
+            streamingCallback.onCallEnded();
+        }
     }
 
     @Override
     public void onSessionStartClose(QBRTCSession qbrtcSession) {
-        Log.d (TAG, "onSessionStartClose");
+        Log.d(TAG, "onSessionStartClose");
         qbrtcSession.removeSessionCallbacksListener(this);
         qbrtcSession.removeVideoTrackCallbacksListener(this);
         currentSession = null;
     }
 
 
-    /************ QBRTCSessionConnectionCallbacks ***********/
+    /************
+     * QBRTCSessionConnectionCallbacks
+     ***********/
 
     @Override
     @CallSuper
     public void onLocalVideoTrackReceive(QBRTCSession qbrtcSession, QBRTCVideoTrack qbrtcVideoTrack) {
-        Log.d (TAG, "onLocalVideoTrackReceive");
+        Log.d(TAG, "onLocalVideoTrackReceive");
     }
 
 
     @Override
     @CallSuper
     public void onRemoteVideoTrackReceive(QBRTCSession qbrtcSession, QBRTCVideoTrack qbrtcVideoTrack, Integer integer) {
-        Log.d (TAG, "onRemoteVideoTrackReceive");
+        Log.d(TAG, "onRemoteVideoTrackReceive");
     }
 
 
-    /************* QBRTCClientSessionCallbacks *************/
+    /*************
+     * QBRTCClientSessionCallbacks
+     *************/
 
     @Override
     public void onStartConnectToUser(QBRTCSession qbrtcSession, Integer integer) {
-        Log.d (TAG, "onStartConnectToUser");
+        Log.d(TAG, "onStartConnectToUser");
     }
 
     @Override
     public void onConnectedToUser(QBRTCSession qbrtcSession, Integer integer) {
-        Log.d (TAG, "onConnectedToUser");
+        Log.d(TAG, "onConnectedToUser");
         inCurrentSession = true;
         currentSession = qbrtcSession;
 
         QBMediaStreamManager mediaStreamManager = qbrtcSession.getMediaStreamManager();
         mediaStreamManager.setAudioEnabled(true);
-        QBRTCMediaConfig.setVideoFps (30);
-        QBRTCMediaConfig.setVideoWidth(1920);
-        QBRTCMediaConfig.setVideoHeight(1080);
+        mediaStreamManager.changeCaptureFormat(1080, 720, 30);
     }
 
     @Override
     public void onConnectionClosedForUser(QBRTCSession qbrtcSession, Integer integer) {
-        Log.d (TAG, "onConnectionClosedForUser");
+        Log.d(TAG, "onConnectionClosedForUser");
     }
 
     @Override
     public void onDisconnectedFromUser(QBRTCSession qbrtcSession, Integer integer) {
-        Log.d (TAG, "onDisconnectedFromUser");
+        Log.d(TAG, "onDisconnectedFromUser");
     }
 
     @Override
     public void onDisconnectedTimeoutFromUser(QBRTCSession qbrtcSession, Integer integer) {
-        Log.d (TAG, "onDisconnectedTimeoutFromUser");
+        Log.d(TAG, "onDisconnectedTimeoutFromUser");
         currentSession = null;
         inCurrentSession = false;
     }
 
     @Override
     public void onConnectionFailedWithUser(QBRTCSession qbrtcSession, Integer integer) {
-        Log.d (TAG, "onConnectionFailedWithUser");
+        Log.d(TAG, "onConnectionFailedWithUser");
         currentSession = null;
         inCurrentSession = false;
 
@@ -166,6 +178,17 @@ public abstract class CallbacksListener implements QBRTCSessionConnectionCallbac
 
     @Override
     public void onError(QBRTCSession qbrtcSession, QBRTCException e) {
-        Log.d (TAG, "onError");
+        Log.d(TAG, "onError");
     }
+
+
+    /**********
+     * Nested Classes
+     ***********/
+
+    public interface StreamingCallback
+    {
+        void onCallEnded ();
+    }
+
 }

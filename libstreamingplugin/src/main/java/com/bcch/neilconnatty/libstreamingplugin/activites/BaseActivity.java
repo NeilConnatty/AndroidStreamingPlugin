@@ -1,9 +1,15 @@
 package com.bcch.neilconnatty.libstreamingplugin.activites;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SurfaceHolder;
 
+import com.bcch.neilconnatty.libstreamingplugin.screenshot.TakePhotoTask;
 import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
 import com.quickblox.videochat.webrtc.view.QBRTCVideoTrack;
 
@@ -17,6 +23,8 @@ public abstract class BaseActivity extends AppCompatActivity
 
     protected QBRTCSurfaceView opponentView;
     protected QBRTCSurfaceView localView;
+
+    private boolean streamRendering = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,27 @@ public abstract class BaseActivity extends AppCompatActivity
         } else {
             if (localView != null)
                 fillVideoView(localView, videoTrack, remoteRenderer);
+        }
+
+        streamRendering = true;
+    }
+
+    public void onCallEnded ()
+    {
+        if (opponentView != null) {
+            opponentView.release();
+        }
+        if (localView != null) {
+            localView.release();
+        }
+    }
+
+    public void takeScreenShot ()
+    {
+        if (streamRendering) {
+
+        } else {
+            new Handler().post(new TakePhotoTask(this));
         }
     }
 

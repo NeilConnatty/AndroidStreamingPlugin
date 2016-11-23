@@ -1,14 +1,13 @@
-package com.bcch.neilconnatty.streamingplugin.screenshot;
+package com.bcch.neilconnatty.libstreamingplugin.screenshot;
 
 
-import android.app.IntentService;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,8 +19,12 @@ import com.quickblox.content.model.QBFile;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 
+import org.webrtc.SurfaceViewRenderer;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,17 +37,25 @@ public class TakePhotoTask implements Runnable, SurfaceHolder.Callback, TextureV
 {
     private final String TAG = TakePhotoTask.class.getSimpleName();
 
-    private SurfaceView _view;
-    private SurfaceHolder _holder;
     private TextureView _texture;
     private Camera _camera;
     private CameraCallback _callback;
     private Context _context;
+    private boolean _streamRendering;
+    private SurfaceViewRenderer _viewRenderer = null;
 
     public TakePhotoTask (Context context)
     {
         Log.d(TAG, "contructor called");
         _context = context;
+        _streamRendering = false;
+    }
+
+    public TakePhotoTask (Context context, SurfaceViewRenderer viewRenderer)
+    {
+        _context = context;
+        _streamRendering = true;
+        _viewRenderer = viewRenderer;
     }
 
     @Override
@@ -56,14 +67,18 @@ public class TakePhotoTask implements Runnable, SurfaceHolder.Callback, TextureV
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Log.d(TAG, "photoFile != null");
-                setUpPhotoService(_context, new CameraCallback() {
-                    @Override
-                    public void onCameraSetUpComplete(Camera camera) {
-                        Log.d(TAG, "on camera set up complete called");
-                        PhotoTaker photoTaker = new PhotoTaker(photoFile, camera, new PhotoTakerCallback());
-                        photoTaker.run();
-                    }
-                });
+                if (_streamRendering) {
+                    takeScreenshot(photoFile, new PhotoTakerCallback());
+                } else {
+                    setUpPhotoService(_context, new CameraCallback() {
+                        @Override
+                        public void onCameraSetUpComplete(Camera camera) {
+                            Log.d(TAG, "on camera set up complete called");
+                            PhotoTaker photoTaker = new PhotoTaker(photoFile, camera, new PhotoTakerCallback());
+                            photoTaker.run();
+                        }
+                    });
+                }
             } else {
                 Log.d(TAG, "photo file == null");
             }
@@ -161,6 +176,46 @@ public class TakePhotoTask implements Runnable, SurfaceHolder.Callback, TextureV
                 0, PixelFormat.UNKNOWN);
         wm.addView(_view, params);
         */
+    }
+
+    private Bitmap captureBitmap ()
+    {
+        int width = _viewRenderer.getWidth();
+        int height = _viewRenderer.getHeight();
+
+        Bitmap.Config conf = Bitmap.Config.RGB_565;
+        Bitmap image = Bitmap.createBitmap(width, height, conf);
+
+        SurfaceHolder holder = _viewRenderer.getHolder();
+        Canvas canvas = holder.lockCanvas();
+        canvas.setBitmap(image);
+        _viewRenderer.draw(canvas);
+
+        Bitmap screen = Bitmap.createBitmap(image, 0, 0, width, height);
+        holder.unlockCanvasAndPost(canvas);
+        return screen;
+    }
+
+    private void takeScreenshot (File photoFile, PhotoTaker.PhotoCallback callback)
+    {
+        Bitmap bmp = captureBitmap();
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+
+        try
+        {
+            FileOutputStream ioStream = new FileOutputStream(photoFile);
+            ioStream.write(byteArray);
+            stream.close();
+            ioStream.close();
+            callback.onPhotoTaken(photoFile);
+        } catch (IOException e)
+        {
+            Log.e(TAG, e.toString());
+            callback.onIOError(e, photoFile);
+        }
     }
 
 

@@ -29,7 +29,7 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
 import com.bcch.neilconnatty.streamingplugin.messaging.Messenger;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInput;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInputCallbackListener;
-import com.bcch.neilconnatty.streamingplugin.screenshot.TakePhotoTask;
+import com.bcch.neilconnatty.libstreamingplugin.screenshot.TakePhotoTask;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerUICallback;
@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity
         _messenger = new Messenger(_messageHandler, notificationText, new RemoteInputListenerImpl());
         startMessagingService();
 
-        StreamingPlugin plugin = new StreamingPlugin (this, false);
+        StreamingPlugin plugin = new StreamingPlugin (this);
         startStreaming(plugin, new QBSessionCallback() {
             @Override
             public void onSuccess() {

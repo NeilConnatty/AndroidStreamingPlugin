@@ -1,12 +1,8 @@
-package com.bcch.neilconnatty.streamingplugin.screenshot;
-
-import android.os.Bundle;
-import android.util.Log;
+package com.bcch.neilconnatty.libstreamingplugin.screenshot;
 
 import com.quickblox.content.QBContent;
 import com.quickblox.content.model.QBFile;
 import com.quickblox.core.QBEntityCallback;
-import com.quickblox.core.exception.QBResponseException;
 
 import java.io.File;
 

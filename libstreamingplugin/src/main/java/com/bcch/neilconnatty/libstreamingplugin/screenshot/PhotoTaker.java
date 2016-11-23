@@ -1,4 +1,4 @@
-package com.bcch.neilconnatty.streamingplugin.screenshot;
+package com.bcch.neilconnatty.libstreamingplugin.screenshot;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

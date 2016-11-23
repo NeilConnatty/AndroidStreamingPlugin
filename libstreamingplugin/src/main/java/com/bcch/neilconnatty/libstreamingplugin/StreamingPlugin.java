@@ -1,6 +1,5 @@
 package com.bcch.neilconnatty.libstreamingplugin;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -31,24 +30,14 @@ public class StreamingPlugin extends CallbacksListener {
 
     private final String TAG = StreamingPlugin.class.getSimpleName();
 
-    private boolean calledFromUnity;
-    private BaseActivity _activity;
-
 
     /************ Public Methods ************/
 
     /** Constructors */
-    public StreamingPlugin (BaseActivity currentActivity, boolean calledFromUnity)
+    public StreamingPlugin (BaseActivity currentActivity)
     {
         super(currentActivity);
-        _activity = currentActivity;
-        this.calledFromUnity = calledFromUnity;
-    }
-
-    public StreamingPlugin (Activity currentActivity)
-    {
-        super(currentActivity);
-        calledFromUnity = true;
+        registerCallback(new StreamingCallbackImpl());
     }
 
 
@@ -59,8 +48,8 @@ public class StreamingPlugin extends CallbacksListener {
 
     public void initApp ()
     {
-        QBSettings.getInstance().init (_mActivity.getApplicationContext(), Consts.APP_ID, Consts.AUTH_KEY, Consts.AUTH_SECRET);
-        QBSettings.getInstance().setAccountKey (Consts.ACCOUNT_KEY);
+        QBSettings.getInstance().init(_baseActivity.getApplicationContext(), Consts.APP_ID, Consts.AUTH_KEY, Consts.AUTH_SECRET);
+        QBSettings.getInstance().setAccountKey(Consts.ACCOUNT_KEY);
     }
 
 
@@ -69,8 +58,8 @@ public class StreamingPlugin extends CallbacksListener {
     {
         super.onLocalVideoTrackReceive(qbrtcSession, qbrtcVideoTrack);
         Log.d (TAG, "onLocalVideoTrackReceive()");
-        if (calledFromUnity) return;
-        _activity.renderVideo (qbrtcVideoTrack, false);
+
+        _baseActivity.renderVideo (qbrtcVideoTrack, false);
     }
 
     @Override
@@ -78,8 +67,7 @@ public class StreamingPlugin extends CallbacksListener {
     {
         super.onRemoteVideoTrackReceive(qbrtcSession, qbrtcVideoTrack, integer);
         Log.d (TAG, "onRemoteVideoTrackReceive()");
-        if (calledFromUnity) return;
-        _activity.renderVideo (qbrtcVideoTrack, true);
+        _baseActivity.renderVideo (qbrtcVideoTrack, true);
     }
 
 
@@ -87,7 +75,7 @@ public class StreamingPlugin extends CallbacksListener {
 
     private String getCurrentDeviceId ()
     {
-        return Utils.generateDeviceId(_mActivity);
+        return Utils.generateDeviceId(_baseActivity);
     }
 
     private void createSession (final QBSessionCallback callback)
@@ -117,7 +105,7 @@ public class StreamingPlugin extends CallbacksListener {
                     @Override
                     public void signalingCreated(QBSignaling qbSignaling, boolean createdLocally) {
                         if (!createdLocally) {
-                            QBRTCClient.getInstance(_mActivity).addSignaling((QBWebRTCSignaling) qbSignaling);
+                            QBRTCClient.getInstance(_baseActivity).addSignaling((QBWebRTCSignaling) qbSignaling);
                         }
                         registerCallbacksListener();
                     }
@@ -127,9 +115,21 @@ public class StreamingPlugin extends CallbacksListener {
 
     private void registerCallbacksListener ()
     {
-        QBRTCClient rtcClient = QBRTCClient.getInstance(_mActivity);
+        QBRTCClient rtcClient = QBRTCClient.getInstance(_baseActivity);
         rtcClient.addSessionCallbacksListener(this);
         rtcClient.prepareToProcessCalls();
         Log.d (TAG, "signalling manager and callbacks listener registered");
+    }
+
+
+    /********** Nested Classes **********/
+
+    public class StreamingCallbackImpl implements StreamingCallback
+    {
+        public void onCallEnded ()
+        {
+            _baseActivity.onCallEnded();
+            // TODO
+        }
     }
 }
