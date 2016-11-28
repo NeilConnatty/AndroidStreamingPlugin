@@ -1,4 +1,4 @@
-package com.bcch.neilconnatty.libstreamingplugin.screenshot;
+package com.bcch.neilconnatty.streamingplugin.screenshot;
 
 import com.quickblox.content.QBContent;
 import com.quickblox.content.model.QBFile;

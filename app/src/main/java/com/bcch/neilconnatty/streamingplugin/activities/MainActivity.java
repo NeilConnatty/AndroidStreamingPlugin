@@ -29,7 +29,8 @@ import com.bcch.neilconnatty.streamingplugin.imageViewer.ZoomAnimator;
 import com.bcch.neilconnatty.streamingplugin.messaging.Messenger;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInput;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInputCallbackListener;
-import com.bcch.neilconnatty.libstreamingplugin.screenshot.TakePhotoTask;
+import com.bcch.neilconnatty.streamingplugin.screenshot.TakeCameraPhotoTask;
+import com.bcch.neilconnatty.streamingplugin.screenshot.TakeScreenshotTask;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerUICallback;
@@ -331,7 +332,11 @@ public class MainActivity extends BaseActivity
         if (!_imageViewOn) return;
         if (mAdapter == null) return;
 
-        mPager.setVisibility(View.INVISIBLE);
+        if (_imageViewZoomed) {
+            mImageView.setVisibility(View.INVISIBLE);
+        } else {
+            mPager.setVisibility(View.INVISIBLE);
+        }
         _imageViewOn = false;
 
     }
@@ -346,7 +351,11 @@ public class MainActivity extends BaseActivity
             return;
         }
 
-        mPager.setVisibility(View.VISIBLE);
+        if (_imageViewZoomed) {
+            mImageView.setVisibility(View.VISIBLE);
+        } else {
+            mPager.setVisibility(View.VISIBLE);
+        }
         _imageViewOn = true;
     }
 
@@ -437,8 +446,13 @@ public class MainActivity extends BaseActivity
 
     private void takePhoto ()
     {
-        Log.d(TAG, "starting take photo task");
-        new Handler().post(new TakePhotoTask(this));
+        Log.d(TAG, "takeScreenShot called");
+        Log.d(TAG, "streamRendering: " + streamRendering);
+        if (streamRendering) {
+            new Handler().post(new TakeScreenshotTask(this, localView));
+        } else {
+            new Handler().post(new TakeCameraPhotoTask(this));
+        }
     }
 
     private void flipInterface ()
