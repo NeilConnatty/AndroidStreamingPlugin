@@ -19,7 +19,13 @@ import com.quickblox.core.helper.Utils;
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCClient;
 import com.quickblox.videochat.webrtc.QBRTCSession;
+import com.quickblox.videochat.webrtc.QBRTCTypes;
 import com.quickblox.videochat.webrtc.view.QBRTCVideoTrack;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.quickblox.videochat.webrtc.QBRTCTypes.QBConferenceType.QB_CONFERENCE_TYPE_VIDEO;
 
 /**
  * Created by neilconnatty on 2016-09-28.
@@ -52,6 +58,21 @@ public class StreamingPlugin extends CallbacksListener {
         QBSettings.getInstance().setAccountKey(Consts.ACCOUNT_KEY);
     }
 
+    public void endStreaming(final PluginCallback callback)
+    {
+        registerCallback(new StreamingCallback() {
+            @Override
+            public void onCallEnded() {
+                callback.onStreamingEnded();
+                unregisterCallback(this);
+            }
+        });
+
+        Map<String,String> userInfo = new HashMap<>();
+        userInfo.put("Key", "Value");
+
+        currentSession.hangUp(userInfo);
+    }
 
     @Override
     public void onLocalVideoTrackReceive (QBRTCSession qbrtcSession, QBRTCVideoTrack qbrtcVideoTrack)
@@ -124,12 +145,15 @@ public class StreamingPlugin extends CallbacksListener {
 
     /********** Nested Classes **********/
 
-    public class StreamingCallbackImpl implements StreamingCallback
+    private class StreamingCallbackImpl implements StreamingCallback
     {
         public void onCallEnded ()
         {
             _baseActivity.onCallEnded();
-            // TODO
         }
+    }
+
+    public interface PluginCallback {
+        void onStreamingEnded();
     }
 }

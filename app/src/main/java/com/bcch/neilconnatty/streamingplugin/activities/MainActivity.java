@@ -30,7 +30,7 @@ import com.bcch.neilconnatty.streamingplugin.messaging.Messenger;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInput;
 import com.bcch.neilconnatty.streamingplugin.messaging.remoteInput.RemoteInputCallbackListener;
 import com.bcch.neilconnatty.streamingplugin.screenshot.TakeCameraPhotoTask;
-import com.bcch.neilconnatty.streamingplugin.screenshot.TakeScreenshotTask;
+import com.bcch.neilconnatty.streamingplugin.screenshot.TakePhotoTask;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerCallback;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerHelper;
 import com.bcch.neilconnatty.streamingplugin.timer.TimerUICallback;
@@ -73,6 +73,8 @@ public class MainActivity extends BaseActivity
     private Messenger _messenger;
     private View _footpedal;
 
+    private StreamingPlugin _plugin;
+
     final private Handler _messageHandler = new Handler();
 
     private ZoomAnimator _zoomAnimator = null;
@@ -108,8 +110,8 @@ public class MainActivity extends BaseActivity
         _messenger = new Messenger(_messageHandler, notificationText, new RemoteInputListenerImpl());
         startMessagingService();
 
-        StreamingPlugin plugin = new StreamingPlugin (this);
-        startStreaming(plugin, new QBSessionCallback() {
+        _plugin = new StreamingPlugin (this);
+        startStreaming(_plugin, new QBSessionCallback() {
             @Override
             public void onSuccess() {
                 Log.d (TAG, "streaming started");
@@ -448,9 +450,17 @@ public class MainActivity extends BaseActivity
     {
         Log.d(TAG, "takeScreenShot called");
         Log.d(TAG, "streamRendering: " + streamRendering);
-        if (streamRendering) {
-            new Handler().post(new TakeScreenshotTask(this, localView));
-        } else {
+        if (streamRendering)
+        {
+            final TakePhotoTask photoTask = new TakeCameraPhotoTask(this);
+            _plugin.endStreaming(new StreamingPlugin.PluginCallback() {
+                @Override
+                public void onStreamingEnded() {
+                    new Handler().post(photoTask);
+                }
+            });
+        } else
+        {
             new Handler().post(new TakeCameraPhotoTask(this));
         }
     }

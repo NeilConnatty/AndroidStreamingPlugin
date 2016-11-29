@@ -5,7 +5,6 @@ import android.graphics.PixelFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.util.Log;
-import android.view.SurfaceHolder;
 import android.view.TextureView;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -89,8 +88,8 @@ public class TakeCameraPhotoTask extends TakePhotoTask
 
         _callback = callback;
 
-        _texture = new TextureView(context);
-        _texture.setSurfaceTextureListener(this);
+        TextureView textureView = new TextureView(context);
+        textureView.setSurfaceTextureListener(this);
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,
@@ -98,9 +97,9 @@ public class TakeCameraPhotoTask extends TakePhotoTask
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                 PixelFormat.TRANSPARENT);
         params.alpha = 0;
-        wm.addView(_texture, params);
-        if (_texture.isAvailable()) {
-            onSurfaceTextureAvailable(_texture.getSurfaceTexture(), _texture.getWidth(), _texture.getHeight());
+        wm.addView(textureView, params);
+        if (textureView.isAvailable()) {
+            onSurfaceTextureAvailable(textureView.getSurfaceTexture(), textureView.getWidth(), textureView.getHeight());
         }
     }
 

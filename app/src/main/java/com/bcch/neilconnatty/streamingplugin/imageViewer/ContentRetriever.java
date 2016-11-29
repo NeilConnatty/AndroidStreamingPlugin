@@ -21,7 +21,7 @@ public class ContentRetriever
     public static void retrieveFilesFromServer (final QBEntityCallback<ArrayList<QBFile>> callback)
     {
         QBPagedRequestBuilder requestBuilder = new QBPagedRequestBuilder(10, 1);
-        QBContent.getTaggedList(requestBuilder, new QBEntityCallback<ArrayList<QBFile>>() {
+        QBContent.getFiles(requestBuilder, new QBEntityCallback<ArrayList<QBFile>>() {
             @Override
             public void onSuccess(ArrayList<QBFile> qbFiles, Bundle bundle) {
                 callback.onSuccess(qbFiles, bundle);

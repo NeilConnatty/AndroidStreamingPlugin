@@ -1,6 +1,5 @@
 package com.bcch.neilconnatty.libstreamingplugin.activites;
 
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,13 +43,6 @@ public abstract class BaseActivity extends AppCompatActivity
 
     public void onCallEnded ()
     {
-        if (opponentView != null) {
-            opponentView.release();
-        }
-        if (localView != null) {
-            localView.release();
-        }
-
         streamRendering = false;
     }
 

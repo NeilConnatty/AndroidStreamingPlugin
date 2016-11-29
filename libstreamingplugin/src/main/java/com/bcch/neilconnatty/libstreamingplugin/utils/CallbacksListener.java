@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.bcch.neilconnatty.libstreamingplugin.activites.BaseActivity;
 import com.quickblox.videochat.webrtc.QBMediaStreamManager;
-import com.quickblox.videochat.webrtc.QBRTCMediaConfig;
 import com.quickblox.videochat.webrtc.QBRTCSession;
 import com.quickblox.videochat.webrtc.callbacks.QBRTCClientSessionCallbacks;
 import com.quickblox.videochat.webrtc.callbacks.QBRTCClientVideoTracksCallbacks;
@@ -14,7 +13,9 @@ import com.quickblox.videochat.webrtc.callbacks.QBRTCSessionConnectionCallbacks;
 import com.quickblox.videochat.webrtc.exception.QBRTCException;
 import com.quickblox.videochat.webrtc.view.QBRTCVideoTrack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,21 +27,32 @@ public abstract class CallbacksListener implements QBRTCSessionConnectionCallbac
 
     protected BaseActivity _baseActivity;
 
-    private QBRTCSession currentSession;
-    private StreamingCallback streamingCallback = null;
+    protected QBRTCSession currentSession;
+    protected List<Integer> _opponents;
+
+    private List<StreamingCallback> streamingCallbacks = null;
     private boolean inCurrentSession = false;
+
 
     /**
      * Constructor
      */
     public CallbacksListener(BaseActivity currentActivity) {
         _baseActivity = currentActivity;
+        streamingCallbacks = new ArrayList<>();
     }
 
-    public void registerCallback (StreamingCallback callback)
+    protected void registerCallback (StreamingCallback callback)
     {
-        streamingCallback = callback;
+        streamingCallbacks.add(callback);
     }
+
+    protected void unregisterCallback (StreamingCallback callback)
+    {
+        streamingCallbacks.remove(callback);
+    }
+
+    protected boolean isInCurrentSession () { return inCurrentSession; }
 
     /**************
      * QBRTCClientSessionCallbacks
@@ -56,6 +68,8 @@ public abstract class CallbacksListener implements QBRTCSessionConnectionCallbac
             qbrtcSession.rejectCall(userInfo);
             return;
         }
+
+        _opponents = qbrtcSession.getOpponents();
 
         qbrtcSession.addVideoTrackCallbacksListener(this);
         qbrtcSession.addSessionCallbacksListener(this);
@@ -82,6 +96,10 @@ public abstract class CallbacksListener implements QBRTCSessionConnectionCallbac
     @Override
     public void onCallAcceptByUser(QBRTCSession qbrtcSession, Integer integer, Map<String, String> map) {
         Log.d(TAG, "onCallAcceptByUser");
+        _opponents = qbrtcSession.getOpponents();
+
+        qbrtcSession.addVideoTrackCallbacksListener(this);
+        qbrtcSession.addSessionCallbacksListener(this);
     }
 
     @Override
@@ -99,8 +117,8 @@ public abstract class CallbacksListener implements QBRTCSessionConnectionCallbac
     public void onSessionClosed(QBRTCSession qbrtcSession) {
         Log.d(TAG, "onSessionClosed");
         inCurrentSession = false;
-        if (streamingCallback != null) {
-            streamingCallback.onCallEnded();
+        for (StreamingCallback callback : streamingCallbacks) {
+            callback.onCallEnded();
         }
     }
 
